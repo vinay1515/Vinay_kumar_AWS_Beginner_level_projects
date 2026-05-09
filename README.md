@@ -13,7 +13,7 @@ IAM policies, cleanup steps, and real-world context.
 
 ## 👤 About Me
 
-Hi, I'm Vinay Kumar Duvva — a self-taught cloud engineering student building real,production-style AWS infrastructure from the ground up.
+Hi, I'm Vinay Kumar Duvva — a self-taught cloud engineering student building real, production-style AWS infrastructure from the ground up.
 This repo documents every project I complete, including what broke,
 how I fixed it, and what I learned.
 
