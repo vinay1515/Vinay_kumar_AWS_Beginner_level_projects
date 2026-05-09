@@ -18,7 +18,9 @@ This repo documents every project I complete, including what broke,
 how I fixed it, and what I learned.
 
 📍 Location: Hyderabad, India.
+
 🔗 LinkedIn: https://www.linkedin.com/in/vinay-kumar-duvva/
+
 📧 Contact: duvvavinaykumar@gmail.com
 
 ---
