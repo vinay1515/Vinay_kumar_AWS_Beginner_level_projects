@@ -15,7 +15,8 @@ Browser → CloudFront (HTTPS, CDN) → S3 Bucket (origin, HTTP)
 - AWS CLI v2 — file sync and cache invalidation
 
 ## Live URL
-https://d2qfvpm2acd8sv.cloudfront.net/
+S3 static website: https://aws-sample-webiste-2026.s3.ap-south-1.amazonaws.com/index.html
+CloudFront: https://d2qfvpm2acd8sv.cloudfront.net/
 
 ## Setup Steps
 1. Create S3 bucket, disable block public access
