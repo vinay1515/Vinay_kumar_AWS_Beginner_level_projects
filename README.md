@@ -27,6 +27,10 @@ how I fixed it, and what I learned.
 
 ## 🗺️ Roadmap Overview
 
+<img width="1220" height="1550" alt="image" src="https://github.com/user-attachments/assets/6b08d752-7cf1-472d-9efa-fb886a509a9b" />
+
+---
+
 | # | Project | Tier | Services | Status |
 |---|---|---|---|---|
 | 01 | AWS Account Setup & IAM Foundations | 🟢 Beginner | IAM, CloudWatch, SNS, CLI | ✅ Done |
@@ -44,7 +48,6 @@ how I fixed it, and what I learned.
 | 13 | Containerized App on ECS Fargate | 🔴 Advanced | ECS, ECR, Fargate, ALB | ⏳ Upcoming |
 | 14 | Capstone: 3-Tier HA Architecture | 🔴 Advanced | VPC, ALB, ASG, RDS Multi-AZ | ⏳ Upcoming |
 
----
 ---
 
 ## 🛠️ Tools & Technologies
