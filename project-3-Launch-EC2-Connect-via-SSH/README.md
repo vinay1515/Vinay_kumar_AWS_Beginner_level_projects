@@ -78,7 +78,9 @@ project-03-ec2-ssh/
 ├── scripts/
 │   └── userdata.sh            ← Bootstrap script (Apache install)
 ├── docs/
-│   └── security-group-rules.md
+│   |── security-group-rules.md
+|   ├── iam-policy-notes.md
+|   └── troubleshooting-instrustions.md
 └── screenshots/
     ├── 01-instance-running.png
     ├── 02-security-group-rules.png
