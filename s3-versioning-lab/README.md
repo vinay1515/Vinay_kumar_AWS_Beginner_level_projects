@@ -3,7 +3,7 @@
 [![AWS](https://img.shields.io/badge/AWS-S3-orange?style=flat&logo=amazon-aws)](https://aws.amazon.com/s3/)
 [![Level](https://img.shields.io/badge/Level-Beginner-green?style=flat)](../README.md)
 [![Free Tier](https://img.shields.io/badge/Cost-Free%20Tier-brightgreen?style=flat)](https://aws.amazon.com/free/)
-[![Region](https://img.shields.io/badge/Region-us--east--1%20%7C%20us--west--2-blue?style=flat)](https://aws.amazon.com/about-aws/global-infrastructure/)
+[![Region](https://img.shields.io/badge/Region-ap--south--1%20%7C%20ap--south--2-blue?style=flat)](https://aws.amazon.com/about-aws/global-infrastructure/)
 
 ---
 
@@ -30,7 +30,7 @@ storage costs by up to 95% on aging data.
 │                         AWS Account                                  │
 │                                                                      │
 │   ┌──────────────────────────────────┐                              │
-│   │   SOURCE BUCKET (us-east-1)      │                              │
+│   │   SOURCE BUCKET (ap-south-1)    │                              │
 │   │   s3-versioning-lab-yourname     │                              │
 │   │                                  │                              │
 │   │   Versioning: ENABLED            │                              │
@@ -51,7 +51,7 @@ storage costs by up to 95% on aging data.
 │   └──────────────────────────────────┘                              │
 │                                                                      │
 │   ┌──────────────────────────────────┐                              │
-│   │   DESTINATION BUCKET (us-west-2) │                              │
+│   │   DESTINATION BUCKET (ap-south-2) │                              │
 │   │   s3-versioning-lab-yourname-    │                              │
 │   │   replica                        │                              │
 │   │                                  │                              │
@@ -97,13 +97,13 @@ storage costs by up to 95% on aging data.
 - AWS account with IAM admin user (Project 1 ✅)
 - AWS CLI v2 installed and configured on Windows (Project 1 ✅)
 - Familiarity with S3 basics — buckets, objects, upload (Project 2 ✅)
-- Default VPC in us-east-1
+- Default VPC in ap-south-1
 
 Verify before starting:
 ```powershell
 aws sts get-caller-identity
 aws configure get region
-# Expected: us-east-1
+# Expected: ap-south-1
 ```
 
 ---
@@ -157,8 +157,8 @@ project-04-s3-versioning/
 ```powershell
 $SOURCE_BUCKET = "s3-versioning-lab-yourname"
 $DEST_BUCKET   = "s3-versioning-lab-yourname-replica"
-$SOURCE_REGION = "us-east-1"
-$DEST_REGION   = "us-west-2"
+$SOURCE_REGION = "ap-south-1"
+$DEST_REGION   = "ap-south-2"
 $ACCOUNT_ID    = aws sts get-caller-identity --query "Account" --output text
 ```
 
@@ -172,7 +172,7 @@ $ACCOUNT_ID    = aws sts get-caller-identity --query "Account" --output text
 
 #### Console
 1. S3 → **Create bucket**
-2. Name: `s3-versioning-lab-yourname` · Region: `us-east-1`
+2. Name: `s3-versioning-lab-yourname` · Region: `ap-south-1`
 3. Block Public Access: leave all **ON** (private bucket)
 4. Bucket Versioning: **Enable**
 5. Click **Create bucket**
@@ -365,7 +365,7 @@ aws s3api get-bucket-lifecycle-configuration --bucket $SOURCE_BUCKET
 
 ### Part 4 — Cross-Region Replication Setup
 
-#### Step 1 — Create destination bucket in us-west-2
+#### Step 1 — Create destination bucket in ap-south-2
 
 ```powershell
 # Create destination bucket
@@ -459,7 +459,7 @@ aws s3api put-bucket-replication `
   --replication-configuration "{
     `"Role`": `"$ROLE_ARN`",
     `"Rules`": [{
-      `"ID`": `"replicate-to-us-west-2`",
+      `"ID`": `"replicate-to-ap-south-2`",
       `"Status`": `"Enabled`",
       `"Filter`": {`"Prefix`":`"`"},
       `"Destination`": {
@@ -489,7 +489,7 @@ aws s3 cp crr-test.txt s3://$SOURCE_BUCKET/crr-test.txt
 Write-Host "Uploaded. Waiting 30 seconds for replication..."
 Start-Sleep -Seconds 30
 
-# Verify object exists in destination (us-west-2)
+# Verify object exists in destination (ap-south-2)
 aws s3api head-object `
   --bucket $DEST_BUCKET `
   --key crr-test.txt `
@@ -627,7 +627,7 @@ Day 90  → Moved to Glacier
 ## How Cross-Region Replication Works — Concept Summary
 
 ```
-New object written to source bucket (us-east-1)
+New object written to source bucket (ap-south-1)
          │
          ▼
 S3 service detects new version
@@ -639,7 +639,7 @@ S3 assumes s3-replication-role (your IAM role)
 Role grants permission to read from source
          │
          ▼
-Object copied to destination bucket (us-west-2)
+Object copied to destination bucket (ap-south-2)
          │
          ▼
 ReplicationStatus on source = COMPLETED (~15-30 seconds)
