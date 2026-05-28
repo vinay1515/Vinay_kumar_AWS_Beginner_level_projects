@@ -27,10 +27,10 @@ storage costs by up to 95% on aging data.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                         AWS Account                                  │
-│                                                                      │
+│                         AWS Account                                 │
+│                                                                     │
 │   ┌──────────────────────────────────┐                              │
-│   │   SOURCE BUCKET (ap-south-1)    │                              │
+│   │   SOURCE BUCKET (ap-south-1)     │                              │
 │   │   s3-versioning-lab-yourname     │                              │
 │   │                                  │                              │
 │   │   Versioning: ENABLED            │                              │
@@ -43,15 +43,15 @@ storage costs by up to 95% on aging data.
 │   │                                  │   Cross-Region               │
 │   │   Lifecycle Policy:              │   Replication                │
 │   │   Day  0  → S3 Standard          │   (automatic, ~30 sec)       │
-│   │   Day 30  → S3 Standard-IA       │──────────────────────────►  │
+│   │   Day 30  → S3 Standard-IA       │──────────────────────────►   │
 │   │   Day 90  → S3 Glacier           │                              │
 │   │   Day 365 → Expire               │                              │
 │   │                                  │                              │
 │   │   IAM Replication Role ──────────┤                              │
 │   └──────────────────────────────────┘                              │
-│                                                                      │
+│                                                                     │
 │   ┌──────────────────────────────────┐                              │
-│   │   DESTINATION BUCKET (ap-south-2) │                              │
+│   │   DESTINATION BUCKET (ap-south-2)│                              │
 │   │   s3-versioning-lab-yourname-    │                              │
 │   │   replica                        │                              │
 │   │                                  │                              │
@@ -60,7 +60,7 @@ storage costs by up to 95% on aging data.
 │   │   Automatic DR copy of all       │                              │
 │   │   objects written to source      │                              │
 │   └──────────────────────────────────┘                              │
-│                                                                      │
+│                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
