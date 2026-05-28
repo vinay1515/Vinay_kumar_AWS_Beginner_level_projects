@@ -1,0 +1,2 @@
+﻿CRR Test file - uploaded 05/28/2026 13:01:25
+This object should automatically replicate to ap-south-2
