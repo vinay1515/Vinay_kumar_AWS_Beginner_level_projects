@@ -7,7 +7,7 @@ Welcome to the **AWS Cloud Foundations Reference Guide**! This document serves a
 ## 🧭 Directory Map
 - [1. What is AWS?](#1-what-is-aws-)
   - [🛡️ The Shared Responsibility Model](#️-the-shared-responsibility-model)
-  - [🗂️ AWS Core Service Categories](#️-aws-core-service-categories)
+  - [🗂️ AWS Core Service Categories](#️-aws-core-service-categories) (Complete list in [SERVICES_OVERVIEW.md](SERVICES_OVERVIEW.md))
   - [🕹️ How to Access AWS](#️-how-to-access-aws)
 - [2. AWS Regions & Availability Zones](#2-aws-regions--availability-zones-)
   - [📐 Hierarchy & Relationship](#-hierarchy--relationship)
@@ -68,7 +68,7 @@ graph TD
 
 ### 🗂️ AWS Core Service Categories
 
-AWS groups its services into logical pillars. Below are the key ones you must know:
+AWS groups its services into logical pillars. Below are the key ones you must know (for a complete category-by-category map of all service families, see [SERVICES_OVERVIEW.md](SERVICES_OVERVIEW.md)):
 
 | Category | Icon | Key Services | Primary Purpose |
 | :--- | :---: | :--- | :--- |
