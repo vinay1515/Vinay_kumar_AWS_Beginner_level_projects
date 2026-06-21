@@ -19,7 +19,7 @@ Welcome to the **AWS Cloud Foundations Reference Guide**! This document serves a
 
 ## 1. What is AWS? 🌐
 
-<img src="images/aws_cloud_overview.png" width="400" alt="AWS Cloud Overview" />
+<img src="images/aws_cloud_overview.png" align="right" width="300" alt="AWS Cloud Overview" style="margin-left: 20px; margin-bottom: 20px;" />
 
 > **Definition:** **Amazon Web Services (AWS)** is a secure, cloud computing platform providing on-demand access to computing power, database storage, content delivery, and other IT infrastructure services over the internet, billed on a flexible pay-as-you-go basis.
 
@@ -27,6 +27,8 @@ Welcome to the **AWS Cloud Foundations Reference Guide**! This document serves a
 *   **On-Demand Self-Service:** Provision resources programmatically without manual intervention or waiting for hardware procurement.
 *   **Pay-as-you-go Pricing:** Pay only for what you consume, with no large upfront capital expenditure (CapEx) shifted to operational expenditure (OpEx).
 *   **Rapid Elasticity:** Scale resources up/down (vertical scaling) or out/in (horizontal scaling) dynamically to meet application demand.
+
+<br clear="right" />
 
 ---
 
@@ -100,9 +102,11 @@ Automation is a first-class citizen in AWS. You can interact with your resources
 
 ## 2. AWS Regions & Availability Zones 🗺️
 
-<img src="images/aws_regions_az.png" width="400" alt="AWS Regions & AZs" />
+<img src="images/aws_regions_az.png" align="right" width="300" alt="AWS Regions & AZs" style="margin-left: 20px; margin-bottom: 20px;" />
 
 > **Definition:** A **Region** is a separate, physical geographic area containing multiple isolated data centers. An **Availability Zone (AZ)** consists of one or more discrete data centers within a Region, equipped with independent redundant power, cooling, and network connectivity.
+
+<br clear="right" />
 
 ### 📐 Hierarchy & Relationship
 
