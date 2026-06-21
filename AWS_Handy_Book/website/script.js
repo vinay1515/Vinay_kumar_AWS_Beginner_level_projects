@@ -443,13 +443,239 @@ function updateDifficultyCounts() {
   document.getElementById('countAll').textContent = totalServices;
 }
 
+// ===== CLI COMMANDS DASHBOARD LOGIC =====
+let currentCmdFilter = 'All';
+let cmdSearchQuery = '';
+let cmdChart = null;
+
+function initCmdChart() {
+  const canvas = document.getElementById('serviceChart');
+  if (!canvas || typeof commandsData === 'undefined') return;
+  const ctx = canvas.getContext('2d');
+
+  const serviceCounts = {};
+  commandsData.forEach(cmd => {
+    let s = cmd.service;
+    if (s === 'CLI Configuration' || s === 'Environment Customization') s = 'General';
+    serviceCounts[s] = (serviceCounts[s] || 0) + 1;
+  });
+
+  const labels = Object.keys(serviceCounts);
+  const data = Object.values(serviceCounts);
+
+  const colors = [
+    '#ff9900', '#06b6d4', '#16a34a', '#8b5cf6', '#ef4444', 
+    '#0ea5e9', '#64748b', '#eab308', '#14b8a6', '#6366f1'
+  ];
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  cmdChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: colors,
+        borderColor: isDark ? '#1a2332' : '#ffffff',
+        borderWidth: 2,
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: {
+            font: { size: 11 },
+            padding: 15,
+            color: isDark ? '#e2e8f0' : '#475569'
+          }
+        },
+        tooltip: {
+          backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+          titleColor: isDark ? '#ffffff' : '#0f172a',
+          bodyColor: isDark ? '#e2e8f0' : '#475569',
+          borderColor: isDark ? '#1e293b' : '#e2e8f0',
+          borderWidth: 1,
+          padding: 12,
+          displayColors: true,
+          cornerRadius: 8,
+        }
+      },
+      cutout: '65%'
+    }
+  });
+}
+
+function updateCmdChart(filteredData) {
+  if (!cmdChart) return;
+  const serviceCounts = {};
+  filteredData.forEach(cmd => {
+    let s = cmd.service;
+    if (s === 'CLI Configuration' || s === 'Environment Customization') s = 'General';
+    serviceCounts[s] = (serviceCounts[s] || 0) + 1;
+  });
+  cmdChart.data.labels = Object.keys(serviceCounts);
+  cmdChart.data.datasets[0].data = Object.values(serviceCounts);
+  cmdChart.update();
+}
+
+function copyCommand(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    let toast = document.getElementById('copyToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'copyToast';
+      toast.className = 'copy-toast';
+      toast.textContent = 'Command copied to clipboard!';
+      document.body.appendChild(toast);
+    }
+    toast.classList.add('show');
+    
+    // Change button icon temporarily
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '✓';
+    
+    setTimeout(() => {
+      toast.classList.remove('show');
+      btn.innerHTML = originalHTML;
+    }, 2500);
+  });
+}
+
+function renderCommands() {
+  const grid = document.getElementById('commandsGrid');
+  if (!grid || typeof commandsData === 'undefined') return;
+  grid.innerHTML = '';
+
+  const filteredData = commandsData.filter(cmd => {
+    const matchCategory = currentCmdFilter === 'All' || cmd.category === currentCmdFilter;
+    const searchLower = cmdSearchQuery.toLowerCase();
+    const matchSearch = cmd.command.toLowerCase().includes(searchLower) ||
+                        cmd.service.toLowerCase().includes(searchLower) ||
+                        cmd.purpose.toLowerCase().includes(searchLower);
+    return matchCategory && matchSearch;
+  });
+
+  updateCmdChart(filteredData);
+
+  if (filteredData.length === 0) {
+    grid.innerHTML = `
+      <div class="no-results" style="padding: 40px; text-align: center; background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+        <div style="font-size: 2rem; margin-bottom: 10px; color: var(--text-tertiary);">🔍</div>
+        <p style="color: var(--text-secondary); font-weight: 500;">No operational commands found matching your criteria.</p>
+      </div>
+    `;
+    return;
+  }
+
+  filteredData.forEach((cmd) => {
+    const diffClass = cmd.category.toLowerCase();
+    const details = document.createElement('details');
+    details.className = "cmd-card";
+
+    details.innerHTML = `
+      <summary class="cmd-summary">
+        <div class="cmd-info">
+          <div class="cmd-meta">
+            <span class="cmd-category-badge ${diffClass}">${cmd.category}</span>
+            <span>${escapeHtml(cmd.service)} &bull; ${escapeHtml(cmd.action)}</span>
+          </div>
+          <div class="cmd-text">${escapeHtml(cmd.command)}</div>
+        </div>
+        <div class="cmd-actions">
+          <button type="button" class="cmd-copy-btn" aria-label="Copy command" onclick="event.preventDefault(); copyCommand('${cmd.command.replace(/'/g, "\\'")}', this)">
+            📋
+          </button>
+          <div class="cmd-dropdown-arrow">▼</div>
+        </div>
+      </summary>
+      
+      <div class="cmd-body">
+        <div class="cmd-section">
+          <h4>Purpose</h4>
+          <p>${escapeHtml(cmd.purpose)}</p>
+        </div>
+        <div class="cmd-section-grid">
+          <div class="cmd-box">
+            <h4>Syntax Breakdown</h4>
+            <p>${cmd.meaning}</p>
+          </div>
+          <div class="cmd-box">
+            <h4>Common Usage</h4>
+            <p>${escapeHtml(cmd.usage)}</p>
+          </div>
+        </div>
+        <div class="cmd-justification">
+          <h4>Architectural Justification</h4>
+          <p>${cmd.reason}</p>
+        </div>
+      </div>
+    `;
+    grid.appendChild(details);
+  });
+}
+
+function setupCmdFilters() {
+  const buttons = document.querySelectorAll('[data-cmd-filter]');
+  if (!buttons.length) return;
+  
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      buttons.forEach(b => b.classList.remove('active'));
+      const clicked = e.target.closest('button');
+      clicked.classList.add('active');
+      currentCmdFilter = clicked.getAttribute('data-cmd-filter');
+      renderCommands();
+    });
+  });
+
+  const searchInput = document.getElementById('cmdSearchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      cmdSearchQuery = e.target.value;
+      renderCommands();
+    });
+  }
+}
+
+// Hook into existing theme toggle to update chart colors
+const originalThemeToggle = document.getElementById('themeToggle');
+if (originalThemeToggle) {
+  originalThemeToggle.addEventListener('click', () => {
+    // Wait for the HTML data-theme attribute to update
+    setTimeout(() => {
+      if (cmdChart) {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        cmdChart.options.plugins.legend.labels.color = isDark ? '#e2e8f0' : '#475569';
+        cmdChart.options.plugins.tooltip.backgroundColor = isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+        cmdChart.options.plugins.tooltip.titleColor = isDark ? '#ffffff' : '#0f172a';
+        cmdChart.options.plugins.tooltip.bodyColor = isDark ? '#e2e8f0' : '#475569';
+        cmdChart.options.plugins.tooltip.borderColor = isDark ? '#1e293b' : '#e2e8f0';
+        cmdChart.data.datasets[0].borderColor = isDark ? '#1a2332' : '#ffffff';
+        cmdChart.update();
+      }
+    }, 50);
+  });
+}
+
 // ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', () => {
   renderAllServices();
   updateDifficultyCounts();
+  
+  // Initialize CloudShell Commands
+  initCmdChart();
+  setupCmdFilters();
+  renderCommands();
 });
 
 // Make functions globally available
 window.toggleService = toggleService;
 window.filterByDifficulty = filterByDifficulty;
 window.filterByCategory = filterByCategory;
+window.copyCommand = copyCommand;

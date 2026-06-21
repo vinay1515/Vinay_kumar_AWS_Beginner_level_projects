@@ -1385,3 +1385,222 @@ code, pre { font-family: var(--font-mono); }
   .service-card-body { max-height: none !important; }
   body { background: #fff; color: #000; }
 }
+
+/* ===== CLI COMMANDS DASHBOARD ===== */
+.cli-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 32px;
+  align-items: start;
+}
+
+.cli-controls {
+  flex: 1;
+}
+
+.cli-chart-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.cli-chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.filter-container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Commands Grid */
+.commands-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cmd-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.cmd-card:hover {
+  border-color: var(--accent-secondary);
+  box-shadow: var(--shadow-md);
+}
+
+.cmd-summary {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+}
+.cmd-summary::-webkit-details-marker {
+  display: none;
+}
+
+.cmd-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cmd-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.cmd-category-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+}
+
+.cmd-category-badge.beginner { color: var(--badge-beginner); background: rgba(22,163,74,0.1); }
+.cmd-category-badge.intermediate { color: var(--badge-intermediate); background: rgba(217,119,6,0.1); }
+.cmd-category-badge.advanced { color: var(--badge-advanced); background: rgba(220,38,38,0.1); }
+
+.cmd-text {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color var(--transition-fast);
+}
+.cmd-card:hover .cmd-text {
+  color: var(--accent-secondary);
+}
+
+.cmd-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cmd-copy-btn {
+  background: var(--bg-tertiary);
+  border: none;
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+.cmd-copy-btn:hover {
+  background: var(--accent-secondary);
+  color: #fff;
+}
+
+.cmd-dropdown-arrow {
+  color: var(--text-tertiary);
+  transition: transform var(--transition-fast);
+}
+.cmd-card[open] .cmd-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.cmd-body {
+  padding: 24px;
+  background: var(--bg-tertiary);
+  border-top: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cmd-section h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.cmd-section-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.cmd-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.cmd-justification {
+  background: rgba(37,99,235,0.06);
+  border-left: 4px solid #2563eb;
+  padding: 16px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.cmd-justification h4 {
+  color: #2563eb;
+}
+
+.copy-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #10b981;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 5000;
+}
+.copy-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .cli-dashboard {
+    grid-template-columns: 1fr;
+  }
+  .cmd-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .cmd-actions {
+    align-self: flex-end;
+  }
+  .cmd-section-grid {
+    grid-template-columns: 1fr;
+  }
+}
