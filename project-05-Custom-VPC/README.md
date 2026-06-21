@@ -5,6 +5,10 @@
 ## 🎯 Purpose
 Build a production-grade AWS network from absolute scratch — the same VPC architecture used by real companies to isolate and secure their cloud infrastructure. Every intermediate and advanced project from here forward runs inside this VPC.
 
+## 🗺️ Architecture / Resource Map
+![VPC Resource Map](./resource-map.png)
+*Please save the image you provided as `resource-map.png` in this project folder so it renders here.*
+
 ## 🧠 Learning Objectives
 - Understand what a VPC is and why it exists
 - Create public and private subnets across two Availability Zones
