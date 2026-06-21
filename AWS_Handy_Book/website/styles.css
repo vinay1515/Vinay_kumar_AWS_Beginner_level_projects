@@ -407,7 +407,7 @@ code, pre { font-family: var(--font-mono); }
 /* ===== FOUNDATIONS SECTION ===== */
 .foundation-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
@@ -1254,6 +1254,9 @@ code, pre { font-family: var(--font-mono); }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
+  .foundation-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -1278,7 +1281,12 @@ code, pre { font-family: var(--font-mono); }
     animation: fadeInUp 0.3s ease-out;
     overflow-y: auto;
   }
+  .nav-links.mobile-open li {
+    width: 100%;
+  }
   .nav-links.mobile-open a {
+    display: block;
+    width: 100%;
     padding: 14px 16px;
     font-size: 1rem;
     border-bottom: 1px solid var(--border-color);
@@ -1306,10 +1314,58 @@ code, pre { font-family: var(--font-mono); }
     text-align: center;
   }
 
-  .responsibility-table,
-  .comparison-table {
-    display: block;
+  .filter-container {
+    flex-wrap: nowrap;
     overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .filter-container::-webkit-scrollbar {
+    display: none;
+  }
+  .category-pill {
+    flex-shrink: 0;
+  }
+
+  .responsibility-table thead,
+  .comparison-table thead {
+    display: none;
+  }
+  .responsibility-table tbody,
+  .comparison-table tbody {
+    display: block;
+    width: 100%;
+  }
+  .responsibility-table tr,
+  .comparison-table tr {
+    display: block;
+    margin-bottom: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .responsibility-table td,
+  .comparison-table td {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    border-bottom: 1px solid var(--border-card);
+    padding: 12px 16px;
+  }
+  .responsibility-table tr td:last-child,
+  .comparison-table tr td:last-child {
+    border-bottom: none;
+  }
+  .responsibility-table td::before,
+  .comparison-table td::before {
+    content: attr(data-label);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    margin-bottom: 4px;
   }
 }
 

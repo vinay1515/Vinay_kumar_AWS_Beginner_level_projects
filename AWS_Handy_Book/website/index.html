@@ -125,29 +125,29 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong>Physical Assets</strong></td>
-            <td>Security of hardware, servers, cables, and data centers.</td>
-            <td>N/A (Abstracted away)</td>
+            <td data-label="Responsibility"><strong>Physical Assets</strong></td>
+            <td data-label="🔒 AWS (Security OF the Cloud)">Security of hardware, servers, cables, and data centers.</td>
+            <td data-label="👤 Customer (Security IN the Cloud)">N/A (Abstracted away)</td>
           </tr>
           <tr>
-            <td><strong>Infrastructure</strong></td>
-            <td>Virtualization hypervisor, network hardware, underlying OS.</td>
-            <td>VPC design, firewall rules (Security Groups).</td>
+            <td data-label="Responsibility"><strong>Infrastructure</strong></td>
+            <td data-label="🔒 AWS (Security OF the Cloud)">Virtualization hypervisor, network hardware, underlying OS.</td>
+            <td data-label="👤 Customer (Security IN the Cloud)">VPC design, firewall rules (Security Groups).</td>
           </tr>
           <tr>
-            <td><strong>Data Protection</strong></td>
-            <td>Service durability, replication (e.g., S3's 11 nines).</td>
-            <td>Data encryption (in transit/at rest), Bucket Policies, KMS Keys.</td>
+            <td data-label="Responsibility"><strong>Data Protection</strong></td>
+            <td data-label="🔒 AWS (Security OF the Cloud)">Service durability, replication (e.g., S3's 11 nines).</td>
+            <td data-label="👤 Customer (Security IN the Cloud)">Data encryption (in transit/at rest), Bucket Policies, KMS Keys.</td>
           </tr>
           <tr>
-            <td><strong>Access Control</strong></td>
-            <td>Physical access control to facilities, IAM system uptime.</td>
-            <td>Setting up IAM Users, Groups, Roles, Policies, MFA.</td>
+            <td data-label="Responsibility"><strong>Access Control</strong></td>
+            <td data-label="🔒 AWS (Security OF the Cloud)">Physical access control to facilities, IAM system uptime.</td>
+            <td data-label="👤 Customer (Security IN the Cloud)">Setting up IAM Users, Groups, Roles, Policies, MFA.</td>
           </tr>
           <tr>
-            <td><strong>Operating System</strong></td>
-            <td>Hypervisor OS patching.</td>
-            <td>Guest OS configuration (patching EC2 instances).</td>
+            <td data-label="Responsibility"><strong>Operating System</strong></td>
+            <td data-label="🔒 AWS (Security OF the Cloud)">Hypervisor OS patching.</td>
+            <td data-label="👤 Customer (Security IN the Cloud)">Guest OS configuration (patching EC2 instances).</td>
           </tr>
         </tbody>
       </table>
@@ -248,11 +248,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td><strong>Strategy</strong></td><td>Span across multiple AZs within one Region</td><td>Replicate across multiple Regions globally</td></tr>
-          <tr><td><strong>Failure Target</strong></td><td>Data center power/hardware failures</td><td>Full-region natural disaster or fiber outage</td></tr>
-          <tr><td><strong>Complexity</strong></td><td>Low-to-moderate; built-in Multi-AZ options</td><td>High; requires cross-region replication</td></tr>
-          <tr><td><strong>Latency</strong></td><td>Low (sub-ms synchronous)</td><td>Higher (asynchronous across continents)</td></tr>
-          <tr><td><strong>AWS Examples</strong></td><td>RDS Multi-AZ, ASG in multiple subnets</td><td>S3 CRR, Route 53 Active-Passive routing</td></tr>
+          <tr><td data-label="Aspect"><strong>Strategy</strong></td><td data-label="⚡ High Availability (HA)">Span across multiple AZs within one Region</td><td data-label="🌪️ Disaster Recovery (DR)">Replicate across multiple Regions globally</td></tr>
+          <tr><td data-label="Aspect"><strong>Failure Target</strong></td><td data-label="⚡ High Availability (HA)">Data center power/hardware failures</td><td data-label="🌪️ Disaster Recovery (DR)">Full-region natural disaster or fiber outage</td></tr>
+          <tr><td data-label="Aspect"><strong>Complexity</strong></td><td data-label="⚡ High Availability (HA)">Low-to-moderate; built-in Multi-AZ options</td><td data-label="🌪️ Disaster Recovery (DR)">High; requires cross-region replication</td></tr>
+          <tr><td data-label="Aspect"><strong>Latency</strong></td><td data-label="⚡ High Availability (HA)">Low (sub-ms synchronous)</td><td data-label="🌪️ Disaster Recovery (DR)">Higher (asynchronous across continents)</td></tr>
+          <tr><td data-label="Aspect"><strong>AWS Examples</strong></td><td data-label="⚡ High Availability (HA)">RDS Multi-AZ, ASG in multiple subnets</td><td data-label="🌪️ Disaster Recovery (DR)">S3 CRR, Route 53 Active-Passive routing</td></tr>
         </tbody>
       </table>
     </div>
