@@ -1,9 +1,9 @@
-# =============================================================================
-# Project 6 - Script 04: Secrets Manager
-# Stores RDS credentials securely - never hardcode passwords in scripts or code
+﻿# =============================================================================
+# Project 6 — Script 04: Secrets Manager
+# Stores RDS credentials securely — never hardcode passwords in scripts or code
 # =============================================================================
 
-Write-Host "=== Project 6 - Secrets Manager ===" -ForegroundColor Cyan
+Write-Host "=== Project 6 — Secrets Manager ===" -ForegroundColor Cyan
 Write-Host ""
 
 Write-Host "Storing RDS credentials in AWS Secrets Manager..." -ForegroundColor Yellow

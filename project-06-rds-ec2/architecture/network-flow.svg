@@ -1,13 +1,113 @@
-User Browser
-      │
-      ▼
-Public IP
-      │
-      ▼
-EC2 App Server
-      │
-      ▼
-Private Endpoint
-      │
-      ▼
-RDS MySQL
+<svg viewBox="0 0 860 500" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="500" fill="#f8f9fa" rx="12"/>
+
+  <!-- Title -->
+  <text x="430" y="38" text-anchor="middle" font-size="19" font-weight="bold" fill="#232f3e">Network Flow — EC2 to RDS Query Path</text>
+
+  <!-- Flow 1: HTTP Request (top row) -->
+  <text x="30" y="82" font-size="13" font-weight="bold" fill="#28a745">Flow 1 — Inbound HTTP Request</text>
+
+  <!-- Nodes -->
+  <rect x="30" y="92" width="120" height="46" rx="8" fill="#232f3e"/>
+  <text x="90" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="white">User Browser</text>
+  <text x="90" y="129" text-anchor="middle" font-size="10" fill="#aaa">Internet</text>
+
+  <line x1="152" y1="115" x2="190" y2="115" stroke="#28a745" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="171" y="110" text-anchor="middle" font-size="10" fill="#28a745">:80</text>
+
+  <rect x="192" y="92" width="120" height="46" rx="8" fill="#ff9900"/>
+  <text x="252" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="white">IGW</text>
+  <text x="252" y="129" text-anchor="middle" font-size="10" fill="white">my-vpc-igw</text>
+
+  <line x1="314" y1="115" x2="352" y2="115" stroke="#28a745" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <rect x="354" y="92" width="160" height="46" rx="8" fill="#ff9900"/>
+  <text x="434" y="109" text-anchor="middle" font-size="12" font-weight="bold" fill="white">EC2 App Server</text>
+  <text x="434" y="125" text-anchor="middle" font-size="10" fill="white">public-subnet-a · ec2-app-sg</text>
+
+  <line x1="516" y1="115" x2="554" y2="115" stroke="#28a745" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <rect x="556" y="92" width="140" height="46" rx="8" fill="#28a745"/>
+  <text x="626" y="109" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Apache httpd</text>
+  <text x="626" y="125" text-anchor="middle" font-size="10" fill="white">index.html returned</text>
+
+  <!-- Flow 2: MySQL Query (middle row) -->
+  <text x="30" y="178" font-size="13" font-weight="bold" fill="#1a73e8">Flow 2 — EC2 to RDS MySQL Query</text>
+
+  <rect x="30" y="188" width="160" height="46" rx="8" fill="#ff9900"/>
+  <text x="110" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="white">EC2 App Server</text>
+  <text x="110" y="224" text-anchor="middle" font-size="10" fill="white">mysql client process</text>
+
+  <line x1="192" y1="211" x2="230" y2="211" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="211" y="206" text-anchor="middle" font-size="10" fill="#1a73e8">TCP</text>
+
+  <rect x="232" y="188" width="150" height="46" rx="8" fill="#e8eeff" stroke="#1a73e8" stroke-width="1.5"/>
+  <text x="307" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a73e8">VPC DNS</text>
+  <text x="307" y="224" text-anchor="middle" font-size="10" fill="#333">resolves endpoint</text>
+
+  <line x1="384" y1="211" x2="422" y2="211" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="403" y="206" text-anchor="middle" font-size="10" fill="#1a73e8">:3306</text>
+
+  <rect x="424" y="188" width="155" height="46" rx="8" fill="#e8eeff" stroke="#1a73e8" stroke-width="1.5"/>
+  <text x="502" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a73e8">SG Check</text>
+  <text x="502" y="224" text-anchor="middle" font-size="10" fill="#333">ec2-app-sg → rds-sg ✓</text>
+
+  <line x1="581" y1="211" x2="619" y2="211" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <rect x="621" y="188" width="140" height="46" rx="8" fill="#527fff"/>
+  <text x="691" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="white">RDS MySQL</text>
+  <text x="691" y="224" text-anchor="middle" font-size="10" fill="white">private-subnet-a</text>
+
+  <!-- Return arrow -->
+  <path d="M 691 234 Q 691 260 430 260 Q 169 260 110 234" stroke="#527fff" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowPurple)"/>
+  <text x="430" y="256" text-anchor="middle" font-size="10" fill="#527fff">Result rows returned</text>
+
+  <!-- Flow 3: Secrets Manager (bottom row) -->
+  <text x="30" y="296" font-size="13" font-weight="bold" fill="#c0392b">Flow 3 — IAM + Secrets Manager Credential Retrieval</text>
+
+  <rect x="30" y="306" width="160" height="46" rx="8" fill="#ff9900"/>
+  <text x="110" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="white">EC2 + IAM Role</text>
+  <text x="110" y="342" text-anchor="middle" font-size="10" fill="white">ec2-app-role attached</text>
+
+  <line x1="192" y1="329" x2="230" y2="329" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+  <text x="211" y="323" text-anchor="middle" font-size="10" fill="#c0392b">HTTPS</text>
+
+  <rect x="232" y="306" width="155" height="46" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="310" y="322" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">IAM Auth Check</text>
+  <text x="310" y="338" text-anchor="middle" font-size="10" fill="#333">GetSecretValue allowed</text>
+
+  <line x1="389" y1="329" x2="427" y2="329" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <rect x="429" y="306" width="155" height="46" rx="8" fill="#c0392b"/>
+  <text x="507" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Secrets Manager</text>
+  <text x="507" y="342" text-anchor="middle" font-size="10" fill="white">rds/myapp/credentials</text>
+
+  <!-- Return -->
+  <path d="M 507 352 Q 507 380 309 380 Q 111 380 110 352" stroke="#c0392b" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowRed2)"/>
+  <text x="310" y="376" text-anchor="middle" font-size="10" fill="#c0392b">JSON with username + password returned</text>
+
+  <!-- Routing table legend -->
+  <rect x="30" y="415" width="800" height="68" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="50" y="435" font-size="12" font-weight="bold" fill="#333">Route Table Behaviour</text>
+  <text x="50" y="453" font-size="11" fill="#555">Public RT:   10.0.0.0/16 → local  |  0.0.0.0/0 → Internet Gateway   ← EC2 uses this for outbound internet + inbound from IGW</text>
+  <text x="50" y="471" font-size="11" fill="#555">Private RT:  10.0.0.0/16 → local  |  (no 0.0.0.0/0 entry)          ← RDS has NO outbound internet path by design</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#28a745"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a73e8"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#527fff"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c0392b"/>
+    </marker>
+    <marker id="arrowRed2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c0392b"/>
+    </marker>
+  </defs>
+</svg>
