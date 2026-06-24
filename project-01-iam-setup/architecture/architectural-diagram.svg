@@ -1,281 +1,171 @@
-<svg viewBox="0 0 1000 700"
-  xmlns="http://www.w3.org/2000/svg"
-  font-family="Segoe UI, Arial, sans-serif">
+<?xml version="1.0" encoding="UTF-8"?>
 
-<title>AWS Account Setup and IAM Foundations Architecture</title>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 800 500">
 
-<defs>
+  <defs>
+    <marker id="arrow"
+            markerWidth="10"
+            markerHeight="10"
+            refX="8"
+            refY="3"
+            orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#555"/>
+    </marker>
+  </defs>
 
-<marker id="arrow"
-     markerWidth="10"
-     markerHeight="10"
-     refX="8"
-     refY="3"
-     orient="auto"> <polygon points="0 0, 8 3, 0 6" fill="#555"/> </marker>
+  <rect width="800" height="500" fill="#f8f9fa"/>
 
-<marker id="blueArrow"
-     markerWidth="10"
-     markerHeight="10"
-     refX="8"
-     refY="3"
-     orient="auto"> <polygon points="0 0, 8 3, 0 6" fill="#1a73e8"/> </marker>
+  <text x="400"
+        y="40"
+        text-anchor="middle"
+        font-size="20"
+        font-family="Arial"
+        font-weight="bold">
+    AWS Account Setup &amp; IAM Foundations
+  </text>
 
-</defs>
+  <rect x="300"
+        y="80"
+        width="200"
+        height="50"
+        fill="#232f3e"
+        rx="6"/>
 
-<rect width="1000" height="700" fill="#f8f9fa"/>
+  <text x="400"
+        y="110"
+        text-anchor="middle"
+        fill="white"
+        font-size="14">
+    AWS Account
+  </text>
 
-<text x="500"
-   y="40"
-   text-anchor="middle"
-   font-size="22"
-   font-weight="bold"
-   fill="#232f3e">
-AWS Account Setup & IAM Foundations </text>
+  <line x1="400"
+        y1="130"
+        x2="400"
+        y2="180"
+        stroke="#555"
+        stroke-width="2"
+        marker-end="url(#arrow)"/>
 
-<text x="500"
-   y="62"
-   text-anchor="middle"
-   font-size="13"
-   fill="#666">
-AWS Region: us-east-1 </text>
+  <rect x="120"
+        y="180"
+        width="220"
+        height="100"
+        fill="#fff"
+        stroke="#ff9900"
+        stroke-width="2"/>
 
-<rect x="40"
-   y="90"
-   width="920"
-   height="560"
-   rx="12"
-   fill="none"
-   stroke="#ff9900"
-   stroke-width="3"
-   stroke-dasharray="10,5"/>
+  <text x="230"
+        y="220"
+        text-anchor="middle"
+        font-size="14">
+    Root User
+  </text>
 
-<text x="60"
-   y="115"
-   font-size="13"
-   font-weight="bold"
-   fill="#ff9900">
-AWS Account Boundary </text>
+  <text x="230"
+        y="245"
+        text-anchor="middle"
+        font-size="12">
+    MFA Enabled
+  </text>
 
-<!-- AWS Account -->
+  <rect x="460"
+        y="180"
+        width="220"
+        height="100"
+        fill="#fff"
+        stroke="#28a745"
+        stroke-width="2"/>
 
-<rect x="400"
-   y="130"
-   width="200"
-   height="55"
-   rx="8"
-   fill="#232f3e"/>
+  <text x="570"
+        y="220"
+        text-anchor="middle"
+        font-size="14">
+    IAM Admin User
+  </text>
 
-<text x="500"
-   y="162"
-   text-anchor="middle"
-   font-size="14"
-   font-weight="bold"
-   fill="white">
-AWS Account </text>
+  <text x="570"
+        y="245"
+        text-anchor="middle"
+        font-size="12">
+    AWS CLI Access
+  </text>
 
-<!-- Root -->
+  <line x1="230"
+        y1="280"
+        x2="230"
+        y2="360"
+        stroke="#555"
+        stroke-width="2"
+        marker-end="url(#arrow)"/>
 
-<line x1="500"
-   y1="185"
-   x2="500"
-   y2="225"
-   stroke="#555"
-   stroke-width="2"
-   marker-end="url(#arrow)"/>
+  <rect x="100"
+        y="360"
+        width="260"
+        height="90"
+        fill="#eef6ff"
+        stroke="#1a73e8"
+        stroke-width="2"/>
 
-<rect x="180"
-   y="230"
-   width="220"
-   height="130"
-   rx="8"
-   fill="white"
-   stroke="#ff9900"
-   stroke-width="2"/>
+  <text x="230"
+        y="395"
+        text-anchor="middle"
+        font-size="14">
+    CloudWatch Billing Alarm
+  </text>
 
-<rect x="180"
-   y="230"
-   width="220"
-   height="35"
-   rx="8"
-   fill="#ff9900"/>
+  <text x="230"
+        y="420"
+        text-anchor="middle"
+        font-size="12">
+    Estimated Charges &gt; $5
+  </text>
 
-<text x="290"
-   y="252"
-   text-anchor="middle"
-   font-size="13"
-   font-weight="bold"
-   fill="white">
-Root User </text>
+  <line x1="360"
+        y1="405"
+        x2="470"
+        y2="405"
+        stroke="#1a73e8"
+        stroke-width="2"
+        marker-end="url(#arrow)"/>
 
-<text x="200" y="290" font-size="12">✓ MFA Enabled</text> <text x="200" y="315" font-size="12">Used for Account Recovery</text> <text x="200" y="340" font-size="12">Rare Administrative Access</text>
+  <rect x="470"
+        y="360"
+        width="120"
+        height="90"
+        fill="#fff3e0"
+        stroke="#fb8c00"
+        stroke-width="2"/>
 
-<!-- IAM -->
+  <text x="530"
+        y="405"
+        text-anchor="middle"
+        font-size="14">
+    SNS
+  </text>
 
-<rect x="600"
-   y="230"
-   width="220"
-   height="130"
-   rx="8"
-   fill="white"
-   stroke="#28a745"
-   stroke-width="2"/>
+  <line x1="590"
+        y1="405"
+        x2="700"
+        y2="405"
+        stroke="#1a73e8"
+        stroke-width="2"
+        marker-end="url(#arrow)"/>
 
-<rect x="600"
-   y="230"
-   width="220"
-   height="35"
-   rx="8"
-   fill="#28a745"/>
+  <rect x="700"
+        y="360"
+        width="80"
+        height="90"
+        fill="#f3e5f5"
+        stroke="#8e24aa"
+        stroke-width="2"/>
 
-<text x="710"
-   y="252"
-   text-anchor="middle"
-   font-size="13"
-   font-weight="bold"
-   fill="white">
-IAM Admin User </text>
-
-<text x="620" y="290" font-size="12">✓ AdministratorAccess</text> <text x="620" y="315" font-size="12">✓ AWS CLI Credentials</text> <text x="620" y="340" font-size="12">Daily Operations Account</text>
-
-<!-- AWS CLI -->
-
-<line x1="710"
-   y1="360"
-   x2="710"
-   y2="410"
-   stroke="#555"
-   stroke-width="2"
-   marker-end="url(#arrow)"/>
-
-<rect x="610"
-   y="420"
-   width="200"
-   height="90"
-   rx="8"
-   fill="#f1f8ff"
-   stroke="#1a73e8"
-   stroke-width="2"/>
-
-<text x="710"
-   y="450"
-   text-anchor="middle"
-   font-size="13"
-   font-weight="bold">
-AWS CLI v2 </text>
-
-<text x="630" y="480" font-size="12">
-aws configure
-</text>
-
-<!-- Billing -->
-
-<rect x="120"
-   y="420"
-   width="320"
-   height="190"
-   rx="8"
-   fill="#eef6ff"
-   stroke="#1a73e8"
-   stroke-width="2"/>
-
-<text x="280"
-   y="450"
-   text-anchor="middle"
-   font-size="13"
-   font-weight="bold">
-CloudWatch Billing Alarm </text>
-
-<text x="145" y="490" font-size="12">
-Metric: Estimated Charges
-</text>
-
-<text x="145" y="515" font-size="12">
-Threshold: > $5 USD
-</text>
-
-<text x="145" y="540" font-size="12">
-Region: us-east-1
-</text>
-
-<!-- SNS -->
-
-<line x1="440"
-   y1="515"
-   x2="540"
-   y2="515"
-   stroke="#1a73e8"
-   stroke-width="3"
-   marker-end="url(#blueArrow)"/>
-
-<rect x="540"
-   y="460"
-   width="170"
-   height="110"
-   rx="8"
-   fill="#fff3e0"
-   stroke="#fb8c00"
-   stroke-width="2"/>
-
-<text x="625"
-   y="490"
-   text-anchor="middle"
-   font-size="13"
-   font-weight="bold">
-SNS Topic </text>
-
-<text x="560" y="525" font-size="12">
-billing-alert-topic
-</text>
-
-<!-- Email -->
-
-<line x1="710"
-   y1="515"
-   x2="820"
-   y2="515"
-   stroke="#1a73e8"
-   stroke-width="3"
-   marker-end="url(#blueArrow)"/>
-
-<rect x="820"
-   y="460"
-   width="120"
-   height="110"
-   rx="8"
-   fill="#f3e5f5"
-   stroke="#8e24aa"
-   stroke-width="2"/>
-
-<text x="880"
-   y="490"
-   text-anchor="middle"
-   font-size="13"
-   font-weight="bold">
-Email </text>
-
-<text x="840"
-   y="525"
-   font-size="12">
-Alerts </text>
-
-<!-- Services -->
-
-<rect x="820"
-   y="130"
-   width="120"
-   height="220"
-   rx="8"
-   fill="#fff8f0"
-   stroke="#ff9900"
-   stroke-width="1.5"/>
-
-<text x="880"
-   y="155"
-   text-anchor="middle"
-   font-size="12"
-   font-weight="bold">
-AWS Services </text>
-
-<text x="840" y="190" font-size="11">IAM</text> <text x="840" y="215" font-size="11">Billing</text> <text x="840" y="240" font-size="11">CloudWatch</text> <text x="840" y="265" font-size="11">SNS</text> <text x="840" y="290" font-size="11">AWS CLI</text>
+  <text x="740"
+        y="405"
+        text-anchor="middle"
+        font-size="14">
+    Email
+  </text>
 
 </svg>
