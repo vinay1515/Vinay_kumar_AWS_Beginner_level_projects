@@ -3,135 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cloud Portfolio | AWS Solutions</title>
+  <title>Cloud Engineering Portfolio | Vinay Kumar</title>
+  <meta name="description" content="AWS Cloud Engineering Portfolio showcasing production-ready cloud architectures.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <header>
-    <h1>☁️ AWS Cloud Engineering Portfolio</h1>
-    <div class="badge-container">
-      <span class="badge">S3 + CloudFront Distribution</span>
-      <span class="badge secondary">14-Project Bootcamp Challenge</span>
-    </div>
-    <p class="intro-text">
-      Welcome to my technical showcase. This platform documents production-ready cloud architectures designed to optimize scalability, secure infrastructure, and automate enterprise workflows using AWS best practices.
-    </p>
-  </header>
-
-  <h2>Active Architectures</h2>
-
-  <div class="grid">
-    <div class="card">
-      <div class="card-header">
-        <span class="status-icon">✓</span>
-        <span class="card-title">Project 1 — IAM Governance &amp; Billing Controls</span>
-      </div>
-      <p class="card-desc">
-        Configured granular IAM policies adhering to the principle of least privilege, implemented multi-factor authentication (MFA), and established AWS Budgets with automated SNS cloud alerts to prevent cost overruns.
-      </p>
-      <div class="tech-stack">
-        <span class="tech-tag">AWS IAM</span>
-        <span class="tech-tag">AWS Budgets</span>
-        <span class="tech-tag">Amazon SNS</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="status-icon">✓</span>
-        <span class="card-title">Project 2 — Global Content Delivery System</span>
-      </div>
-      <p class="card-desc">
-        Deployed a highly performant static web portal leveraging Amazon S3 for origin hosting, integrated with CloudFront CDN for global edge caching and minimal latency.
-      </p>
-      <div class="tech-stack">
-        <span class="tech-tag">Amazon S3</span>
-        <span class="tech-tag">CloudFront</span>
-        <span class="tech-tag">Cache Tuning</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="status-icon">✓</span>
-        <span class="card-title">Project 3 — Secure Compute Node Architecture</span>
-      </div>
-      <p class="card-desc">
-        Provisioned Linux EC2 instances within a custom security layer. Formulated strict Security Group ingress/egress rules and verified encrypted SSH access credentials.
-      </p>
-      <div class="tech-stack">
-        <span class="tech-tag">Amazon EC2</span>
-        <span class="tech-tag">VPC Security Groups</span>
-        <span class="tech-tag">SSH Key Pairs</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="status-icon">✓</span>
-        <span class="card-title">Project 4 — S3 Data Resiliency &amp; Recovery</span>
-      </div>
-      <p class="card-desc">
-        Architected an enterprise data protection framework using S3 object versioning, configured automated lifecycle transitions for cost tier optimization, and established cross-region replication for disaster recovery.
-      </p>
-      <div class="tech-stack">
-        <span class="tech-tag">S3 Versioning</span>
-        <span class="tech-tag">Lifecycle Policies</span>
-        <span class="tech-tag">CRR</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="status-icon">✓</span>
-        <span class="card-title">Project 5 — Custom VPC Network Architecture</span>
-      </div>
-      <p class="card-desc">
-        Engineered a multi-tier VPC with public and private subnets across Availability Zones, configured Internet Gateway and NAT Gateway routing, and implemented network ACLs for defense-in-depth security.
-      </p>
-      <div class="tech-stack">
-        <span class="tech-tag">Amazon VPC</span>
-        <span class="tech-tag">Subnets</span>
-        <span class="tech-tag">IGW / NAT</span>
-        <span class="tech-tag">Route Tables</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="status-icon">✓</span>
-        <span class="card-title">Project 6 — RDS MySQL + EC2 Two-Tier App</span>
-      </div>
-      <p class="card-desc">
-        Deployed a production-style two-tier architecture with an EC2 app server connecting to a managed RDS MySQL database in private subnets, secured via security group chaining and AWS Secrets Manager credential storage.
-      </p>
-      <div class="tech-stack">
-        <span class="tech-tag">Amazon RDS</span>
-        <span class="tech-tag">Amazon EC2</span>
-        <span class="tech-tag">VPC</span>
-        <span class="tech-tag">Secrets Manager</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="status-icon">✓</span>
-        <span class="card-title">Project 7 — CloudWatch Alarms + SNS Alerts</span>
-      </div>
-      <p class="card-desc">
-        Set up comprehensive monitoring and alerting for AWS infrastructure using CloudWatch metrics, customized dashboards, and automated SNS notifications to ensure operational health.
-      </p>
-      <div class="tech-stack">
-        <span class="tech-tag">CloudWatch</span>
-        <span class="tech-tag">SNS</span>
-        <span class="tech-tag">Monitoring</span>
-      </div>
-    </div>
+  <div class="background-effects">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
   </div>
 
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">☁️ AWS Portfolio</div>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="https://github.com/vinay1515" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="badge-wrapper">
+        <span class="badge glow">AWS Solutions Architect</span>
+        <span class="badge secondary">14-Project Bootcamp Challenge</span>
+      </div>
+      <h1 class="hero-title">Engineering the <span class="text-gradient">Cloud</span></h1>
+      <p class="hero-subtitle">
+        Documenting production-ready cloud architectures designed to optimize scalability, secure infrastructure, and automate enterprise workflows using AWS best practices.
+      </p>
+    </div>
+  </header>
+
+  <main class="container" id="projects">
+    <div class="section-header">
+      <h2>Deployed Architectures</h2>
+      <div class="divider"></div>
+      <p>A showcase of completed AWS projects, representing practical cloud engineering skills.</p>
+    </div>
+
+    <div class="grid" id="projectGrid">
+      <!-- Project 1 -->
+      <article class="glass-card">
+        <div class="card-header">
+          <div class="project-num">01</div>
+          <div class="status-indicator done">✅ Completed</div>
+        </div>
+        <h3 class="card-title">IAM Governance &amp; Billing Controls</h3>
+        <p class="card-desc">Configured granular IAM policies adhering to the principle of least privilege, implemented MFA, and established AWS Budgets with SNS alerts.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">IAM</span><span class="tech-tag">Budgets</span><span class="tech-tag">SNS</span>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="glass-card">
+        <div class="card-header">
+          <div class="project-num">02</div>
+          <div class="status-indicator done">✅ Completed</div>
+        </div>
+        <h3 class="card-title">Global Content Delivery System</h3>
+        <p class="card-desc">Deployed a highly performant static web portal leveraging Amazon S3 for origin hosting, integrated with CloudFront CDN for global edge caching.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">S3</span><span class="tech-tag">CloudFront</span><span class="tech-tag">Route 53</span>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="glass-card">
+        <div class="card-header">
+          <div class="project-num">03</div>
+          <div class="status-indicator done">✅ Completed</div>
+        </div>
+        <h3 class="card-title">Secure Compute Node Architecture</h3>
+        <p class="card-desc">Provisioned Linux EC2 instances within a custom security layer. Formulated strict Security Group ingress/egress rules and SSH credentials.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">EC2</span><span class="tech-tag">VPC</span><span class="tech-tag">SSM</span>
+        </div>
+      </article>
+
+      <!-- Project 4 -->
+      <article class="glass-card">
+        <div class="card-header">
+          <div class="project-num">04</div>
+          <div class="status-indicator done">✅ Completed</div>
+        </div>
+        <h3 class="card-title">S3 Data Resiliency &amp; Recovery</h3>
+        <p class="card-desc">Architected an enterprise data protection framework using S3 object versioning, automated lifecycle transitions, and cross-region replication.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">S3 Versioning</span><span class="tech-tag">Lifecycle</span><span class="tech-tag">CRR</span>
+        </div>
+      </article>
+
+      <!-- Project 5 -->
+      <article class="glass-card">
+        <div class="card-header">
+          <div class="project-num">05</div>
+          <div class="status-indicator done">✅ Completed</div>
+        </div>
+        <h3 class="card-title">Custom VPC Network Architecture</h3>
+        <p class="card-desc">Engineered a multi-tier VPC with public and private subnets, IGW, NAT Gateways, and network ACLs for defense-in-depth security.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">VPC</span><span class="tech-tag">Subnets</span><span class="tech-tag">Gateways</span>
+        </div>
+      </article>
+
+      <!-- Project 6 -->
+      <article class="glass-card">
+        <div class="card-header">
+          <div class="project-num">06</div>
+          <div class="status-indicator done">✅ Completed</div>
+        </div>
+        <h3 class="card-title">RDS MySQL + EC2 Two-Tier App</h3>
+        <p class="card-desc">Deployed a production-style architecture connecting an EC2 app server to a managed RDS MySQL database secured via Secrets Manager.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">RDS</span><span class="tech-tag">EC2</span><span class="tech-tag">Secrets Manager</span>
+        </div>
+      </article>
+
+      <!-- Project 7 -->
+      <article class="glass-card">
+        <div class="card-header">
+          <div class="project-num">07</div>
+          <div class="status-indicator done">✅ Completed</div>
+        </div>
+        <h3 class="card-title">CloudWatch Alarms + SNS Alerts</h3>
+        <p class="card-desc">Set up comprehensive monitoring and alerting for AWS infrastructure using CloudWatch metrics, custom dashboards, and SNS notifications.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">CloudWatch</span><span class="tech-tag">SNS</span><span class="tech-tag">Monitoring</span>
+        </div>
+      </article>
+
+      <!-- Project 8 -->
+      <article class="glass-card">
+        <div class="card-header">
+          <div class="project-num">08</div>
+          <div class="status-indicator done">✅ Completed</div>
+        </div>
+        <h3 class="card-title">Serverless REST API</h3>
+        <p class="card-desc">Built a fully managed, highly available RESTful API utilizing API Gateway, Lambda compute, and DynamoDB for NoSQL data persistence.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">Lambda</span><span class="tech-tag">API Gateway</span><span class="tech-tag">DynamoDB</span>
+        </div>
+      </article>
+    </div>
+  </main>
+
   <footer>
-    <p>Designed with efficiency. Managed via AWS CLI. Updates deployed dynamically.</p>
+    <div class="footer-content">
+      <p>Designed with efficiency. Managed via AWS CLI. Updates deployed dynamically.</p>
+      <p class="copyright">© 2026 Vinay Kumar. All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>

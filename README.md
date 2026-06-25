@@ -40,7 +40,7 @@ how I fixed it, and what I learned.
 | 05 | [Custom VPC: Subnets, IGW, NAT](project-05-Custom-VPC) | 🟢 Beginner | VPC, EC2 | ✅ Done |
 | 06 | [RDS MySQL + EC2 Two-Tier App](project-06-rds-ec2) | 🟢 Beginner | RDS, EC2, VPC, Secrets Manager | ✅ Done |
 | 07 | [CloudWatch Alarms + SNS Alerts](project-07-cloudwatch-monitoring) | 🟢 Beginner | CloudWatch, SNS | ✅ Done |
-| 08 | Serverless REST API | 🟡 Intermediate | Lambda, API Gateway, DynamoDB | ⏳ Upcoming |
+| 08 | [Serverless REST API](project-08-serverless-rest-api) | 🟡 Intermediate | Lambda, API Gateway, DynamoDB | ✅ Done |
 | 09 | CI/CD Pipeline | 🟡 Intermediate | CodeCommit, CodeBuild, CodeDeploy | ⏳ Upcoming |
 | 10 | Auto Scaling Group + ALB | 🟡 Intermediate | EC2, ALB, ASG | ⏳ Upcoming |
 | 11 | Infrastructure as Code | 🟡 Intermediate | CloudFormation | ⏳ Upcoming |
@@ -101,7 +101,7 @@ Each project README includes:
 | Compute (EC2) | ⭐⭐⭐⭐☆ |
 | Networking (VPC) | ⭐⭐⭐☆☆ |
 | Monitoring & Observability | ⭐⭐⭐☆☆ |
-| Serverless | ⭐⭐☆☆☆ |
+| Serverless | ⭐⭐⭐☆☆ |
 | Containers | ⭐☆☆☆☆ |
 | IaC | ⭐☆☆☆☆ |
 | DevOps / CI/CD | ⭐☆☆☆☆ |
