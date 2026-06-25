@@ -152,6 +152,7 @@ body {
 .text-gradient {
   background: linear-gradient(90deg, #fff, var(--accent-primary));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -301,6 +302,7 @@ footer {
   font-weight: 800;
   background: linear-gradient(135deg, var(--accent-primary), #ff5e00);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1;
   margin-bottom: 20px;
