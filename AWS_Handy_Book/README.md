@@ -4,6 +4,12 @@ Welcome to the **AWS Cloud Foundations Reference Guide**! This document serves a
 
 ---
 
+## 🚀 Live Websites
+
+- **[AWS Handy Book - Interactive Reference Guide](https://aws-handy-book-reference-website.s3.ap-south-1.amazonaws.com/index.html)**
+- **[AWS CloudShell Commands - Interactive Explorer](https://aws-cloudshell-commands-website.s3.ap-south-1.amazonaws.com/index.html)**
+
+---
 ## 🧭 Directory Map
 - [📖 Curated Service Reference Book (Compute & Storage)](REFERENCE_BOOK.md)
 - [1. What is AWS?](#1-what-is-aws-)

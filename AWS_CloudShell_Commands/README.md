@@ -8,6 +8,13 @@
 
 ---
 
+## 🚀 Live Websites
+
+- **[AWS CloudShell Commands - Interactive Explorer](https://aws-cloudshell-commands-website.s3.ap-south-1.amazonaws.com/index.html)**
+- **[AWS Handy Book - Interactive Reference Guide](https://aws-handy-book-reference-website.s3.ap-south-1.amazonaws.com/index.html)**
+
+---
+
 ## 🎯 Project Purpose
 
 **CloudShell Explorer** is a comprehensive, interactive learning tool designed to help cloud engineers, DevOps professionals, and AWS enthusiasts master the AWS CLI through the convenience of AWS CloudShell. This repository contains a single-page HTML application that serves as an authoritative reference for essential AWS commands across all difficulty levels.
