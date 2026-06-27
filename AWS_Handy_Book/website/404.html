@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Cloud Resource Not Found</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Custom 404 Animations & Design Elements */
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-primary);
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+    }
+
+    /* Animated Grid Background */
+    .grid-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(var(--border-color) 1.5px, transparent 1.5px);
+      background-size: 40px 40px;
+      opacity: 0.15;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .error-content {
+      position: relative;
+      z-index: 10;
+      max-width: 600px;
+    }
+
+    .cloud-icon-container {
+      position: relative;
+      margin-bottom: 2rem;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .cloud-icon {
+      font-size: 8rem;
+      line-height: 1;
+      text-shadow: 0 0 50px var(--accent-glow);
+    }
+
+    .lightning-icon {
+      position: absolute;
+      font-size: 3rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    .error-code {
+      font-size: 7rem;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      margin: 0;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      letter-spacing: -3px;
+    }
+
+    .error-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 1rem 0;
+      color: var(--text-primary);
+    }
+
+    .error-desc {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-404 {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition-med);
+      border: 1px solid transparent;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      background: #e68a00;
+      box-shadow: 0 0 35px var(--accent-glow);
+      transform: translateY(-4px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+      transform: translateY(-4px);
+      box-shadow: 0 4px 20px rgba(6, 182, 212, 0.15);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px var(--accent-secondary)); }
+      50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; filter: drop-shadow(0 0 30px var(--accent-secondary)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-page">
+    <div class="grid-bg"></div>
+    <div class="error-content">
+      <div class="cloud-icon-container">
+        <div class="cloud-icon">☁️</div>
+        <div class="lightning-icon">⚡</div>
+      </div>
+
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">Cloud Resource Disconnected</h2>
+      <p class="error-desc">
+        The endpoint you are trying to reach has drifted into the void.<br>It might have been terminated, or perhaps it never existed in this VPC.
+      </p>
+      <div class="action-buttons">
+        <a href="index.html" class="btn-404 btn-primary">
+          <span>🏠</span> Return Home
+        </a>
+        <a href="../../AWS_CloudShell_Commands/index.html" class="btn-404 btn-secondary">
+          <span>💻</span> CloudShell Commands
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

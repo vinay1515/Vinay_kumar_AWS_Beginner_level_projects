@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+
+  <style>
+    :root {
+      --bg: #0a0a1a;
+      --bg-gradient-start: #0a0a1a;
+      --bg-gradient-end: #1a1a2e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --box-bg: #1a1a3a;
+      --box-bg-light: #2a2a4a;
+      --orange: #FF9900;
+      --blue: #1a73e8;
+      --green: #2E8B57;
+      --red: #cc3333;
+      --purple: #9B59B6;
+      --grid: #ffffff08;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --bg-gradient-start: #f8fafc;
+        --bg-gradient-end: #e2e8f0;
+        --text-main: #0f172a;
+        --text-muted: #475569;
+        --box-bg: #ffffff;
+        --box-bg-light: #f1f5f9;
+        --orange: #e68a00;
+        --blue: #1557b0;
+        --green: #1f6b42;
+        --red: #b32424;
+        --purple: #7a4694;
+        --grid: #00000008;
+      }
+    }
+    svg {
+      background-color: var(--bg);
+      font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
+    }
+    text {
+      transition: fill 0.3s ease;
+    }
+    .text-title { fill: var(--orange); font-weight: 800; }
+    .text-main { fill: var(--text-main); }
+    .text-muted { fill: var(--text-muted); }
+    .box-bg { fill: var(--box-bg); transition: fill 0.3s ease, stroke 0.3s ease; }
+    .float { animation: float 6s ease-in-out infinite; }
+    .pulse { animation: pulse 2s ease-in-out infinite; }
+    .draw { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw 2s forwards; }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0px); }
+    }
+    @keyframes pulse {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; filter: brightness(1.2); }
+      100% { opacity: 0.8; }
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+  </style>
+
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--bg-gradient-start)"/>
+      <stop offset="100%" stop-color="var(--bg-gradient-end)"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF9900"/>
+      <stop offset="100%" style="stop-color:#FFB84D"/>
+    </linearGradient>
+    <filter id="shadow" x="-3%" y="-3%" width="108%" height="110%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1000" height="700" fill="url(#bg)" class="box-bg"/>
+  
+  <text x="500" y="50" text-anchor="middle" fill="var(--orange)" font-size="22" font-weight="bold">Project 3 — EC2 &amp; SSH Connect</text>
+
+  <!-- Developer Workstation -->
+  <rect x="50" y="300" width="180" height="100" rx="10" fill="var(--box-bg)" stroke="var(--orange)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="140" y="340" text-anchor="middle" fill="var(--text-main)" font-size="14" font-weight="bold"><tspan class="float">💻 Developer</tspan></text>
+  <text x="140" y="370" text-anchor="middle" fill="var(--text-muted)" font-size="12">ssh -i key.pem ec2-user@IP</text>
+
+  <!-- Arrow to IGW -->
+  <line x1="230" y1="350" x2="350" y2="350" stroke="var(--orange)" stroke-width="2"/>
+  
+  <!-- VPC -->
+  <rect x="400" y="150" width="550" height="400" rx="10" fill="var(--box-bg)" stroke="var(--blue)" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="675" y="180" text-anchor="middle" fill="var(--blue)" font-size="16" font-weight="bold">AWS Cloud (VPC)</text>
+
+  <!-- IGW -->
+  <rect x="350" y="310" width="100" height="80" rx="10" fill="var(--box-bg)" stroke="var(--blue)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="400" y="355" text-anchor="middle" fill="var(--text-main)" font-size="12" font-weight="bold"><tspan class="float">🌐 IGW</tspan></text>
+
+  <!-- Arrow IGW to EC2 -->
+  <line x1="450" y1="350" x2="600" y2="350" stroke="var(--orange)" stroke-width="2"/>
+
+  <!-- Public Subnet -->
+  <rect x="550" y="220" width="350" height="280" rx="10" fill="var(--box-bg)" stroke="var(--green)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="725" y="250" text-anchor="middle" fill="var(--green)" font-size="14" font-weight="bold">Public Subnet</text>
+
+  <!-- Security Group -->
+  <rect x="620" y="280" width="220" height="180" rx="8" fill="var(--box-bg)" stroke="var(--red)" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="730" y="305" text-anchor="middle" fill="var(--red)" font-size="12" font-weight="bold"><tspan class="float">🛡️ Security Group</tspan></text>
+  <text x="730" y="325" text-anchor="middle" fill="var(--text-muted)" font-size="10">Allow Inbound Port 22 (SSH)</text>
+
+  <!-- EC2 Instance -->
+  <rect x="650" y="350" width="160" height="80" rx="8" fill="var(--box-bg)" stroke="var(--orange)" stroke-width="2" filter="url(#shadow)"/>
+  <text x="730" y="390" text-anchor="middle" fill="var(--text-main)" font-size="14" font-weight="bold"><tspan class="float">🖥️ EC2 Instance</tspan></text>
+  <text x="730" y="410" text-anchor="middle" fill="var(--text-muted)" font-size="10">Amazon Linux</text>
+
+</svg>

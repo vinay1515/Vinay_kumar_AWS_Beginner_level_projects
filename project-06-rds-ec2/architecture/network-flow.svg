@@ -9,81 +9,81 @@
 
   <!-- Nodes -->
   <rect x="30" y="92" width="120" height="46" rx="8" fill="#232f3e"/>
-  <text x="90" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="white">User Browser</text>
+  <text x="90" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-main)">User Browser</text>
   <text x="90" y="129" text-anchor="middle" font-size="10" fill="#aaa">Internet</text>
 
-  <line x1="152" y1="115" x2="190" y2="115" stroke="#28a745" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="152" y1="115" x2="190" y2="115" stroke="#28a745" stroke-width="2" marker-end="url(#arrowGreen)" class="draw"/>
   <text x="171" y="110" text-anchor="middle" font-size="10" fill="#28a745">:80</text>
 
   <rect x="192" y="92" width="120" height="46" rx="8" fill="#ff9900"/>
-  <text x="252" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="white">IGW</text>
-  <text x="252" y="129" text-anchor="middle" font-size="10" fill="white">my-vpc-igw</text>
+  <text x="252" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-main)">IGW</text>
+  <text x="252" y="129" text-anchor="middle" font-size="10" fill="var(--text-main)">my-vpc-igw</text>
 
-  <line x1="314" y1="115" x2="352" y2="115" stroke="#28a745" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="314" y1="115" x2="352" y2="115" stroke="#28a745" stroke-width="2" marker-end="url(#arrowGreen)" class="draw"/>
 
   <rect x="354" y="92" width="160" height="46" rx="8" fill="#ff9900"/>
-  <text x="434" y="109" text-anchor="middle" font-size="12" font-weight="bold" fill="white">EC2 App Server</text>
-  <text x="434" y="125" text-anchor="middle" font-size="10" fill="white">public-subnet-a · ec2-app-sg</text>
+  <text x="434" y="109" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-main)">EC2 App Server</text>
+  <text x="434" y="125" text-anchor="middle" font-size="10" fill="var(--text-main)">public-subnet-a · ec2-app-sg</text>
 
-  <line x1="516" y1="115" x2="554" y2="115" stroke="#28a745" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="516" y1="115" x2="554" y2="115" stroke="#28a745" stroke-width="2" marker-end="url(#arrowGreen)" class="draw"/>
 
   <rect x="556" y="92" width="140" height="46" rx="8" fill="#28a745"/>
-  <text x="626" y="109" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Apache httpd</text>
-  <text x="626" y="125" text-anchor="middle" font-size="10" fill="white">index.html returned</text>
+  <text x="626" y="109" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-main)">Apache httpd</text>
+  <text x="626" y="125" text-anchor="middle" font-size="10" fill="var(--text-main)">index.html returned</text>
 
   <!-- Flow 2: MySQL Query (middle row) -->
-  <text x="30" y="178" font-size="13" font-weight="bold" fill="#1a73e8">Flow 2 — EC2 to RDS MySQL Query</text>
+  <text x="30" y="178" font-size="13" font-weight="bold" fill="var(--blue)">Flow 2 — EC2 to RDS MySQL Query</text>
 
   <rect x="30" y="188" width="160" height="46" rx="8" fill="#ff9900"/>
-  <text x="110" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="white">EC2 App Server</text>
-  <text x="110" y="224" text-anchor="middle" font-size="10" fill="white">mysql client process</text>
+  <text x="110" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-main)">EC2 App Server</text>
+  <text x="110" y="224" text-anchor="middle" font-size="10" fill="var(--text-main)">mysql client process</text>
 
-  <line x1="192" y1="211" x2="230" y2="211" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrowBlue)"/>
-  <text x="211" y="206" text-anchor="middle" font-size="10" fill="#1a73e8">TCP</text>
+  <line x1="192" y1="211" x2="230" y2="211" stroke="var(--blue)" stroke-width="2" marker-end="url(#arrowBlue)" class="draw"/>
+  <text x="211" y="206" text-anchor="middle" font-size="10" fill="var(--blue)">TCP</text>
 
-  <rect x="232" y="188" width="150" height="46" rx="8" fill="#e8eeff" stroke="#1a73e8" stroke-width="1.5"/>
-  <text x="307" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a73e8">VPC DNS</text>
+  <rect x="232" y="188" width="150" height="46" rx="8" fill="#e8eeff" stroke="var(--blue)" stroke-width="1.5"/>
+  <text x="307" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="var(--blue)">VPC DNS</text>
   <text x="307" y="224" text-anchor="middle" font-size="10" fill="#333">resolves endpoint</text>
 
-  <line x1="384" y1="211" x2="422" y2="211" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrowBlue)"/>
-  <text x="403" y="206" text-anchor="middle" font-size="10" fill="#1a73e8">:3306</text>
+  <line x1="384" y1="211" x2="422" y2="211" stroke="var(--blue)" stroke-width="2" marker-end="url(#arrowBlue)" class="draw"/>
+  <text x="403" y="206" text-anchor="middle" font-size="10" fill="var(--blue)">:3306</text>
 
-  <rect x="424" y="188" width="155" height="46" rx="8" fill="#e8eeff" stroke="#1a73e8" stroke-width="1.5"/>
-  <text x="502" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a73e8">SG Check</text>
+  <rect x="424" y="188" width="155" height="46" rx="8" fill="#e8eeff" stroke="var(--blue)" stroke-width="1.5"/>
+  <text x="502" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="var(--blue)">SG Check</text>
   <text x="502" y="224" text-anchor="middle" font-size="10" fill="#333">ec2-app-sg → rds-sg ✓</text>
 
-  <line x1="581" y1="211" x2="619" y2="211" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="581" y1="211" x2="619" y2="211" stroke="var(--blue)" stroke-width="2" marker-end="url(#arrowBlue)" class="draw"/>
 
   <rect x="621" y="188" width="140" height="46" rx="8" fill="#527fff"/>
-  <text x="691" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="white">RDS MySQL</text>
-  <text x="691" y="224" text-anchor="middle" font-size="10" fill="white">private-subnet-a</text>
+  <text x="691" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-main)">RDS MySQL</text>
+  <text x="691" y="224" text-anchor="middle" font-size="10" fill="var(--text-main)">private-subnet-a</text>
 
   <!-- Return arrow -->
-  <path d="M 691 234 Q 691 260 430 260 Q 169 260 110 234" stroke="#527fff" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowPurple)"/>
+  <path d="M 691 234 Q 691 260 430 260 Q 169 260 110 234" stroke="#527fff" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowPurple)" class="draw"/>
   <text x="430" y="256" text-anchor="middle" font-size="10" fill="#527fff">Result rows returned</text>
 
   <!-- Flow 3: Secrets Manager (bottom row) -->
   <text x="30" y="296" font-size="13" font-weight="bold" fill="#c0392b">Flow 3 — IAM + Secrets Manager Credential Retrieval</text>
 
   <rect x="30" y="306" width="160" height="46" rx="8" fill="#ff9900"/>
-  <text x="110" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="white">EC2 + IAM Role</text>
-  <text x="110" y="342" text-anchor="middle" font-size="10" fill="white">ec2-app-role attached</text>
+  <text x="110" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-main)">EC2 + IAM Role</text>
+  <text x="110" y="342" text-anchor="middle" font-size="10" fill="var(--text-main)">ec2-app-role attached</text>
 
-  <line x1="192" y1="329" x2="230" y2="329" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+  <line x1="192" y1="329" x2="230" y2="329" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)" class="draw"/>
   <text x="211" y="323" text-anchor="middle" font-size="10" fill="#c0392b">HTTPS</text>
 
   <rect x="232" y="306" width="155" height="46" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
   <text x="310" y="322" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">IAM Auth Check</text>
   <text x="310" y="338" text-anchor="middle" font-size="10" fill="#333">GetSecretValue allowed</text>
 
-  <line x1="389" y1="329" x2="427" y2="329" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+  <line x1="389" y1="329" x2="427" y2="329" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)" class="draw"/>
 
   <rect x="429" y="306" width="155" height="46" rx="8" fill="#c0392b"/>
-  <text x="507" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Secrets Manager</text>
-  <text x="507" y="342" text-anchor="middle" font-size="10" fill="white">rds/myapp/credentials</text>
+  <text x="507" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-main)">Secrets Manager</text>
+  <text x="507" y="342" text-anchor="middle" font-size="10" fill="var(--text-main)">rds/myapp/credentials</text>
 
   <!-- Return -->
-  <path d="M 507 352 Q 507 380 309 380 Q 111 380 110 352" stroke="#c0392b" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowRed2)"/>
+  <path d="M 507 352 Q 507 380 309 380 Q 111 380 110 352" stroke="#c0392b" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowRed2)" class="draw"/>
   <text x="310" y="376" text-anchor="middle" font-size="10" fill="#c0392b">JSON with username + password returned</text>
 
   <!-- Routing table legend -->
@@ -94,11 +94,74 @@
 
   <!-- Markers -->
   <defs>
+
+  <style>
+    :root {
+      --bg: #0a0a1a;
+      --bg-gradient-start: #0a0a1a;
+      --bg-gradient-end: #1a1a2e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --box-bg: #1a1a3a;
+      --box-bg-light: #2a2a4a;
+      --orange: #FF9900;
+      --blue: #1a73e8;
+      --green: #2E8B57;
+      --red: #cc3333;
+      --purple: #9B59B6;
+      --grid: #ffffff08;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --bg-gradient-start: #f8fafc;
+        --bg-gradient-end: #e2e8f0;
+        --text-main: #0f172a;
+        --text-muted: #475569;
+        --box-bg: #ffffff;
+        --box-bg-light: #f1f5f9;
+        --orange: #e68a00;
+        --blue: #1557b0;
+        --green: #1f6b42;
+        --red: #b32424;
+        --purple: #7a4694;
+        --grid: #00000008;
+      }
+    }
+    svg {
+      background-color: var(--bg);
+      font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
+    }
+    text {
+      transition: fill 0.3s ease;
+    }
+    .text-title { fill: var(--orange); font-weight: 800; }
+    .text-main { fill: var(--text-main); }
+    .text-muted { fill: var(--text-muted); }
+    .box-bg { fill: var(--box-bg); transition: fill 0.3s ease, stroke 0.3s ease; }
+    .float { animation: float 6s ease-in-out infinite; }
+    .pulse { animation: pulse 2s ease-in-out infinite; }
+    .draw { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw 2s forwards; }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0px); }
+    }
+    @keyframes pulse {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; filter: brightness(1.2); }
+      100% { opacity: 0.8; }
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+  </style>
+
     <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#28a745"/>
     </marker>
     <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#1a73e8"/>
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--blue)"/>
     </marker>
     <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#527fff"/>

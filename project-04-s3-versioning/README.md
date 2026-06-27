@@ -122,7 +122,7 @@ project-04-s3-versioning/
 ├── docs/
 │   └── storage-class-notes.md       ← Personal reference on storage classes
 │
-└── screenshots/
+└── images/
     ├── 01-versioning-enabled.png
     ├── 02-multiple-versions.png
     ├── 03-delete-marker.png

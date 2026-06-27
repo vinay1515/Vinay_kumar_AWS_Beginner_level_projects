@@ -33,15 +33,15 @@ how I fixed it, and what I learned.
 
 | # | Project | Tier | Services | Status |
 |---|---|---|---|---|
-| 01 | [AWS Account Setup & IAM Foundations](https://github.com/vinay1515/Vinay_kumar_AWS_Beginner_level_projects/tree/main/project-01-iam-setup) | 🟢 Beginner | IAM, CloudWatch, SNS, CLI | ✅ Done |
-| 02 | [Static Website on S3 + CloudFront](https://github.com/vinay1515/Vinay_kumar_AWS_Beginner_level_projects/tree/main/project-02-s3-static-website) | 🟢 Beginner | S3, CloudFront, Route 53 | ✅ Done |
-| 03 | [Launch EC2 & Connect via SSH](project-3-Launch-EC2-Connect-via-SSH) | 🟢 Beginner | EC2, VPC, SG, SSM, IAM | ✅ Done |
+| 01 | [AWS Account Setup & IAM Foundations](project-01-iam-setup) | 🟢 Beginner | IAM, CloudWatch, SNS, CLI | ✅ Done |
+| 02 | [Static Website on S3 + CloudFront](project-02-s3-static-website) | 🟢 Beginner | S3, CloudFront, Route 53 | ✅ Done |
+| 03 | [Launch EC2 & Connect via SSH](project-03-Launch-EC2-Connect-via-SSH) | 🟢 Beginner | EC2, VPC, SG, SSM, IAM | ✅ Done |
 | 04 | [S3 Versioning, Lifecycle & Replication](project-04-s3-versioning) | 🟢 Beginner | S3 | ✅ Done |
 | 05 | [Custom VPC: Subnets, IGW, NAT](project-05-Custom-VPC) | 🟢 Beginner | VPC, EC2 | ✅ Done |
 | 06 | [RDS MySQL + EC2 Two-Tier App](project-06-rds-ec2) | 🟢 Beginner | RDS, EC2, VPC, Secrets Manager | ✅ Done |
 | 07 | [CloudWatch Alarms + SNS Alerts](project-07-cloudwatch-monitoring) | 🟢 Beginner | CloudWatch, SNS | ✅ Done |
 | 08 | [Serverless REST API](project-08-serverless-rest-api) | 🟡 Intermediate | Lambda, API Gateway, DynamoDB | ✅ Done |
-| 09 | [CI/CD Pipeline](https://github.com/vinay1515/Vinay_kumar_AWS_Beginner_level_projects/tree/main/project-09-cicd-pipeline) | 🟡 Intermediate | CodeCommit, CodeBuild, CodeDeploy | ✅ Done |
+| 09 | [CI/CD Pipeline](project-09-cicd-pipeline) | 🟡 Intermediate | CodeCommit, CodeBuild, CodeDeploy | ✅ Done |
 | 10 | Auto Scaling Group + ALB | 🟡 Intermediate | EC2, ALB, ASG | ⏳ Upcoming |
 | 11 | Infrastructure as Code | 🟡 Intermediate | CloudFormation | ⏳ Upcoming |
 | 12 | Event-Driven Pipeline | 🟡 Intermediate | S3, SQS, Lambda | ⏳ Upcoming |
@@ -114,7 +114,7 @@ Each project README includes:
 
 Each project folder is self-contained and includes:
 1. **README.md** — full setup guide (console + CLI)
-2. **screenshots/** — proof of working setup
+2. **images/** — proof of working setup
 3. **scripts/** or **templates/** — reusable code and configs
 4. **docs/** — architecture notes, IAM policies, troubleshooting logs
 

@@ -136,7 +136,7 @@ project-09-cicd/
 │   ├── deployment-flow.svg
 │   └── codedeploy-lifecycle.svg
 │
-└── screenshots/
+└── images/
     ├── 01-codecommit-repo.png
     ├── 02-codebuild-project.png
     ├── 03-codedeploy-app.png

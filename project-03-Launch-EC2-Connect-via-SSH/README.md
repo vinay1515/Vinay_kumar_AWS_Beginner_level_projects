@@ -81,7 +81,7 @@ project-03-ec2-ssh/
 │   |── security-group-rules.md
 |   ├── iam-policy-notes.md
 |   └── troubleshooting-instrustions.md
-└── screenshots/
+└── images/
     ├── 01-instance-running.png
     ├── 02-security-group-rules.png
     ├── 03-putty-connected.png

@@ -183,7 +183,7 @@ project-05-custom-vpc/
 │   ├── security-group-notes.md        ← SG vs NACL comparison
 │   └── troubleshooting.md             ← Common issues and fixes
 │
-└── screenshots/
+└── images/
     ├── 01-vpc-created.png
     ├── 02-subnets-created.png
     ├── 03-igw-attached.png
