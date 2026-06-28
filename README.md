@@ -19,9 +19,9 @@ how I fixed it, and what I learned.
 
 📍 Location: Hyderabad, India.
 
-🔗 LinkedIn: https://www.linkedin.com/in/vinay-kumar-duvva/
+🔗 LinkedIn: <https://www.linkedin.com/in/vinay-kumar-duvva/>
 
-📧 Contact: duvvavinaykumar@gmail.com
+📧 Contact: <duvvavinaykumar@gmail.com>
 
 ---
 
@@ -34,12 +34,12 @@ how I fixed it, and what I learned.
 
 ## 🗺️ Roadmap Overview
 
-<img width="1220" height="1550" alt="image" src="https://github.com/user-attachments/assets/6b08d752-7cf1-472d-9efa-fb886a509a9b" />
+![image](https://github.com/user-attachments/assets/6b08d752-7cf1-472d-9efa-fb886a509a9b)
 
 ---
 
 | # | Project | Tier | Services | Status |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | 01 | [AWS Account Setup & IAM Foundations](project-01-iam-setup) | 🟢 Beginner | IAM, CloudWatch, SNS, CLI | ✅ Done |
 | 02 | [Static Website on S3 + CloudFront](project-02-s3-static-website) | 🟢 Beginner | S3, CloudFront, Route 53 | ✅ Done |
 | 03 | [Launch EC2 & Connect via SSH](project-03-Launch-EC2-Connect-via-SSH) | 🟢 Beginner | EC2, VPC, SG, SSM, IAM | ✅ Done |
@@ -60,7 +60,7 @@ how I fixed it, and what I learned.
 ## 🛠️ Tools & Technologies
 
 | Category | Tools |
-|---|---|
+| --- | --- |
 | Cloud Platform | Amazon Web Services (AWS) |
 | CLI | AWS CLI v2 (Windows PowerShell) |
 | IaC | AWS CloudFormation, (Terraform in capstone) |
@@ -84,6 +84,7 @@ how I fixed it, and what I learned.
 
 Every project in this repo is designed to run on the **AWS Free Tier**.
 Each project README includes:
+
 - ✅ Free Tier compatibility status
 - 💵 Best-case and worst-case cost estimates
 - 🧹 Full cleanup instructions to avoid surprise charges
@@ -102,7 +103,7 @@ Each project README includes:
 ## 📈 Skills Progress
 
 | Skill | Level |
-|---|---|
+| --- | --- |
 | IAM & Security | ⭐⭐⭐⭐☆ |
 | Storage (S3) | ⭐⭐⭐☆☆ |
 | Compute (EC2) | ⭐⭐⭐⭐☆ |
@@ -113,13 +114,14 @@ Each project README includes:
 | IaC | ⭐☆☆☆☆ |
 | DevOps / CI/CD | ⭐⭐⭐☆☆ |
 
-*(Updated after each project)*
+(Updated after each project)
 
 ---
 
 ## 🔖 How to Use This Repo
 
 Each project folder is self-contained and includes:
+
 1. **README.md** — full setup guide (console + CLI)
 2. **images/** — proof of working setup
 3. **scripts/** or **templates/** — reusable code and configs
