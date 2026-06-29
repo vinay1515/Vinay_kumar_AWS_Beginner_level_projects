@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 - Page Not Found | Cloud Portfolio</title>
+  <title>404 - Resource Not Found | Cloud Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -18,13 +18,32 @@
   <nav class="navbar">
     <div class="nav-content">
       <div class="logo">☁️ AWS Portfolio</div>
+      <div class="nav-links">
+        <a href="index.html">Return Home</a>
+      </div>
     </div>
   </nav>
 
-  <main class="container error-page">
-    <h1 class="error-code">404</h1>
-    <p class="error-msg">The cloud resource you requested could not be found.</p>
-    <a href="index.html" class="btn-primary">Return to Architecture</a>
+  <main class="container hero error-main-hero">
+    <div class="hero-content glass-card error-hero-card">
+      <div class="badge-wrapper error-badge-wrapper">
+        <span class="badge secondary">Error 404</span>
+      </div>
+      <h1 class="hero-title"><span class="text-gradient">Resource Missing</span></h1>
+      <p class="hero-subtitle error-hero-subtitle">
+        The cloud resource you requested could not be found. It may have been terminated or the endpoint is incorrect.
+      </p>
+      <a href="index.html" class="badge glow error-return-badge">Return to Architecture</a>
+    </div>
   </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>Designed with efficiency. Managed via AWS CLI. Updates deployed dynamically.</p>
+      <p class="copyright">© 2026 Vinay Kumar. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

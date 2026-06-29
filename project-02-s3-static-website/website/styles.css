@@ -365,3 +365,30 @@ footer {
   animation: float 6s ease-in-out infinite;
 }
 
+/* Error Page Specific Overrides */
+.error-main-hero {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-hero-card {
+  padding: 60px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.error-badge-wrapper {
+  justify-content: center;
+}
+
+.error-hero-subtitle {
+  margin-bottom: 40px;
+}
+
+.error-return-badge {
+  text-decoration: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+}
