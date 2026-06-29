@@ -102,17 +102,17 @@ Each project README includes:
 
 ## 📈 Skills Progress
 
-| Skill | Level |
-| --- | --- |
-| IAM & Security | ⭐⭐⭐⭐☆ |
-| Storage (S3) | ⭐⭐⭐☆☆ |
-| Compute (EC2) | ⭐⭐⭐⭐☆ |
-| Networking (VPC) | ⭐⭐⭐☆☆ |
+| Skill                      | Level |
+| ----------------------------| -------|
+| IAM & Security             | ⭐⭐⭐⭐☆ |
+| Storage (S3)               | ⭐⭐⭐☆☆ |
+| Compute (EC2)              | ⭐⭐⭐⭐☆ |
+| Networking (VPC)           | ⭐⭐⭐☆☆ |
 | Monitoring & Observability | ⭐⭐⭐☆☆ |
-| Serverless | ⭐⭐⭐☆☆ |
-| Containers | ⭐☆☆☆☆ |
-| IaC | ⭐☆☆☆☆ |
-| DevOps / CI/CD | ⭐⭐⭐☆☆ |
+| Serverless                 | ⭐⭐⭐☆☆ |
+| Containers                 | ⭐☆☆☆☆ |
+| IaC                        | ⭐☆☆☆☆ |
+| DevOps / CI/CD             | ⭐⭐⭐☆☆ |
 
 (Updated after each project)
 
