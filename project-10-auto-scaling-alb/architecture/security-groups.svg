@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+  <style>
+    :root {
+      --bg: #0a0a1a; --bg-gradient-end: #1a1a2e;
+      --text-main: #f8fafc; --text-muted: #94a3b8;
+      --box-bg: #1a1a3a; --orange: #FF9900; --blue: #1a73e8;
+      --green: #2E8B57; --red: #cc3333; --teal: #00897B; --grid: #ffffff08;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc; --bg-gradient-end: #e2e8f0;
+        --text-main: #0f172a; --text-muted: #475569;
+        --box-bg: #ffffff; --orange: #e68a00; --blue: #1557b0;
+        --green: #1f6b42; --red: #b32424; --teal: #00695C; --grid: #00000008;
+      }
+    }
+    svg { background-color: var(--bg); }
+    .float { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+  </style>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--bg)"/><stop offset="100%" stop-color="var(--bg-gradient-end)"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9900"/><stop offset="100%" style="stop-color:#FFB84D"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a73e8"/><stop offset="100%" style="stop-color:#4d94ff"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2E8B57"/><stop offset="100%" style="stop-color:#3CB371"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00695C"/><stop offset="100%" style="stop-color:#00897B"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--blue)"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--green)"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="var(--orange)"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="650" fill="url(#bg)"/>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--grid)" stroke-width="0.5"/>
+  </pattern>
+  <rect width="1200" height="650" fill="url(#grid)"/>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" fill="var(--orange)" font-size="22" font-weight="bold" filter="url(#glow)">
+    Security Group Architecture — Network Traffic Flow
+  </text>
+  <text x="600" y="60" text-anchor="middle" fill="var(--text-muted)" font-size="12">
+    Two-tier security: ALB accepts from internet, EC2 accepts only from ALB
+  </text>
+  <line x1="200" y1="72" x2="1000" y2="72" stroke="var(--orange)" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- ====== INTERNET ====== -->
+  <rect x="40" y="90" width="200" height="100" rx="8" fill="var(--box-bg)" stroke="var(--orange)" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="40" y="90" width="200" height="26" rx="8" fill="url(#orangeGrad)" opacity="0.9"/>
+  <text x="140" y="108" text-anchor="middle" fill="var(--text-main)" font-size="11" font-weight="bold"><tspan class="float">🌐 Internet</tspan></text>
+  <text x="140" y="140" text-anchor="middle" fill="var(--text-muted)" font-size="10">Users / Browsers</text>
+  <text x="140" y="158" text-anchor="middle" fill="var(--text-muted)" font-size="10">Source: 0.0.0.0/0</text>
+  <text x="140" y="176" text-anchor="middle" fill="var(--orange)" font-size="9">HTTP:80, HTTPS:443</text>
+
+  <!-- ====== YOUR IP ====== -->
+  <rect x="40" y="210" width="200" height="70" rx="8" fill="var(--box-bg)" stroke="var(--teal)" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="40" y="210" width="200" height="26" rx="8" fill="url(#tealGrad)" opacity="0.9"/>
+  <text x="140" y="228" text-anchor="middle" fill="var(--text-main)" font-size="11" font-weight="bold"><tspan class="float">💻 Developer</tspan></text>
+  <text x="140" y="255" text-anchor="middle" fill="var(--text-muted)" font-size="10">Source: MY_IP/32</text>
+  <text x="140" y="270" text-anchor="middle" fill="var(--teal)" font-size="9">SSH:22</text>
+
+  <!-- ====== ALB-SG BOX ====== -->
+  <rect x="320" y="85" width="400" height="210" rx="10" fill="var(--box-bg)" stroke="var(--blue)" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="320" y="85" width="400" height="30" rx="10" fill="url(#blueGrad)" opacity="0.8"/>
+  <text x="520" y="106" text-anchor="middle" fill="var(--text-main)" font-size="13" font-weight="bold">🔒 alb-sg (ALB Security Group)</text>
+
+  <!-- ALB inside -->
+  <rect x="360" y="130" width="320" height="80" rx="6" fill="var(--box-bg)" stroke="var(--blue)" stroke-width="1"/>
+  <text x="520" y="153" text-anchor="middle" fill="var(--blue)" font-size="12" font-weight="bold">⚖️ Application Load Balancer</text>
+  <text x="520" y="172" text-anchor="middle" fill="var(--text-muted)" font-size="10">my-alb (internet-facing)</text>
+  <text x="520" y="190" text-anchor="middle" fill="var(--text-muted)" font-size="10">Listener: HTTP:80 → web-server-tg</text>
+
+  <!-- Inbound rules for ALB SG -->
+  <text x="340" y="234" fill="var(--green)" font-size="10" font-weight="bold">Inbound Rules:</text>
+  <text x="340" y="252" fill="var(--text-muted)" font-size="9">✅ TCP 80  from 0.0.0.0/0  (HTTP)</text>
+  <text x="340" y="268" fill="var(--text-muted)" font-size="9">✅ TCP 443 from 0.0.0.0/0  (HTTPS)</text>
+  <text x="340" y="284" fill="var(--red)" font-size="9">❌ All other traffic DENIED</text>
+
+  <!-- Arrows: Internet to ALB -->
+  <line x1="240" y1="140" x2="318" y2="140" stroke="var(--green)" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="280" y="133" text-anchor="middle" fill="var(--green)" font-size="8">ALLOWED</text>
+  <text x="280" y="155" text-anchor="middle" fill="var(--text-muted)" font-size="7">HTTP:80</text>
+
+  <!-- ====== EC2-SG BOX ====== -->
+  <rect x="800" y="85" width="360" height="300" rx="10" fill="var(--box-bg)" stroke="var(--green)" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="800" y="85" width="360" height="30" rx="10" fill="url(#greenGrad)" opacity="0.8"/>
+  <text x="980" y="106" text-anchor="middle" fill="var(--text-main)" font-size="13" font-weight="bold">🔒 asg-ec2-sg (EC2 Security Group)</text>
+
+  <!-- EC2 instances inside -->
+  <rect x="830" y="130" width="140" height="80" rx="6" fill="var(--box-bg)" stroke="var(--green)" stroke-width="1"/>
+  <text x="900" y="153" text-anchor="middle" fill="var(--green)" font-size="10" font-weight="bold">🖥️ EC2 #1</text>
+  <text x="900" y="170" text-anchor="middle" fill="var(--text-muted)" font-size="9">ap-south-1a</text>
+  <text x="900" y="185" text-anchor="middle" fill="var(--text-muted)" font-size="9">Apache :80</text>
+
+  <rect x="990" y="130" width="140" height="80" rx="6" fill="var(--box-bg)" stroke="var(--green)" stroke-width="1"/>
+  <text x="1060" y="153" text-anchor="middle" fill="var(--green)" font-size="10" font-weight="bold">🖥️ EC2 #2</text>
+  <text x="1060" y="170" text-anchor="middle" fill="var(--text-muted)" font-size="9">ap-south-1b</text>
+  <text x="1060" y="185" text-anchor="middle" fill="var(--text-muted)" font-size="9">Apache :80</text>
+
+  <!-- Inbound rules for EC2 SG -->
+  <text x="820" y="238" fill="var(--green)" font-size="10" font-weight="bold">Inbound Rules:</text>
+  <text x="820" y="258" fill="var(--text-muted)" font-size="9">✅ TCP 80 from alb-sg (HTTP from ALB only)</text>
+  <text x="820" y="276" fill="var(--text-muted)" font-size="9">✅ TCP 22 from MY_IP/32 (SSH debug)</text>
+  <text x="820" y="296" fill="var(--red)" font-size="9">❌ TCP 80 from 0.0.0.0/0 (DENIED — not internet)</text>
+  <text x="820" y="316" fill="var(--red)" font-size="9">❌ All other traffic DENIED</text>
+
+  <text x="820" y="342" fill="var(--blue)" font-size="9" font-weight="bold">Key: EC2 is NOT directly accessible from the internet</text>
+  <text x="820" y="358" fill="var(--blue)" font-size="9">on port 80. All HTTP traffic goes through the ALB.</text>
+
+  <!-- Arrow: ALB to EC2 (ALLOWED) -->
+  <line x1="720" y1="170" x2="828" y2="170" stroke="var(--green)" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="774" y="162" text-anchor="middle" fill="var(--green)" font-size="8">ALLOWED</text>
+  <text x="774" y="182" text-anchor="middle" fill="var(--text-muted)" font-size="7">HTTP:80 (from alb-sg)</text>
+
+  <!-- Arrow: Developer SSH to EC2 -->
+  <path d="M 240 245 Q 600 320 828 250" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrowGreen)"/>
+  <text x="500" y="300" text-anchor="middle" fill="var(--teal)" font-size="8">SSH:22 (from MY_IP)</text>
+
+  <!-- ====== BLOCKED FLOW (bottom) ====== -->
+  <rect x="40" y="420" width="1120" height="200" rx="10" fill="var(--box-bg)" stroke="var(--red)" stroke-width="1" stroke-dasharray="8,4" filter="url(#shadow)"/>
+  <rect x="40" y="420" width="1120" height="28" rx="10" fill="var(--red)" opacity="0.2"/>
+  <text x="600" y="442" text-anchor="middle" fill="var(--red)" font-size="14" font-weight="bold">❌ Blocked Traffic Paths</text>
+
+  <!-- Blocked Path 1: Internet directly to EC2 -->
+  <rect x="80" y="465" width="320" height="60" rx="6" fill="var(--box-bg)" stroke="var(--red)" stroke-width="1"/>
+  <text x="240" y="485" text-anchor="middle" fill="var(--red)" font-size="11" font-weight="bold">Internet → EC2 (port 80)</text>
+  <text x="240" y="505" text-anchor="middle" fill="var(--text-muted)" font-size="9">Bypassing ALB — BLOCKED by asg-ec2-sg</text>
+  <text x="240" y="518" text-anchor="middle" fill="var(--text-muted)" font-size="9">EC2 only accepts HTTP from alb-sg, not 0.0.0.0/0</text>
+
+  <!-- Blocked Path 2: Random IP SSH -->
+  <rect x="440" y="465" width="320" height="60" rx="6" fill="var(--box-bg)" stroke="var(--red)" stroke-width="1"/>
+  <text x="600" y="485" text-anchor="middle" fill="var(--red)" font-size="11" font-weight="bold">Random IP → EC2 (port 22)</text>
+  <text x="600" y="505" text-anchor="middle" fill="var(--text-muted)" font-size="9">SSH from non-approved IP — BLOCKED</text>
+  <text x="600" y="518" text-anchor="middle" fill="var(--text-muted)" font-size="9">Only MY_IP/32 can SSH to instances</text>
+
+  <!-- Blocked Path 3: Internet to EC2 other ports -->
+  <rect x="800" y="465" width="320" height="60" rx="6" fill="var(--box-bg)" stroke="var(--red)" stroke-width="1"/>
+  <text x="960" y="485" text-anchor="middle" fill="var(--red)" font-size="11" font-weight="bold">Any → EC2 (other ports)</text>
+  <text x="960" y="505" text-anchor="middle" fill="var(--text-muted)" font-size="9">Ports 3306, 5432, 8080, etc. — BLOCKED</text>
+  <text x="960" y="518" text-anchor="middle" fill="var(--text-muted)" font-size="9">Only ports 80 (from ALB) and 22 (from MY_IP)</text>
+
+  <!-- Summary -->
+  <text x="600" y="560" text-anchor="middle" fill="var(--text-muted)" font-size="11">
+    Security group references (alb-sg → asg-ec2-sg) are more secure than CIDR rules because ALB IPs are dynamic.
+  </text>
+  <text x="600" y="580" text-anchor="middle" fill="var(--text-muted)" font-size="11">
+    Even if an attacker finds an EC2 instance's public IP, they cannot reach port 80 directly — only through the ALB.
+  </text>
+  <text x="600" y="600" text-anchor="middle" fill="var(--blue)" font-size="11" font-weight="bold">
+    Production: Remove SSH entirely. Use SSM Session Manager (no inbound ports needed).
+  </text>
+
+  <!-- Legend -->
+  <rect x="40" y="622" width="1120" height="22" rx="5" fill="var(--box-bg)" stroke="#333" stroke-width="0.5"/>
+  <circle cx="70" cy="633" r="5" fill="var(--green)"/>
+  <text x="82" y="637" fill="var(--text-muted)" font-size="10">Allowed Traffic</text>
+  <circle cx="200" cy="633" r="5" fill="var(--red)"/>
+  <text x="212" y="637" fill="var(--text-muted)" font-size="10">Blocked Traffic</text>
+  <circle cx="340" cy="633" r="5" fill="var(--blue)"/>
+  <text x="352" y="637" fill="var(--text-muted)" font-size="10">ALB Security Group</text>
+  <circle cx="490" cy="633" r="5" fill="var(--green)"/>
+  <text x="502" y="637" fill="var(--text-muted)" font-size="10">EC2 Security Group</text>
+  <circle cx="640" cy="633" r="5" fill="var(--teal)"/>
+  <text x="652" y="637" fill="var(--text-muted)" font-size="10">Developer SSH</text>
+  <text x="830" y="637" fill="var(--text-muted)" font-size="10">Key Design: EC2 only accessible through ALB on port 80</text>
+</svg>
