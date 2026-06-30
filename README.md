@@ -50,7 +50,7 @@ how I fixed it, and what I learned.
 | 08 | [Serverless REST API](project-08-serverless-rest-api) | 🟡 Intermediate | Lambda, API Gateway, DynamoDB | ✅ Done |
 | 09 | [CI/CD Pipeline](project-09-cicd-pipeline) | 🟡 Intermediate | CodeCommit, CodeBuild, CodeDeploy | ✅ Done |
 | 10 | [Auto Scaling Group + ALB](project-10-auto-scaling-alb) | 🟡 Intermediate | EC2, ALB, ASG | ✅ Done |
-| 11 | Infrastructure as Code | 🟡 Intermediate | CloudFormation | ⏳ Upcoming |
+| 11 | [Infrastructure as Code](project-11-infrastructure-as-code) | 🟡 Intermediate | CloudFormation | ✅ Done |
 | 12 | Event-Driven Pipeline | 🟡 Intermediate | S3, SQS, Lambda | ⏳ Upcoming |
 | 13 | Containerized App on ECS Fargate | 🔴 Advanced | ECS, ECR, Fargate, ALB | ⏳ Upcoming |
 | 14 | Capstone: 3-Tier HA Architecture | 🔴 Advanced | VPC, ALB, ASG, RDS Multi-AZ | ⏳ Upcoming |
