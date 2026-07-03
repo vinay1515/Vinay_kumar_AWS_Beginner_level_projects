@@ -1,5 +1,7 @@
 # Project Overview
 
-## Overview
-Hosted a static portfolio website on Amazon S3 with CloudFront as a global CDN,
-enabling HTTPS delivery from 400+ edge locations worldwide at near-zero cost.
+## The Business Problem
+Serving a static website directly from a single web server or an S3 bucket can be slow for users located geographically far from the server. Furthermore, serving directly from S3 does not support custom SSL certificates natively.
+
+## The Solution
+This project uses Amazon CloudFront (a global CDN) to cache the S3 website content at edge locations worldwide. This ensures lightning-fast delivery to users regardless of their location, while also enabling enforced HTTPS using AWS edge SSL certificates.

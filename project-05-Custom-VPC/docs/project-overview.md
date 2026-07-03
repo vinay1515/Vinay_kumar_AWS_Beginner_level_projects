@@ -1,19 +1,7 @@
 # Project Overview
 
-## Overview
+## The Business Problem
+Using the Default VPC is generally unacceptable for production workloads because its architecture is flat (all subnets are public) and it cannot be properly secured or peered easily if IP ranges overlap.
 
-Built a production-grade custom AWS VPC from scratch with public and private
-subnets across two Availability Zones, an Internet Gateway for public internet
-access, a NAT Gateway for secure outbound-only internet from private subnets,
-and verified the complete bastion host connectivity pattern.
-
-This is the networking foundation that every intermediate and advanced AWS
-project builds on — every real company runs their workloads inside a
-custom VPC exactly like this one.
-
-> **Real-world context:** When a Solutions Architect designs any cloud
-> system, the VPC architecture is always the first decision made.
-> Public/private subnet separation, NAT Gateway placement, and route
-> table design are core SA interview topics at every company.
-
----
+## The Solution
+This project creates a Custom Virtual Private Cloud (VPC) implementing standard 3-tier networking principles. It establishes a secure perimeter by isolating resources in Private Subnets that have no direct inbound internet access, routing outbound traffic through a highly available NAT Gateway.

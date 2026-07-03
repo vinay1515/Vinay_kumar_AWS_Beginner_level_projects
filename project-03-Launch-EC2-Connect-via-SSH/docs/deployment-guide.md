@@ -1,38 +1,19 @@
 # Deployment Guide
 
-## Automated Scripts Available
-> [!TIP]
-> **Dual-Platform Execution:** This project contains fully automated deployment and teardown scripts for both Windows (PowerShell) and Linux/macOS (Bash). Check the `scripts/` directory for `.ps1` files and the `bash-scripts/` directory for `.sh` files.
+## Step 1: Create Key Pair and Security Group
+1. In the EC2 Console, create a new Key Pair (RSA, `.ppk` for PuTTY or `.pem` for OpenSSH).
+2. Create a Security Group in the Default VPC. Add inbound rules:
+   - HTTP (80) -> Source: Anywhere.
+   - SSH (22) -> Source: My IP.
 
-## Cleanup Guide
+## Step 2: Create IAM Role for SSM
+1. In IAM, create a Role for the EC2 use case.
+2. Attach the `AmazonSSMManagedInstanceCore` policy.
+3. Name it `ec2-ssm-role`.
 
-## Cleanup (full teardown)
-
-```powershell
-# 1. Terminate instance
-aws ec2 terminate-instances --instance-ids $INSTANCE_ID
-aws ec2 wait instance-terminated --instance-ids $INSTANCE_ID
-
-# 2. Delete security group
-aws ec2 delete-security-group --group-id $SG_ID
-
-# 3. Delete key pair from AWS (keep local .ppk file)
-aws ec2 delete-key-pair --key-name aws-ec2-keypair
-
-# 4. Remove IAM role and profile
-aws iam remove-role-from-instance-profile `
-  --instance-profile-name ec2-ssm-profile --role-name ec2-ssm-role
-aws iam detach-role-policy `
-  --role-name ec2-ssm-role `
-  --policy-arn arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
-aws iam delete-instance-profile --instance-profile-name ec2-ssm-profile
-aws iam delete-role --role-name ec2-ssm-role
-
-# 5. Verify cleanup
-aws ec2 describe-instances --instance-ids $INSTANCE_ID `
-  --query "Reservations[0].Instances[0].State.Name" --output text
-# Expected: terminated
-```
-
----
-
+## Step 3: Launch the EC2 Instance
+1. Launch Instance, select Amazon Linux 2023 AMI, `t2.micro`.
+2. Select the Key Pair and Security Group created in Step 1.
+3. Under Advanced Details, select the IAM instance profile `ec2-ssm-role`.
+4. Under User Data, paste the bash script (found in `scripts/userdata.sh`).
+5. Launch the instance.

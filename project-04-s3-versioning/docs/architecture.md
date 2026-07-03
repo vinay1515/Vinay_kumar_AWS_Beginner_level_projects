@@ -1,44 +1,12 @@
-# Architecture
+# Architecture Details
 
-## Architecture
+## Source Bucket
+- Hosted in `ap-south-1`.
+- **Versioning:** Enabled. Every update creates a new object version rather than overwriting. Deletions create a "Delete Marker" that can be removed to restore the file.
+- **Lifecycle Policies:** 
+  - Day 30: Move current objects to `STANDARD_IA`.
+  - Day 90: Move current objects to `GLACIER`.
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                         AWS Account                                 │
-│                                                                     │
-│   ┌──────────────────────────────────┐                              │
-│   │   SOURCE BUCKET (ap-south-1)     │                              │
-│   │   s3-versioning-lab-yourname     │                              │
-│   │                                  │                              │
-│   │   Versioning: ENABLED            │                              │
-│   │   ┌────────────────────────┐     │                              │
-│   │   │  document.txt          │     │                              │
-│   │   │  ├── v1 (noncurrent)   │     │                              │
-│   │   │  ├── v2 (noncurrent)   │     │                              │
-│   │   │  └── v3 (current) ✅   │     │                              │
-│   │   └────────────────────────┘     │                              │
-│   │                                  │   Cross-Region               │
-│   │   Lifecycle Policy:              │   Replication                │
-│   │   Day  0  → S3 Standard          │   (automatic, ~30 sec)       │
-│   │   Day 30  → S3 Standard-IA       │──────────────────────────►   │
-│   │   Day 90  → S3 Glacier           │                              │
-│   │   Day 365 → Expire               │                              │
-│   │                                  │                              │
-│   │   IAM Replication Role ──────────┤                              │
-│   └──────────────────────────────────┘                              │
-│                                                                     │
-│   ┌──────────────────────────────────┐                              │
-│   │   DESTINATION BUCKET (ap-south-2)│                              │
-│   │   s3-versioning-lab-yourname-    │                              │
-│   │   replica                        │                              │
-│   │                                  │                              │
-│   │   Versioning: ENABLED            │                              │
-│   │   ReplicationStatus: REPLICA     │                              │
-│   │   Automatic DR copy of all       │                              │
-│   │   objects written to source      │                              │
-│   └──────────────────────────────────┘                              │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
----
+## Disaster Recovery
+- **IAM Role:** An identity created to allow the S3 service to read objects from the source bucket and write them to the destination.
+- **Destination Bucket:** Hosted in `ap-south-2`. Replicates objects asynchronously immediately upon upload to the source.

@@ -1,29 +1,27 @@
-# Generated pipeline files
-pipeline-definition.json
-userdata-deploy.sh
+# Lambda / Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
-# AWS credentials — never commit
-.aws/
-credentials
-*.pem
-*.ppk
+# Packages
+*.zip
+lambda/function.zip
 
-# Secrets
-*.env
-.env.*
+# Test files
+*.csv
+*.json
+!test-*.csv
+!test-*.json
 
-# OS
+# OS files
 .DS_Store
 Thumbs.db
-desktop.ini
 
-# Editor
+# IDEs
 .vscode/
 .idea/
-*.swp
 
-# PowerShell temp
-*.tmp
-
-# Raw screenshots
-screenshots/raw-console-captures/
+# Environment variables
+.env
+.env.local

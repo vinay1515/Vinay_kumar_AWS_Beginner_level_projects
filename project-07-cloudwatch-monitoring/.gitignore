@@ -1,29 +1,27 @@
-# AWS credentials — never commit
-.aws/
-credentials
-*.pem
-*.ppk
+# Lambda / Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
-# Secrets / config with real values
-*.env
-.env.*
+# Packages
+*.zip
+lambda/function.zip
 
-# Generated files
-dashboard.json
-userdata-*.sh
+# Test files
+*.csv
+*.json
+!test-*.csv
+!test-*.json
 
-# PowerShell temp
-*.tmp
-
-# OS
+# OS files
 .DS_Store
 Thumbs.db
-desktop.ini
 
-# Editor
+# IDEs
 .vscode/
 .idea/
-*.swp
 
-# Raw screenshots
-screenshots/raw-console-captures/
+# Environment variables
+.env
+.env.local

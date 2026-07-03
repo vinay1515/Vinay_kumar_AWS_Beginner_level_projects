@@ -1,15 +1,28 @@
 # Deployment Guide
 
-## Automated Scripts Available
-> [!TIP]
-> **Dual-Platform Execution:** This project contains fully automated deployment and teardown scripts for both Windows (PowerShell) and Linux/macOS (Bash). Check the `scripts/` directory for `.ps1` files and the `bash-scripts/` directory for `.sh` files.
+## Step 1: Secure the Root Account
+1. Log into the AWS Console using the root email address.
+2. Navigate to **IAM > Users > Security credentials**.
+3. Assign an MFA device (Virtual MFA app).
 
-## Setup Steps
-1. Enable MFA on root account (Authenticator app)
-2. Enable billing alerts in Billing Preferences
-3. Create CloudWatch billing alarm at $5 threshold
-4. Create IAM admin user with console + programmatic access
-5. Install AWS CLI v2 on Windows
-6. Run `aws configure` with IAM access keys
-7. Verify with `aws sts get-caller-identity`
+## Step 2: Set up Billing Alerts
+1. Go to the **Billing Dashboard > Billing Preferences**.
+2. Enable "Receive Billing Alerts".
+3. Go to **CloudWatch > Alarms > Create Alarm** (must be in `us-east-1`).
+4. Select Metric: `Billing > Total Estimated Charge`.
+5. Set condition to "Greater/Equal" to $5.
+6. Configure actions to create a new SNS topic and enter your email address.
+7. Confirm the subscription in your email inbox.
 
+## Step 3: Create the Admin User
+1. Go to **IAM > Users > Add users**.
+2. Create `admin-yourname`. Check "Provide user access to the AWS Management Console".
+3. Attach the `AdministratorAccess` policy directly.
+4. Go to the new user's Security Credentials and generate an **Access Key** for CLI use.
+
+## Step 4: Configure AWS CLI
+Open your local terminal and run:
+```bash
+aws configure
+```
+Enter your Access Key, Secret Key, default region (e.g., `ap-south-1`), and default output format (`json`).

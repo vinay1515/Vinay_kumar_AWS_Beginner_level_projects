@@ -1,77 +1,38 @@
-# Project 11 — Infrastructure as Code with CloudFormation
+<div align="center">
+  <img src="architecture/architecture.svg" alt="Project Architecture" width="800"/>
 
-Level: Intermediate | Estimated Time: 5–6 hours
-Region: ap-south-1 (Mumbai) ✅
+  # Infrastructure as Code (Project 11)
+  
+  **Automate cloud provisioning using AWS CloudFormation templates.**
+</div>
 
-## 🎯 Purpose
-Convert everything built manually so far into version-controlled, repeatable Infrastructure as Code using AWS CloudFormation. This project demonstrates how to provision, update, and tear down an entire VPC, ALB, and Auto Scaling Group stack identically every time using a single command.
+---
 
-## 🧠 Learning Objectives
-- Understand CloudFormation templates, stacks, and change sets
-- Write YAML templates with Parameters, Resources, and Outputs
-- Use Intrinsic Functions (`!Ref`, `!GetAtt`, `!Sub`, `!FindInMap`, `!Select`)
-- Deploy a complete VPC + EC2 + ALB + ASG stack from one template
-- Update a running stack safely using change sets
-- Understand stack rollback behavior on failure
-- Tear down entire environments with one command
+## 📋 Project Overview
+This project introduces Infrastructure as Code (IaC). You will recreate the architecture from Project 10 (VPC, EC2, ALB, ASG), but this time, it will be provisioned entirely through a declarative AWS CloudFormation YAML template. This ensures environments are repeatable, version-controlled, and instantly deployable.
 
-## 🏗️ Architecture
-CloudFormation provisions all resources in dependency order based on `main-stack.yaml`.
-![Architecture](architecture/architecture.svg)
+- **Level:** 🔴 Advanced
+- **Time to Complete:** 3 hours
+- **Cost Estimate:** ~$0.00 (Standard Free Tier applies)
 
-### AWS Services Used
-- **CloudFormation**: Defines and provisions all infrastructure as code
-- **VPC, Subnets, IGW**: Networking layer
-- **EC2, Launch Template**: Compute layer
-- **ALB, Target Group, ASG**: Load balancing and scaling
-- **IAM**: CloudFormation execution role
+## 🏗️ Architecture Flow
+1. **CloudFormation Template:** A single YAML file (`main-stack.yaml`) containing parameters, resources, mappings, and outputs.
+2. **Stack Deployment:** CloudFormation calculates dependencies and provisions the VPC, Subnets, Security Groups, Launch Template, ASG, and ALB in the correct order.
+3. **Change Sets & Drift:** Modify the template and execute a change set to safely update running infrastructure. Detect manual changes using Drift Detection.
 
-## 💰 Free Tier Status
-CloudFormation itself is always free. This project recreates the architecture from Project 10, meaning costs are identical:
-- EC2 t2.micro × 2: 750 hrs/month free
-- ALB: 750 hrs + 15 LCU free
-- Everything else: Always free
-- **Estimated Cost: $0.00**
+## 📚 Documentation
+- 📄 [Project Overview](docs/project-overview.md)
+- 🏗️ [Architecture Details](docs/architecture.md)
+- 🚀 [Deployment Guide](docs/deployment-guide.md)
+- 🔐 [Security Protocols](docs/security-protocols.md)
+- 🧪 [Testing Procedures](docs/testing-procedures.md)
+- 🛠️ [Troubleshooting](docs/troubleshooting.md)
+- 🧹 [Cleanup Guide](docs/cleanup-guide.md)
 
-## 🚀 Deployment Instructions
+## 💻 Automation Scripts
+This project contains ready-to-run automation scripts for both **PowerShell** and **Bash**.
+- **Windows:** `scripts/powershell/`
+- **Linux/Mac:** `scripts/bash/`
 
-### 1. Validate the Template
-Ensure your CloudFormation template syntax is correct before deploying:
-```bash
-aws cloudformation validate-template --template-body file://templates/main-stack.yaml
-```
-
-### 2. Create the Stack
-Deploy the entire infrastructure using the `01-create-stack.sh` script (or `.ps1` for PowerShell):
-```bash
-./scripts/01-create-stack.sh
-```
-
-### 3. Apply a Change Set
-Change sets allow you to preview modifications before applying them safely.
-```bash
-# Preview changes
-./scripts/02-create-changeset.sh
-
-# Apply changes
-./scripts/03-execute-changeset.sh
-```
-
-### 4. Test Rollback
-Experience automated rollback by attempting a deployment with an invalid configuration. CloudFormation will safely revert to the last known good state.
-```bash
-./scripts/04-test-rollback.sh
-```
-
-### 5. Detect Drift
-Discover if resources have been manually modified outside of CloudFormation:
-```bash
-./scripts/05-detect-drift.sh
-```
-
-## 🧹 Cleanup
-Tear down the entire infrastructure with a single command:
-```bash
-./scripts/06-cleanup.sh
-```
-*(Verify deletion with `aws cloudformation describe-stacks --stack-name my-app-stack`)*
+---
+*Generated as part of the AWS Hands-On Portfolio.*

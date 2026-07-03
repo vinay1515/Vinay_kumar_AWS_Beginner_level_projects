@@ -1,54 +1,46 @@
-# Project 2 — Static Website on S3 + CloudFront
+<div align="center">
+  <img src="architecture/architecture.svg" alt="Project Architecture" width="800"/>
 
-## Overview
-Hosted a static portfolio website on Amazon S3 with CloudFront as a global CDN,
-enabling HTTPS delivery from 400+ edge locations worldwide at near-zero cost.
+  # Static Website on S3 + CloudFront (Project 02)
+  
+  **Deploy a static portfolio globally using Amazon S3 and Amazon CloudFront.**
+</div>
 
-## Architecture
-```
-Browser → CloudFront (HTTPS, CDN) → S3 Bucket (origin, HTTP)
-```
+---
 
-## Services Used
-- Amazon S3 — static file storage and website hosting
-- Amazon CloudFront — CDN, SSL termination, caching
-- AWS CLI v2 — file sync and cache invalidation
+## 📋 Project Overview
+This project involves hosting a static website on Amazon S3 and delivering it securely via Amazon CloudFront. This setup acts as a low-cost, highly available, and globally distributed architecture for static assets.
 
-## Live URL
-S3 static website: https://aws-sample-webiste-2026.s3.ap-south-1.amazonaws.com/index.html
+- **Level:** 🟢 Beginner
+- **Time to Complete:** 1-2 hours
+- **Cost Estimate:** $0.00 (S3 and CloudFront are within Free Tier limits)
 
-CloudFront: https://d2qfvpm2acd8sv.cloudfront.net/
+## 🏗️ Architecture Flow
+1. **Amazon S3 (Origin):** Stores the static HTML/CSS/JS files and is configured for static website hosting.
+2. **Amazon CloudFront (CDN):** Serves the files from 400+ edge locations globally, enforcing HTTPS.
+3. **End User:** Requests the domain, hits the CloudFront Edge Location (cached), which falls back to S3 if not cached.
 
-## Setup Steps
-1. Create S3 bucket, disable block public access
-2. Enable static website hosting (index.html / error.html)
-3. Apply public read bucket policy
-4. Upload files: `aws s3 sync ./website/ s3://BUCKET/`
-5. Create CloudFront distribution pointing to S3 website endpoint
-6. Set viewer protocol to redirect HTTP → HTTPS
-7. Test HTTPS URL, then invalidate cache after updates
+## 📚 Documentation
+For a deep dive into the components and steps, please refer to the documents below:
 
-## Key Commands
-```powershell
-# Upload files
-aws s3 sync .\website\ s3://YOUR-BUCKET/ --region us-east-1
+- 📄 [Project Overview](docs/project-overview.md)
+- 🏗️ [Architecture Details](docs/architecture.md)
+- 🚀 [Deployment Guide](docs/deployment-guide.md)
+- 🔐 [Security Protocols](docs/security-protocols.md)
+- 🧪 [Testing Procedures](docs/testing-procedures.md)
+- 🛠️ [Troubleshooting](docs/troubleshooting.md)
+- 🧹 [Cleanup Guide](docs/cleanup-guide.md)
 
-# Invalidate cache
-aws cloudfront create-invalidation --distribution-id YOUR_ID --paths "/*"
+## 💻 Automation Scripts
+This project contains ready-to-run automation scripts for both **PowerShell** and **Bash**.
+- **Windows:** `scripts/powershell/`
+- **Linux/Mac:** `scripts/bash/`
 
-# Check files in bucket
-aws s3 ls s3://YOUR-BUCKET/
-```
+## 🎓 Learning Objectives
+1. Host and configure static web assets on Amazon S3.
+2. Set up Amazon CloudFront for content delivery network (CDN) capabilities.
+3. Enforce HTTPS natively using CloudFront.
+4. Perform cache invalidations to update website content.
 
-## Cost Estimate
-$0.00 — S3 and CloudFront both within Free Tier limits for this project.
-
-## Cleanup
-1. Disable and delete CloudFront distribution
-2. `aws s3 rm s3://YOUR-BUCKET --recursive`
-3. `aws s3api delete-bucket --bucket YOUR-BUCKET --region us-east-1`
-
-## Next Steps
-- Add a custom domain with Route 53
-- Add a contact form using API Gateway + Lambda (Project 8)
-- Automate deploys with CodePipeline (Project 9)
+---
+*Generated as part of the AWS Hands-On Portfolio.*

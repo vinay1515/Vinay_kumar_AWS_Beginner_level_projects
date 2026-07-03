@@ -1,14 +1,7 @@
-# Troubleshooting Manual
+# Troubleshooting
 
-## Troubleshooting
-
-| Problem | Likely Cause | Fix |
+| Issue | Cause | Fix |
 |---|---|---|
-| PuTTY — Connection refused | Instance not ready or port 22 blocked | Wait for 2/2 status checks; verify SG has port 22 rule |
-| PuTTY — Connection timed out | Wrong IP or SG not attached | Check public IP in console; confirm ec2-web-sg is attached |
-| PuTTY — No supported auth methods | Wrong key file | Re-browse to correct `.ppk` file in PuTTY Auth settings |
-| Browser — Apache page not loading | Port 80 missing or Apache not started | Check SG inbound rules; SSH in and run `sudo systemctl start httpd` |
-| SSM Connect button greyed out | Role not attached or agent not ready | Wait 5 min after attaching role |
-| Public IP changed | Expected — dynamic IP on every start | Note new IP from console after each start; use Elastic IP to fix |
-
----
+| **Website won't load (Connection Timed Out)** | Security Group / HTTPS | Ensure the SG allows inbound Port 80. Ensure you are navigating to `http://` and your browser didn't auto-upgrade to `https://`. |
+| **PuTTY Connection Refused / Timed Out** | Security Group IP mismatch | Your ISP may have changed your public IP. Update the SG Port 22 rule to reflect your current IP address. |
+| **Session Manager "Connect" button is greyed out** | IAM Role missing or booting | Ensure the `ec2-ssm-role` is attached. It can take 2-5 minutes after boot for the SSM Agent to register with the AWS API. |

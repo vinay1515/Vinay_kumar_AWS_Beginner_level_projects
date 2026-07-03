@@ -1,44 +1,49 @@
-# Project 1 — AWS Account Setup & IAM Foundations
+<div align="center">
+  <img src="architecture/architecture.svg" alt="Project Architecture" width="800"/>
 
-## Overview
-Secured an AWS account using IAM best practices: disabled root user for daily use,
-enabled MFA, created a least-privilege IAM admin user, configured billing alerts,
-and set up AWS CLI v2 on Windows.
+  # AWS Account Setup & IAM Foundations (Project 01)
+  
+  **A foundational project to secure a new AWS account using IAM best practices.**
+</div>
 
-## Architecture
-Root Account (MFA secured)
-    └── IAM User: admin-yourname (AdministratorAccess)
-        └── AWS CLI v2 (Windows PowerShell)
-CloudWatch Billing Alarm → SNS Topic → Email notification
+---
 
-## Prerequisites
-- AWS account (free tier)
-- Windows PC
-- Smartphone (for MFA authenticator app)
+## 📋 Project Overview
+This project establishes a secure baseline for a new AWS account. It covers disabling the root user for daily use, enforcing MFA, creating a least-privilege IAM admin user, setting up AWS CLI v2 on Windows, and configuring billing alerts via CloudWatch and SNS.
 
-## Setup Steps
-1. Enable MFA on root account (Authenticator app)
-2. Enable billing alerts in Billing Preferences
-3. Create CloudWatch billing alarm at $5 threshold
-4. Create IAM admin user with console + programmatic access
-5. Install AWS CLI v2 on Windows
-6. Run `aws configure` with IAM access keys
-7. Verify with `aws sts get-caller-identity`
+- **Level:** 🟢 Beginner
+- **Time to Complete:** 1-2 hours
+- **Cost Estimate:** $0.00 (IAM and billing alerts are strictly free-tier)
 
-## Expected Output
-```json
-{
-    "UserId": "AIDA...",
-    "Account": "123456789012",
-    "Arn": "arn:aws:iam::123456789012:user/admin-yourname"
-}
-```
+## 🏗️ Architecture Flow
+1. **Root Account:** Secured with hardware or virtual MFA.
+2. **IAM Admin User:** Created with `AdministratorAccess` policy for daily administration.
+3. **Programmatic Access:** AWS CLI v2 installed and configured using Access Keys.
+4. **Billing Alerts:** CloudWatch Alarm set at $5 threshold → SNS Topic → Email Notification.
 
-## Cost Estimate
-$0.00 — IAM and billing alerts are always free.
+## 📚 Documentation
+For a deep dive into the components and steps, please refer to the documents below:
 
-## Known Issues
-- Billing CloudWatch metrics only available in us-east-1 region
+- 📄 [Project Overview](docs/project-overview.md)
+- 🏗️ [Architecture Details](docs/architecture.md)
+- 🚀 [Deployment Guide](docs/deployment-guide.md)
+- 🔐 [Security Protocols](docs/security-protocols.md)
+- 🧪 [Testing Procedures](docs/testing-procedures.md)
+- 🛠️ [Troubleshooting](docs/troubleshooting.md)
+- 🧹 [Cleanup Guide](docs/cleanup-guide.md)
 
-## Next Steps
-- Project 2: Host a static website on S3 + CloudFront
+## 💻 Automation Scripts
+This project contains ready-to-run automation scripts for both **PowerShell** and **Bash**.
+These scripts handle programmatic setup if you choose to automate the process after the initial console configuration.
+
+- **Windows:** `scripts/powershell/`
+- **Linux/Mac:** `scripts/bash/`
+
+## 🎓 Learning Objectives
+1. Implement the Principle of Least Privilege (PoLP) by avoiding root user usage.
+2. Enforce Multi-Factor Authentication (MFA) for high-level accounts.
+3. Configure the AWS CLI securely on local machines.
+4. Safeguard against unexpected cloud costs using CloudWatch and SNS.
+
+---
+*Generated as part of the AWS Hands-On Portfolio.*
