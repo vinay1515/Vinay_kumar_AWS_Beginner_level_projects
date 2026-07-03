@@ -116,16 +116,30 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-sns-topics.sh</code></td><td>Creates WARNING and CRITICAL SNS topics with email/SMS subscriptions</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-sns-topics.ps1</code></td><td>Creates WARNING and CRITICAL SNS topics with email/SMS subscriptions</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-alarms.sh</code></td><td>Creates CPU, StatusCheck, and composite CloudWatch alarms with SNS actions</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-alarms.ps1</code></td><td>Creates CPU, StatusCheck, and composite CloudWatch alarms with SNS actions</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-dashboard.sh</code></td><td>Provisions CloudWatch dashboard with CPU, Network, Disk, and alarm widgets</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-dashboard.ps1</code></td><td>Provisions CloudWatch dashboard with CPU, Network, Disk, and alarm widgets</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-metric-filter.sh</code></td><td>Creates log group metric filter for ERROR pattern → custom alarm</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-metric-filter.ps1</code></td><td>Creates log group metric filter for ERROR pattern → custom alarm</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-stress-test.sh</code></td><td>Runs `stress` tool on EC2 to trigger CPU alarm for end-to-end verification</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-stress-test.ps1</code></td><td>Runs `stress` tool on EC2 to trigger CPU alarm for end-to-end verification</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-sns-setup.sh</code></td><td>Execute Sns setup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-sns-setup.ps1</code></td><td>Execute Sns setup</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-launch-monitoring-ec2.sh</code></td><td>Execute Launch monitoring ec2</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-launch-monitoring-ec2.ps1</code></td><td>Execute Launch monitoring ec2</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-create-ec2-alarms.sh</code></td><td>Execute Create ec2 alarms</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-create-ec2-alarms.ps1</code></td><td>Execute Create ec2 alarms</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-create-rds-alarms.sh</code></td><td>Execute Create rds alarms</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-create-rds-alarms.ps1</code></td><td>Execute Create rds alarms</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-create-billing-alarm.sh</code></td><td>Execute Create billing alarm</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-create-billing-alarm.ps1</code></td><td>Execute Create billing alarm</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/06-generate-cpu-load.sh</code></td><td>Execute Generate cpu load</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/06-generate-cpu-load.ps1</code></td><td>Execute Generate cpu load</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/07-create-dashboard.sh</code></td><td>Execute Create dashboard</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/07-create-dashboard.ps1</code></td><td>Execute Create dashboard</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/08-create-log-group.sh</code></td><td>Execute Create log group</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/08-create-log-group.ps1</code></td><td>Execute Create log group</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/09-create-metric-filter.sh</code></td><td>Execute Create metric filter</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/09-create-metric-filter.ps1</code></td><td>Execute Create metric filter</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/10-test-log-events.sh</code></td><td>Execute Test log events</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/10-test-log-events.ps1</code></td><td>Execute Test log events</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/11-verify-alarms.sh</code></td><td>Execute Verify alarms</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/11-verify-alarms.ps1</code></td><td>Execute Verify alarms</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/12-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/12-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite

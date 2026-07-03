@@ -115,16 +115,24 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-db-subnet-group.sh</code></td><td>Creates DB subnet group from private subnets in the custom VPC</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-db-subnet-group.ps1</code></td><td>Creates DB subnet group from private subnets in the custom VPC</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-rds-instance.sh</code></td><td>Launches RDS MySQL with parameter group, backups, and encryption</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-rds-instance.ps1</code></td><td>Launches RDS MySQL with parameter group, backups, and encryption</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-ec2-webserver.sh</code></td><td>Launches EC2 in public subnet with Apache/PHP user data bootstrap</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-ec2-webserver.ps1</code></td><td>Launches EC2 in public subnet with Apache/PHP user data bootstrap</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-connect-app-to-db.sh</code></td><td>Configures web app connection string using Secrets Manager credentials</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-connect-app-to-db.ps1</code></td><td>Configures web app connection string using Secrets Manager credentials</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-cleanup.sh</code></td><td>Deletes RDS instance (skip final snapshot), EC2, subnet group, and security groups</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-cleanup.ps1</code></td><td>Deletes RDS instance (skip final snapshot), EC2, subnet group, and security groups</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-vpc-setup.sh</code></td><td>Execute Vpc setup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-vpc-setup.ps1</code></td><td>Execute Vpc setup</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-security-groups.sh</code></td><td>Execute Security groups</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-security-groups.ps1</code></td><td>Execute Security groups</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-rds-subnet-group.sh</code></td><td>Execute Rds subnet group</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-rds-subnet-group.ps1</code></td><td>Execute Rds subnet group</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-secrets-manager.sh</code></td><td>Execute Secrets manager</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-secrets-manager.ps1</code></td><td>Execute Secrets manager</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-create-rds.sh</code></td><td>Execute Create rds</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-create-rds.ps1</code></td><td>Execute Create rds</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/06-launch-ec2.sh</code></td><td>Execute Launch ec2</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/06-launch-ec2.ps1</code></td><td>Execute Launch ec2</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/08-cloudwatch-monitoring.sh</code></td><td>Execute Cloudwatch monitoring</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/08-cloudwatch-monitoring.ps1</code></td><td>Execute Cloudwatch monitoring</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/09-rds-operations.sh</code></td><td>Execute Rds operations</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/09-rds-operations.ps1</code></td><td>Execute Rds operations</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/10-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/10-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite

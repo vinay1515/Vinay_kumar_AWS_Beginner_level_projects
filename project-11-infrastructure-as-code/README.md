@@ -116,16 +116,18 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-validate-template.sh</code></td><td>Runs cfn-lint and aws cloudformation validate-template on all templates</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-validate-template.ps1</code></td><td>Runs cfn-lint and aws cloudformation validate-template on all templates</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-deploy-stack.sh</code></td><td>Creates or updates the root stack with parameters for the target environment</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-deploy-stack.ps1</code></td><td>Creates or updates the root stack with parameters for the target environment</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-change-set.sh</code></td><td>Generates and reviews a change set before applying stack modifications</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-change-set.ps1</code></td><td>Generates and reviews a change set before applying stack modifications</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-detect-drift.sh</code></td><td>Initiates drift detection and reports any out-of-band resource changes</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-detect-drift.ps1</code></td><td>Initiates drift detection and reports any out-of-band resource changes</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-delete-stack.sh</code></td><td>Deletes the entire stack including all nested stacks and resources</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-delete-stack.ps1</code></td><td>Deletes the entire stack including all nested stacks and resources</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-create-stack.sh</code></td><td>Execute Create stack</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-create-stack.ps1</code></td><td>Execute Create stack</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-create-changeset.sh</code></td><td>Execute Create changeset</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-create-changeset.ps1</code></td><td>Execute Create changeset</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-execute-changeset.sh</code></td><td>Execute Execute changeset</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-execute-changeset.ps1</code></td><td>Execute Execute changeset</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-test-rollback.sh</code></td><td>Execute Test rollback</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-test-rollback.ps1</code></td><td>Execute Test rollback</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-detect-drift.sh</code></td><td>Execute Detect drift</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-detect-drift.ps1</code></td><td>Execute Detect drift</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/06-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/06-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite

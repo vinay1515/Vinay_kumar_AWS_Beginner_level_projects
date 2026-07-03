@@ -113,16 +113,12 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-s3-bucket.sh</code></td><td>Creates versioned S3 bucket with public access block and SSE-S3 encryption</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-s3-bucket.ps1</code></td><td>Creates versioned S3 bucket with public access block and SSE-S3 encryption</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-upload-website.sh</code></td><td>Syncs local `./website/` directory to S3 with correct content-type headers</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-upload-website.ps1</code></td><td>Syncs local `./website/` directory to S3 with correct content-type headers</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-cloudfront.sh</code></td><td>Provisions CloudFront distribution with OAC, cache policies, and error pages</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-cloudfront.ps1</code></td><td>Provisions CloudFront distribution with OAC, cache policies, and error pages</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-invalidate-cache.sh</code></td><td>Creates CloudFront invalidation for `/*` after new deployment</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-invalidate-cache.ps1</code></td><td>Creates CloudFront invalidation for `/*` after new deployment</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-cleanup.sh</code></td><td>Disables distribution, empties bucket, and deletes all resources</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-cleanup.ps1</code></td><td>Disables distribution, empties bucket, and deletes all resources</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/deploy.sh</code></td><td>Execute Deploy</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/deploy.ps1</code></td><td>Execute Deploy</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/invalidate_cache.sh</code></td><td>Execute Invalidate_cache</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/invalidate_cache.ps1</code></td><td>Execute Invalidate_cache</td></tr>
 </table>
 
 ## 📚 Documentation Suite

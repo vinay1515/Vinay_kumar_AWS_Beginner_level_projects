@@ -119,16 +119,18 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-vpc.sh</code></td><td>Creates VPC with DNS settings, tags, and default security group</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-vpc.ps1</code></td><td>Creates VPC with DNS settings, tags, and default security group</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-subnets.sh</code></td><td>Creates 4 subnets across 2 AZs with auto-assign public IP on public subnets</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-subnets.ps1</code></td><td>Creates 4 subnets across 2 AZs with auto-assign public IP on public subnets</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-igw.sh</code></td><td>Creates and attaches Internet Gateway; creates public route table with 0.0.0.0/0 → IGW</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-igw.ps1</code></td><td>Creates and attaches Internet Gateway; creates public route table with 0.0.0.0/0 → IGW</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-nat.sh</code></td><td>Allocates Elastic IP, creates NAT Gateway in public subnet, creates private route table</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-nat.ps1</code></td><td>Allocates Elastic IP, creates NAT Gateway in public subnet, creates private route table</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-cleanup.sh</code></td><td>Deletes NAT, releases EIP, detaches IGW, deletes subnets and VPC</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-cleanup.ps1</code></td><td>Deletes NAT, releases EIP, detaches IGW, deletes subnets and VPC</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-create-vpc.sh</code></td><td>Execute Create vpc</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-create-vpc.ps1</code></td><td>Execute Create vpc</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-create-route-tables.sh</code></td><td>Execute Create route tables</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-create-route-tables.ps1</code></td><td>Execute Create route tables</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-create-nat-gateway.sh</code></td><td>Execute Create nat gateway</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-create-nat-gateway.ps1</code></td><td>Execute Create nat gateway</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-create-security-groups.sh</code></td><td>Execute Create security groups</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-create-security-groups.ps1</code></td><td>Execute Create security groups</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-launch-instances.sh</code></td><td>Execute Launch instances</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-launch-instances.ps1</code></td><td>Execute Launch instances</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/06-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/06-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite

@@ -116,16 +116,34 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-codecommit.sh</code></td><td>Creates CodeCommit repository and pushes initial application code</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-codecommit.ps1</code></td><td>Creates CodeCommit repository and pushes initial application code</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-codebuild.sh</code></td><td>Creates CodeBuild project with buildspec.yml and IAM service role</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-codebuild.ps1</code></td><td>Creates CodeBuild project with buildspec.yml and IAM service role</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-codedeploy.sh</code></td><td>Creates CodeDeploy application, deployment group, and appspec.yml</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-codedeploy.ps1</code></td><td>Creates CodeDeploy application, deployment group, and appspec.yml</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-pipeline.sh</code></td><td>Creates CodePipeline connecting all three stages with artifact store</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-pipeline.ps1</code></td><td>Creates CodePipeline connecting all three stages with artifact store</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-trigger-deploy.sh</code></td><td>Commits a code change to trigger the full pipeline end-to-end</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-trigger-deploy.ps1</code></td><td>Commits a code change to trigger the full pipeline end-to-end</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-create-iam-roles.sh</code></td><td>Execute Create iam roles</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-create-iam-roles.ps1</code></td><td>Execute Create iam roles</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-create-s3-bucket.sh</code></td><td>Execute Create s3 bucket</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-create-s3-bucket.ps1</code></td><td>Execute Create s3 bucket</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-create-codecommit.sh</code></td><td>Execute Create codecommit</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-create-codecommit.ps1</code></td><td>Execute Create codecommit</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-launch-ec2.sh</code></td><td>Execute Launch ec2</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-launch-ec2.ps1</code></td><td>Execute Launch ec2</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-create-codedeploy.sh</code></td><td>Execute Create codedeploy</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-create-codedeploy.ps1</code></td><td>Execute Create codedeploy</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/06-create-codebuild.sh</code></td><td>Execute Create codebuild</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/06-create-codebuild.ps1</code></td><td>Execute Create codebuild</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/07-create-codepipeline.sh</code></td><td>Execute Create codepipeline</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/07-create-codepipeline.ps1</code></td><td>Execute Create codepipeline</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/08-monitor-pipeline.sh</code></td><td>Execute Monitor pipeline</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/08-monitor-pipeline.ps1</code></td><td>Execute Monitor pipeline</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/09-trigger-deployment.sh</code></td><td>Execute Trigger deployment</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/09-trigger-deployment.ps1</code></td><td>Execute Trigger deployment</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/10-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/10-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/after_install.sh</code></td><td>Execute After_install</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/after_install.ps1</code></td><td>Execute After_install</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/before_install.sh</code></td><td>Execute Before_install</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/before_install.ps1</code></td><td>Execute Before_install</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/start_application.sh</code></td><td>Execute Start_application</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/start_application.ps1</code></td><td>Execute Start_application</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/validate_service.sh</code></td><td>Execute Validate_service</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/validate_service.ps1</code></td><td>Execute Validate_service</td></tr>
 </table>
 
 ## 📚 Documentation Suite

@@ -115,16 +115,8 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-iam-users.sh</code></td><td>Creates IAM users with console and programmatic access</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-iam-users.ps1</code></td><td>Creates IAM users with console and programmatic access</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-iam-groups.sh</code></td><td>Creates Admins, Developers, ReadOnly groups and attaches policies</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-iam-groups.ps1</code></td><td>Creates Admins, Developers, ReadOnly groups and attaches policies</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-configure-password-policy.sh</code></td><td>Sets account-level password complexity and rotation rules</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-configure-password-policy.ps1</code></td><td>Sets account-level password complexity and rotation rules</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-billing-alarm.sh</code></td><td>Provisions CloudWatch billing alarm → SNS topic → email subscription</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-billing-alarm.ps1</code></td><td>Provisions CloudWatch billing alarm → SNS topic → email subscription</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-enable-mfa.sh</code></td><td>Generates virtual MFA seed and associates it with each IAM user</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-enable-mfa.ps1</code></td><td>Generates virtual MFA seed and associates it with each IAM user</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/verify_setup.sh</code></td><td>Execute Verify_setup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/verify_setup.ps1</code></td><td>Execute Verify_setup</td></tr>
 </table>
 
 ## 📚 Documentation Suite

@@ -118,16 +118,28 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-launch-template.sh</code></td><td>Creates versioned launch template with user data and IMDSv2 enforcement</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-launch-template.ps1</code></td><td>Creates versioned launch template with user data and IMDSv2 enforcement</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-alb.sh</code></td><td>Creates ALB, target group, and HTTP listener with health check configuration</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-alb.ps1</code></td><td>Creates ALB, target group, and HTTP listener with health check configuration</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-asg.sh</code></td><td>Creates ASG with multi-AZ placement, ELB health checks, and target tracking policy</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-asg.ps1</code></td><td>Creates ASG with multi-AZ placement, ELB health checks, and target tracking policy</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-scheduled-actions.sh</code></td><td>Configures business-hours scale-up and off-hours scale-down schedules</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-scheduled-actions.ps1</code></td><td>Configures business-hours scale-up and off-hours scale-down schedules</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-stress-test.sh</code></td><td>Generates CPU load to trigger scale-out and verify ALB distributes to new instances</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-stress-test.ps1</code></td><td>Generates CPU load to trigger scale-out and verify ALB distributes to new instances</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-preflight-check.sh</code></td><td>Execute Preflight check</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-preflight-check.ps1</code></td><td>Execute Preflight check</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-setup-vpc-subnets.sh</code></td><td>Execute Setup vpc subnets</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-setup-vpc-subnets.ps1</code></td><td>Execute Setup vpc subnets</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-create-security-groups.sh</code></td><td>Execute Create security groups</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-create-security-groups.ps1</code></td><td>Execute Create security groups</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-create-launch-template.sh</code></td><td>Execute Create launch template</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-create-launch-template.ps1</code></td><td>Execute Create launch template</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-create-target-group.sh</code></td><td>Execute Create target group</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-create-target-group.ps1</code></td><td>Execute Create target group</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/06-create-alb.sh</code></td><td>Execute Create alb</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/06-create-alb.ps1</code></td><td>Execute Create alb</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/07-create-auto-scaling-group.sh</code></td><td>Execute Create auto scaling group</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/07-create-auto-scaling-group.ps1</code></td><td>Execute Create auto scaling group</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/08-verify-and-test.sh</code></td><td>Execute Verify and test</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/08-verify-and-test.ps1</code></td><td>Execute Verify and test</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/09-test-auto-scaling.sh</code></td><td>Execute Test auto scaling</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/09-test-auto-scaling.ps1</code></td><td>Execute Test auto scaling</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/10-simulate-failure.sh</code></td><td>Execute Simulate failure</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/10-simulate-failure.ps1</code></td><td>Execute Simulate failure</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/11-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/11-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite

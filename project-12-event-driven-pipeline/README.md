@@ -116,16 +116,28 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-sqs.sh</code></td><td>Creates main queue with DLQ redrive policy (maxReceiveCount: 3)</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-sqs.ps1</code></td><td>Creates main queue with DLQ redrive policy (maxReceiveCount: 3)</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-dynamodb.sh</code></td><td>Creates results table with on-demand capacity and idempotency key</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-dynamodb.ps1</code></td><td>Creates results table with on-demand capacity and idempotency key</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-deploy-lambda.sh</code></td><td>Packages and deploys processing Lambda with SQS event source mapping</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-deploy-lambda.ps1</code></td><td>Packages and deploys processing Lambda with SQS event source mapping</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-s3-trigger.sh</code></td><td>Creates source bucket with event notification → SQS for .csv suffix</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-s3-trigger.ps1</code></td><td>Creates source bucket with event notification → SQS for .csv suffix</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-test-pipeline.sh</code></td><td>Uploads sample CSV to S3 and verifies processing in DynamoDB</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-test-pipeline.ps1</code></td><td>Uploads sample CSV to S3 and verifies processing in DynamoDB</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/00-pre-flight.sh</code></td><td>Execute Pre flight</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/00-pre-flight.ps1</code></td><td>Execute Pre flight</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-create-s3.sh</code></td><td>Execute Create s3</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-create-s3.ps1</code></td><td>Execute Create s3</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-create-sqs.sh</code></td><td>Execute Create sqs</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-create-sqs.ps1</code></td><td>Execute Create sqs</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-s3-event-notification.sh</code></td><td>Execute S3 event notification</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-s3-event-notification.ps1</code></td><td>Execute S3 event notification</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-create-lambda-role.sh</code></td><td>Execute Create lambda role</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-create-lambda-role.ps1</code></td><td>Execute Create lambda role</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-deploy-lambda.sh</code></td><td>Execute Deploy lambda</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-deploy-lambda.ps1</code></td><td>Execute Deploy lambda</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/06-connect-sqs-lambda.sh</code></td><td>Execute Connect sqs lambda</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/06-connect-sqs-lambda.ps1</code></td><td>Execute Connect sqs lambda</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/07-test-pipeline.sh</code></td><td>Execute Test pipeline</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/07-test-pipeline.ps1</code></td><td>Execute Test pipeline</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/08-check-logs.sh</code></td><td>Execute Check logs</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/08-check-logs.ps1</code></td><td>Execute Check logs</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/09-test-dlq.sh</code></td><td>Execute Test dlq</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/09-test-dlq.ps1</code></td><td>Execute Test dlq</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/10-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/10-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite

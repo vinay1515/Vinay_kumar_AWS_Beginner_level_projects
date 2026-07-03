@@ -118,16 +118,16 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-keypair.sh</code></td><td>Generates RSA key pair and saves .pem file with 400 permissions</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-keypair.ps1</code></td><td>Generates RSA key pair and saves .pem file with 400 permissions</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-security-group.sh</code></td><td>Creates SG with SSH (your IP) + HTTP (0.0.0.0/0) inbound rules</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-security-group.ps1</code></td><td>Creates SG with SSH (your IP) + HTTP (0.0.0.0/0) inbound rules</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-launch-instance.sh</code></td><td>Launches t2.micro with user data bootstrap, IMDSv2, and encrypted EBS</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-launch-instance.ps1</code></td><td>Launches t2.micro with user data bootstrap, IMDSv2, and encrypted EBS</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-allocate-eip.sh</code></td><td>Allocates and associates an Elastic IP to the running instance</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-allocate-eip.ps1</code></td><td>Allocates and associates an Elastic IP to the running instance</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-connect-ssh.sh</code></td><td>Connects to the instance via SSH using the generated key pair</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-connect-ssh.ps1</code></td><td>Connects to the instance via SSH using the generated key pair</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-create-key-pair.sh</code></td><td>Execute Create key pair</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-create-key-pair.ps1</code></td><td>Execute Create key pair</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-create-security-group.sh</code></td><td>Execute Create security group</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-create-security-group.ps1</code></td><td>Execute Create security group</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-launch-instance.sh</code></td><td>Execute Launch instance</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-launch-instance.ps1</code></td><td>Execute Launch instance</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-connect-ssm.sh</code></td><td>Execute Connect ssm</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-connect-ssm.ps1</code></td><td>Execute Connect ssm</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite

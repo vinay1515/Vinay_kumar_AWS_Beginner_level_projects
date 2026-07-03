@@ -115,16 +115,24 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-dynamodb.sh</code></td><td>Creates DynamoDB table with on-demand capacity and PK/SK schema</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-dynamodb.ps1</code></td><td>Creates DynamoDB table with on-demand capacity and PK/SK schema</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-lambda-role.sh</code></td><td>Creates IAM role with DynamoDB and CloudWatch Logs permissions</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-lambda-role.ps1</code></td><td>Creates IAM role with DynamoDB and CloudWatch Logs permissions</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-deploy-lambdas.sh</code></td><td>Packages and deploys 4 Lambda functions (CRUD) with Python 3.12 runtime</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-deploy-lambdas.ps1</code></td><td>Packages and deploys 4 Lambda functions (CRUD) with Python 3.12 runtime</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-api-gateway.sh</code></td><td>Creates REST API with resources, methods, Lambda integrations, and CORS</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-api-gateway.ps1</code></td><td>Creates REST API with resources, methods, Lambda integrations, and CORS</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-test-api.sh</code></td><td>Runs curl commands against all CRUD endpoints and validates responses</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-test-api.ps1</code></td><td>Runs curl commands against all CRUD endpoints and validates responses</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-create-dynamodb.sh</code></td><td>Execute Create dynamodb</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-create-dynamodb.ps1</code></td><td>Execute Create dynamodb</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-create-lambda-role.sh</code></td><td>Execute Create lambda role</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-create-lambda-role.ps1</code></td><td>Execute Create lambda role</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-package-lambda.sh</code></td><td>Execute Package lambda</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-package-lambda.ps1</code></td><td>Execute Package lambda</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-deploy-lambda.sh</code></td><td>Execute Deploy lambda</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-deploy-lambda.ps1</code></td><td>Execute Deploy lambda</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-create-api-gateway.sh</code></td><td>Execute Create api gateway</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-create-api-gateway.ps1</code></td><td>Execute Create api gateway</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/06-test-api.sh</code></td><td>Execute Test api</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/06-test-api.ps1</code></td><td>Execute Test api</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/07-monitor-cloudwatch.sh</code></td><td>Execute Monitor cloudwatch</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/07-monitor-cloudwatch.ps1</code></td><td>Execute Monitor cloudwatch</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/08-update-lambda.sh</code></td><td>Execute Update lambda</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/08-update-lambda.ps1</code></td><td>Execute Update lambda</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/09-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/09-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite

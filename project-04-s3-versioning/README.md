@@ -112,16 +112,18 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-buckets.sh</code></td><td>Creates source and destination buckets with versioning and encryption</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-buckets.ps1</code></td><td>Creates source and destination buckets with versioning and encryption</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-configure-lifecycle.sh</code></td><td>Applies lifecycle rules for transition, expiration, and multipart cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-configure-lifecycle.ps1</code></td><td>Applies lifecycle rules for transition, expiration, and multipart cleanup</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-setup-replication.sh</code></td><td>Creates IAM role and configures CRR with RTC between source and destination</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-setup-replication.ps1</code></td><td>Creates IAM role and configures CRR with RTC between source and destination</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-test-versioning.sh</code></td><td>Uploads, overwrites, and deletes objects to demonstrate versioning behavior</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-test-versioning.ps1</code></td><td>Uploads, overwrites, and deletes objects to demonstrate versioning behavior</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-cleanup.sh</code></td><td>Removes all object versions, delete markers, replication config, and buckets</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-cleanup.ps1</code></td><td>Removes all object versions, delete markers, replication config, and buckets</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/01-create-source-bucket.sh</code></td><td>Execute Create source bucket</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/01-create-source-bucket.ps1</code></td><td>Execute Create source bucket</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/02-test-versioning.sh</code></td><td>Execute Test versioning</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/02-test-versioning.ps1</code></td><td>Execute Test versioning</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/03-create-lifecycle-policy.sh</code></td><td>Execute Create lifecycle policy</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/03-create-lifecycle-policy.ps1</code></td><td>Execute Create lifecycle policy</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/04-cross-region-replication.sh</code></td><td>Execute Cross region replication</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/04-cross-region-replication.ps1</code></td><td>Execute Cross region replication</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/05-test-replication.sh</code></td><td>Execute Test replication</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/05-test-replication.ps1</code></td><td>Execute Test replication</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/06-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/06-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite
