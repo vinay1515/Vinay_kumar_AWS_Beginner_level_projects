@@ -1,5 +1,5 @@
 <div align="center">
-  <h1><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/aws/aws.png" alt="AWS Logo" style="height: 1em; vertical-align: middle; margin-right: 8px;"/> Project 01: AWS Account Setup & IAM Foundations</h1>
+  <h1><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/aws/aws.png" alt="AWS Logo" style="height: 1.5em; vertical-align: middle; margin-right: 8px;"/> Project 01: AWS Account Setup & IAM Foundations</h1>
 
   <p><i>Establish a hardened AWS account baseline by configuring Identity and Access Management (IAM) with least-privilege policies, multi-factor authentication (MFA), and granular role-based access control. This project lays the security foundation that every subsequent project in this portfolio depends on.</i></p>
 
@@ -148,6 +148,7 @@ aws iam delete-user --user-name <YourUserName>
 | 🔐 [Security Protocols](docs/security-protocols.md) | IAM policies, encryption, network security, and compliance controls |
 | 🧪 [Testing Procedures](docs/testing-procedures.md) | Validation scripts, smoke tests, and integration test suites |
 | 🛠️ [Troubleshooting](docs/troubleshooting.md) | Common issues, error codes, debugging steps, and resolution guides |
+| 🧹 [Cleanup Guide](docs/cleanup-guide.md) | Instructions for tearing down AWS resources to avoid charges |
 
 ## 🤝 Contribution & Maintenance
 
@@ -184,5 +185,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](../LICE
 ---
 
 <div align="center">
-  <b>[Next: Project 02 ➡️](../project-02-s3-static-website)</b>
+  <b><a href="../project-02-s3-static-website/README.md">Next: Project 02 ➡️</a></b>
 </div>

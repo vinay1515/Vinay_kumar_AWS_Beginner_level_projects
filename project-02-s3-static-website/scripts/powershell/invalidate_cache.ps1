@@ -1,15 +1,38 @@
-#Requires -Version 5.1
 <#
 .SYNOPSIS
-Invalidates the CloudFront cache to force edge locations to fetch new S3 files.
+Invalidates the CloudFront cache.
 #>
 
-param (
-    [Parameter(Mandatory=$true)]
-    [string]$DistributionId
-)
+# Load environment variables
+$envFile = Join-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) "..\..\.env"
+if (-not (Test-Path $envFile)) {
+    $envFile = Join-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) "..\.env"
+}
+if (-not (Test-Path $envFile)) {
+    $envFile = ".env"
+}
 
-Write-Host "Requesting cache invalidation for distribution: $DistributionId..." -ForegroundColor Cyan
-aws cloudfront create-invalidation --distribution-id $DistributionId --paths "/*"
+if (Test-Path $envFile) {
+    Get-Content $envFile | Where-Object { $_ -match '^export\s+([^=]+)=(.*)$' } | ForEach-Object {
+        $name = $matches[1].Trim()
+        $value = $matches[2].Trim(' "''')
+        Set-Item -Path "env:\$name" -Value $value
+    }
+} else {
+    Write-Host "Error: .env file not found." -ForegroundColor Red
+    exit 1
+}
 
-Write-Host "Invalidation requested. It will take a few moments to propagate." -ForegroundColor Green
+$DistId = $env:DISTRIBUTION_ID
+
+if ([string]::IsNullOrEmpty($DistId)) {
+    Write-Host "Error: DISTRIBUTION_ID must be set in .env" -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "Creating CloudFront cache invalidation for distribution: $DistId..." -ForegroundColor Cyan
+aws cloudfront create-invalidation `
+  --distribution-id $DistId `
+  --paths "/*"
+
+Write-Host "Invalidation request submitted." -ForegroundColor Green

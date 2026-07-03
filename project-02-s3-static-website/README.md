@@ -113,12 +113,12 @@ Choose your platform and execute the scripts in order:
 
 <table>
 <tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 <tr><td>🐧</td><td><code>scripts/bash/deploy.sh</code></td><td>Execute Deploy</td></tr>
 <tr><td>🖥️</td><td><code>scripts/powershell/deploy.ps1</code></td><td>Execute Deploy</td></tr>
 <tr><td>🐧</td><td><code>scripts/bash/invalidate_cache.sh</code></td><td>Execute Invalidate_cache</td></tr>
 <tr><td>🖥️</td><td><code>scripts/powershell/invalidate_cache.ps1</code></td><td>Execute Invalidate_cache</td></tr>
+<tr><td>🐧</td><td><code>scripts/bash/cleanup.sh</code></td><td>Execute Cleanup</td></tr>
+<tr><td>🖥️</td><td><code>scripts/powershell/cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
 </table>
 
 ## 📚 Documentation Suite
@@ -131,6 +131,7 @@ Choose your platform and execute the scripts in order:
 | 🔐 [Security Protocols](docs/security-protocols.md) | IAM policies, encryption, network security, and compliance controls |
 | 🧪 [Testing Procedures](docs/testing-procedures.md) | Validation scripts, smoke tests, and integration test suites |
 | 🛠️ [Troubleshooting](docs/troubleshooting.md) | Common issues, error codes, debugging steps, and resolution guides |
+| 🧹 [Cleanup Guide](docs/cleanup-guide.md) | Instructions for tearing down AWS resources to avoid charges |
 
 ## 🤝 Contribution & Maintenance
 
