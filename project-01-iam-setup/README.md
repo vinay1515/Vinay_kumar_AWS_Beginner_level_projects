@@ -1,5 +1,5 @@
 <div align="center">
-  <h1><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/aws/aws.png" width="36" height="36" style="vertical-align: middle"/> Project 01: AWS Account Setup & IAM Foundations</h1>
+  <h1><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/aws/aws.png" width="50" height="50" style="vertical-align:middle"/> Project 01: AWS Account Setup & IAM Foundations</h1>
 
   <p><i>Establish a hardened AWS account baseline by configuring Identity and Access Management (IAM) with least-privilege policies, multi-factor authentication (MFA), and granular role-based access control. This project lays the security foundation that every subsequent project in this portfolio depends on.</i></p>
 
@@ -114,10 +114,29 @@ export BILLING_THRESHOLD="5"
 Choose your platform and execute the scripts in order:
 
 <table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/verify_setup.sh</code></td><td>Execute Verify_setup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/verify_setup.ps1</code></td><td>Execute Verify_setup</td></tr>
+<tr><th>Order</th><th>Step</th><th>Bash Script (🐧)</th><th>PowerShell Script (🖥️)</th><th>Description</th></tr>
+<tr><td>1</td><td>Setup IAM User</td><td><code>scripts/bash/setup-iam-user.sh</code></td><td><code>scripts/powershell/setup-iam-user.ps1</code></td><td>Creates IAM user, group, and policies</td></tr>
+<tr><td>2</td><td>Setup Billing Alarm</td><td><code>scripts/bash/setup-billing-alarm.sh</code></td><td><code>scripts/powershell/setup-billing-alarm.ps1</code></td><td>Creates SNS topic and CloudWatch billing alarm</td></tr>
+<tr><td>3</td><td>Verify Setup</td><td><code>scripts/bash/verify_setup.sh</code></td><td><code>scripts/powershell/verify_setup.ps1</code></td><td>Validates the creation of all resources</td></tr>
 </table>
+
+### 🧹 Cleanup
+
+**Note:** Since this project sets up the foundational IAM access for subsequent projects in this portfolio, you typically **do not** want to clean this up immediately. However, if you need to tear down the environment, you can remove the resources using the AWS CLI:
+
+```bash
+# 1. Delete CloudWatch Alarm
+aws cloudwatch delete-alarms --alarm-names "AccountBillingAlarm"
+
+# 2. Delete SNS Topic (Replace <AccountID> with your AWS Account ID)
+aws sns delete-topic --topic-arn "arn:aws:sns:us-east-1:<AccountID>:billing-alerts"
+
+# 3. Clean up IAM User (Requires detaching policies and deleting access keys first)
+aws iam detach-user-policy --user-name <YourUserName> --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+aws iam delete-login-profile --user-name <YourUserName>
+aws iam delete-access-key --user-name <YourUserName> --access-key-id <YourAccessKeyId>
+aws iam delete-user --user-name <YourUserName>
+```
 
 ## 📚 Documentation Suite
 
