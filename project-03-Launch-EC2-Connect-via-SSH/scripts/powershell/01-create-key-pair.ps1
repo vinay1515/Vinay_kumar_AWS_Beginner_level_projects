@@ -1,3 +1,7 @@
+# Create the keys folder
+mkdir C:\Users\$env:USERNAME\aws-keys -ErrorAction SilentlyContinue
+
+# Create key pair and save private key
 aws ec2 create-key-pair `
   --key-name aws-ec2-keypair `
   --key-type RSA `
@@ -7,4 +11,7 @@ aws ec2 create-key-pair `
   -FilePath "C:\Users\$env:USERNAME\aws-keys\aws-ec2-keypair.ppk" `
   -Encoding ascii
 
-Write-Host -ForegroundColor Green "Created key pair: aws-ec2-keypair"
+# Verify it was created in AWS
+aws ec2 describe-key-pairs --key-names aws-ec2-keypair `
+  --query "KeyPairs[*].{Name:KeyName,ID:KeyPairId}" `
+  --output table

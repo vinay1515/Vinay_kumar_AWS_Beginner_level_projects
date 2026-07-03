@@ -88,6 +88,19 @@ General-purpose SSD with baseline 3000 IOPS; encrypted at rest with AWS-managed 
 - Python 3.9+ (for AWS CLI v2 and Session Manager plugin)
 - Session Manager Plugin installed (`aws ssm start-session` support)
 
+### Pre-flight Checks
+Run these commands in PowerShell to confirm your environment is ready:
+```powershell
+# Confirm CLI is working
+aws sts get-caller-identity
+
+# Confirm region
+aws configure get region
+
+# Check your default VPC exists
+aws ec2 describe-vpcs --filters "Name=isDefault,Values=true" --query "Vpcs[*].{VpcId:VpcId,CIDR:CidrBlock}" --output table
+```
+
 ### Installation
 
 ```bash
@@ -176,5 +189,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](../LICE
 ---
 
 <div align="center">
-  <b>[⬅️ Previous: Project 02](../project-02-s3-static-website) &nbsp;|&nbsp; [Next: Project 04 ➡️](../project-04-s3-versioning)</b>
+  <b><a href="../project-02-s3-static-website">⬅️ Previous: Project 02</a> &nbsp;|&nbsp; <a href="../project-04-s3-versioning">Next: Project 04 ➡️</a></b>
 </div>
