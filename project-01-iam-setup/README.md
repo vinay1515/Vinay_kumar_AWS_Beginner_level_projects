@@ -185,5 +185,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](../LICE
 ---
 
 <div align="center">
-  <b><a href="../E:\AWS Hands-on Projects\project-02-s3-static-website">Next: Project 02 ➡️</a></b>
+  <b><a href="../project-02-s3-static-website">Next: Project 02 ➡️</a></b>
 </div>
