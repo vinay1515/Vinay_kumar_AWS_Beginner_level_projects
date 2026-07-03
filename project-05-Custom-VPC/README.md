@@ -1,27 +1,94 @@
+
+<div align="center">
+  <svg width="800" height="150" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      .bg { fill: url(#grad); stroke: #e1e4e8; stroke-width: 2px; rx: 12px; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 28px; font-weight: 800; fill: #ffffff; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 500; fill: #e1e4e8; }
+      .glow { animation: pulse 3s infinite alternate; }
+      @keyframes pulse {
+        0% { opacity: 0.8; filter: drop-shadow(0 0 4px rgba(255,153,0,0.4)); }
+        100% { opacity: 1; filter: drop-shadow(0 0 12px rgba(255,153,0,0.9)); }
+      }
+      @media (prefers-color-scheme: dark) {
+        .bg { stroke: #30363d; }
+      }
+    </style>
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#232f3e;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#ff9900;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <rect width="100%" height="100%" class="bg" />
+    <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" class="title glow">Custom VPC Architecture</text>
+    <text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" class="subtitle">Design a secure, isolated network boundary mimicking traditional enterprise data center architecture.</text>
+  </svg>
+</div>
+
+
+
+<div align="center" style="margin: 30px 0; padding: 15px; border: 1px solid #e1e4e8; border-radius: 8px; background-color: #f6f8fa;">
+  <table style="width: 100%; text-align: center; border: none; background: transparent;">
+    <tr style="border: none;">
+      <td style="width: 33%; border: none;"><a href='../project-04-s3-versioning/README.md' style='font-size: 16px; text-decoration: none;'>⏪ <b>Previous: S3 Versioning</b></a></td>
+      <td style="width: 33%; border: none;"><a href="README.md" style="font-size: 16px; text-decoration: none;">🏠 <b>Project Home</b></a></td>
+      <td style="width: 33%; border: none;"><a href='../project-06-rds-ec2/README.md' style='font-size: 16px; text-decoration: none;'><b>Next: Rds Ec2</b> ⏩</a></td>
+    </tr>
+  </table>
+</div>
+
+
 <div align="center">
   <img src="architecture/architecture.svg" alt="Project Architecture" width="800"/>
-
-  # Custom VPC Foundation (Project 05)
-  
-  **Design and deploy a production-ready Virtual Private Cloud from scratch.**
 </div>
 
 ---
 
-## 📋 Project Overview
-This project builds the networking foundation required by almost all AWS architectures. You will deploy a custom VPC with public and private subnets across two Availability Zones, an Internet Gateway for public access, and a NAT Gateway to allow private instances to securely download updates.
+## 🌟 Expansive Overview
+> **Core Purpose:** Design a secure, isolated network boundary mimicking traditional enterprise data center architecture.
 
-- **Level:** 🟡 Intermediate
-- **Time to Complete:** 2-3 hours
-- **Cost Estimate:** ~$0.05 (NAT Gateway incurs a small hourly charge)
+Custom VPC Architecture is designed to reflect enterprise-grade cloud engineering. This project moves beyond the console basics, demonstrating how AWS services are stitched together to form resilient, scalable, and highly available architectures.
 
-## 🏗️ Architecture Flow
-1. **Custom VPC (10.0.0.0/16):** The isolated network boundary.
-2. **Public Subnets:** Contains the NAT Gateway and a Bastion Host (EC2). Routes to the Internet Gateway.
-3. **Private Subnets:** Houses internal workloads. Routes outbound traffic to the NAT Gateway.
-4. **Security Group Chaining:** Private EC2 instances only accept SSH traffic originating from the Bastion Host's security group.
+### 💼 Real-World Usage Scenarios
+Companies around the globe use this exact architectural pattern for:
+- **Database Isolation:** Keeping RDS databases completely off the public internet.
+- **Enterprise Networking:** Connecting on-premise datacenters via Site-to-Site VPN or Direct Connect to private subnets.
+- **Microservices:** Creating specific subnets for specific service tiers (Web, App, Data).
 
-## 📚 Documentation
+---
+
+## ⚙️ Infrastructure Specifications
+
+<details>
+<summary><b>💡 Click to Expand Technical Specifications</b></summary>
+<br>
+
+| Component | Specification |
+|-----------|---------------|
+| **VPC CIDR** | ** 10.0.0.0/16 (65,536 IPs) |
+| **Public Subnets** | ** 10.0.1.0/24 (AZ-a), 10.0.2.0/24 (AZ-b) |
+| **Private Subnets** | ** 10.0.3.0/24 (AZ-a), 10.0.4.0/24 (AZ-b) |
+| **Gateways** | ** Internet Gateway (IGW), NAT Gateway (Elastic IP) |
+
+</details>
+
+---
+
+## 📂 Project Structure & Performance
+
+To optimize your execution of this project, adhere strictly to the following folder topology. 
+
+| Directory | Core Function |
+|-----------|---------------|
+| `👉 docs/` | Subnet mapping and routing table documentation. |
+| `👉 scripts/` | Complex orchestration scripts for network provisioning. |
+
+---
+
+## 📚 Granular Documentation Suite
+We have broken down the technical manuals into granular, highly detailed Markdown files. Start with the Project Overview and proceed sequentially:
+
 - 📄 [Project Overview](docs/project-overview.md)
 - 🏗️ [Architecture Details](docs/architecture.md)
 - 🚀 [Deployment Guide](docs/deployment-guide.md)
@@ -30,10 +97,5 @@ This project builds the networking foundation required by almost all AWS archite
 - 🛠️ [Troubleshooting](docs/troubleshooting.md)
 - 🧹 [Cleanup Guide](docs/cleanup-guide.md)
 
-## 💻 Automation Scripts
-This project contains ready-to-run automation scripts for both **PowerShell** and **Bash**.
-- **Windows:** `scripts/powershell/`
-- **Linux/Mac:** `scripts/bash/`
-
 ---
-*Generated as part of the AWS Hands-On Portfolio.*
+*✨ Modernized & Enhanced for the AWS Hands-On Portfolio ✨*
