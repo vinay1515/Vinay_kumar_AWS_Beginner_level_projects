@@ -11,19 +11,19 @@ flowchart TD
     end
 
     subgraph "Identity Providers"
-        Root["Root User Account\n(Locked Away)"]
+        Root["Root User Account<br/>(Locked Away)"]
         MFA1{Hardware/Virtual MFA}
         
-        IAMUser["IAM User\n(e.g., 'admin')"]
+        IAMUser["IAM User<br/>(e.g., 'admin')"]
         MFA2{Virtual MFA}
     end
 
     subgraph "AWS Infrastructure (Control Plane)"
-        IAMGroup["IAM Group\n(e.g., 'Administrators')"]
-        Policy["AWS Managed Policy\n(AdministratorAccess)"]
+        IAMGroup["IAM Group<br/>(e.g., 'Administrators')"]
+        Policy["AWS Managed Policy<br/>(AdministratorAccess)"]
         
-        CLIConfig["Local AWS CLI Config\n(~/.aws/credentials)"]
-        Budgets["AWS Budgets\n(Billing Alarm)"]
+        CLIConfig["Local AWS CLI Config<br/>(~/.aws/credentials)"]
+        Budgets["AWS Budgets<br/>(Billing Alarm)"]
     end
 
     Human -- "Break-Glass Only" --> Root

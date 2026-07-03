@@ -10,7 +10,7 @@ flowchart TD
         Client([Administrator / CLI])
         
         subgraph "Source Environment"
-            SourceBucket[("Source Bucket\n(Versioning: ON)")]
+            SourceBucket[("Source Bucket<br/>(Versioning: ON)")]
             
             subgraph "Lifecycle Engine"
                 Rule1(Day 30: Move to Standard-IA)
@@ -22,12 +22,12 @@ flowchart TD
 
     subgraph "Disaster Recovery Region (e.g., us-west-2)"
         subgraph "Destination Environment"
-            DestBucket[("Destination / Replica Bucket\n(Versioning: ON)")]
+            DestBucket[("Destination / Replica Bucket<br/>(Versioning: ON)")]
         end
     end
 
     subgraph "AWS Identity & Access Management (IAM)"
-        ReplRole{"S3 Replication Role\n(AssumeRole: s3.amazonaws.com)"}
+        ReplRole{"S3 Replication Role<br/>(AssumeRole: s3.amazonaws.com)"}
     end
 
     Client -- "1. Uploads / Overwrites (PUT)" --> SourceBucket
