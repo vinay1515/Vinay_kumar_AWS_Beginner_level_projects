@@ -27,7 +27,7 @@
 
 ## 🏗️ Architecture Overview
 
-<img src="./architecture/architecture.svg" alt="Static Website Hosting on S3 + CloudFront CDN — System Architecture" width="800"/>
+<img src="./architecture/architectural-diagram.svg" alt="Static Website Hosting on S3 + CloudFront CDN — System Architecture" width="800"/>
 
 <p><i>▲ High-level architecture diagram showing the interaction between S3, CloudFront, Route 53, ACM services</i></p>
 

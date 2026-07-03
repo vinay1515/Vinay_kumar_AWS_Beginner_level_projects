@@ -27,7 +27,7 @@
 
 ## 🏗️ Architecture Overview
 
-<img src="./architecture/architecture.svg" alt="S3 Versioning, Lifecycle Rules & Cross-Region Replication — System Architecture" width="800"/>
+<img src="./architecture/s3-replication-architecture.svg" alt="S3 Versioning, Lifecycle Rules & Cross-Region Replication — System Architecture" width="800"/>
 
 <p><i>▲ High-level architecture diagram showing the interaction between S3, IAM, KMS services</i></p>
 

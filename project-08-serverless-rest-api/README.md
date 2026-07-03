@@ -27,7 +27,7 @@
 
 ## 🏗️ Architecture Overview
 
-<img src="./architecture/architecture.svg" alt="Serverless REST API with API Gateway, Lambda & DynamoDB — System Architecture" width="800"/>
+<img src="./architecture/api-request-flow.svg" alt="Serverless REST API with API Gateway, Lambda & DynamoDB — System Architecture" width="800"/>
 
 <p><i>▲ High-level architecture diagram showing the interaction between API Gateway, Lambda, DynamoDB, IAM, CloudWatch services</i></p>
 

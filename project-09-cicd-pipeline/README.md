@@ -27,7 +27,7 @@
 
 ## 🏗️ Architecture Overview
 
-<img src="./architecture/architecture.svg" alt="CI/CD Pipeline with CodeCommit, CodeBuild & CodeDeploy — System Architecture" width="800"/>
+<img src="./architecture/cicd-architecture.svg" alt="CI/CD Pipeline with CodeCommit, CodeBuild & CodeDeploy — System Architecture" width="800"/>
 
 <p><i>▲ High-level architecture diagram showing the interaction between CodeCommit, CodeBuild, CodeDeploy, CodePipeline, S3, IAM services</i></p>
 

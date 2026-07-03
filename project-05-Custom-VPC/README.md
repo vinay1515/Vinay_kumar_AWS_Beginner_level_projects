@@ -27,7 +27,7 @@
 
 ## 🏗️ Architecture Overview
 
-<img src="./architecture/architecture.svg" alt="Custom VPC with Public & Private Subnets — System Architecture" width="800"/>
+<img src="./architecture/vpc-architecture.svg" alt="Custom VPC with Public & Private Subnets — System Architecture" width="800"/>
 
 <p><i>▲ High-level architecture diagram showing the interaction between VPC, EC2, NAT Gateway, Internet Gateway services</i></p>
 

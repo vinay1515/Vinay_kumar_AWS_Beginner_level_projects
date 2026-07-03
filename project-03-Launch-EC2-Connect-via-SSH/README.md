@@ -27,7 +27,7 @@
 
 ## 🏗️ Architecture Overview
 
-<img src="./architecture/architecture.svg" alt="Launch EC2 Instances & Secure Connectivity — System Architecture" width="800"/>
+<img src="./architecture/ec2-ssh-architecture.svg" alt="Launch EC2 Instances & Secure Connectivity — System Architecture" width="800"/>
 
 <p><i>▲ High-level architecture diagram showing the interaction between EC2, VPC, SSM, EBS services</i></p>
 

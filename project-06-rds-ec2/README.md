@@ -27,7 +27,7 @@
 
 ## 🏗️ Architecture Overview
 
-<img src="./architecture/architecture.svg" alt="RDS MySQL + EC2 Two-Tier Web Application — System Architecture" width="800"/>
+<img src="./architecture/architecture-diagram.svg" alt="RDS MySQL + EC2 Two-Tier Web Application — System Architecture" width="800"/>
 
 <p><i>▲ High-level architecture diagram showing the interaction between RDS, EC2, VPC, Secrets Manager services</i></p>
 

@@ -27,7 +27,7 @@
 
 ## 🏗️ Architecture Overview
 
-<img src="./architecture/architecture.svg" alt="Auto Scaling Group with Application Load Balancer — System Architecture" width="800"/>
+<img src="./architecture/asg-alb-architecture.svg" alt="Auto Scaling Group with Application Load Balancer — System Architecture" width="800"/>
 
 <p><i>▲ High-level architecture diagram showing the interaction between EC2, ALB, ASG, CloudWatch, VPC services</i></p>
 
