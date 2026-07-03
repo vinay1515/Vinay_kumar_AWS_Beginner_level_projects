@@ -13,9 +13,9 @@ flowchart TD
             SourceBucket[("Source Bucket<br/>(Versioning: ON)")]
             
             subgraph "Lifecycle Engine"
-                Rule1(Day 30: Move to Standard-IA)
-                Rule2(Day 90: Move to Glacier Flexible)
-                Rule3(Day 365: Expire / Delete)
+                Rule1("Day 30: Move to Standard-IA")
+                Rule2("Day 90: Move to Glacier Flexible")
+                Rule3("Day 365: Expire / Delete")
             end
         end
     end
@@ -33,7 +33,7 @@ flowchart TD
     Client -- "1. Uploads / Overwrites (PUT)" --> SourceBucket
     Client -- "2. Deletes Object (DELETE)" --> SourceBucket
     
-    SourceBucket -. "Evaluates Age" .-> Lifecycle Engine
+    SourceBucket -. "Evaluates Age" .-> Rule1
     
     SourceBucket -- "3. Asynchronous Copy via AWS Backbone" --> DestBucket
     ReplRole -. "Grants s3:ReplicateObject" .-> DestBucket
