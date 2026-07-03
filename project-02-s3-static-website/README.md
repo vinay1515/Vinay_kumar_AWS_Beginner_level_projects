@@ -168,5 +168,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](../LICE
 ---
 
 <div align="center">
-  <b>[⬅️ Previous: Project 01](../project-01-iam-setup) &nbsp;|&nbsp; [Next: Project 03 ➡️](../project-03-Launch-EC2-Connect-via-SSH)</b>
+  <b><a href="../project-01-iam-setup/README.md">⬅️ Previous: Project 01</a> &nbsp;|&nbsp; <a href="../project-03-Launch-EC2-Connect-via-SSH/README.md">Next: Project 03 ➡️</a></b>
 </div>
