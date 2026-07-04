@@ -49,7 +49,7 @@
 
 <div align="center">
   <br/>
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=vinay1515&repo=Vinay_kumar_AWS_Beginner_level_projects&theme=radical" alt="GitHub Repo Card" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=vinay1515&theme=radical" alt="GitHub Streak Stats" />
   <br/><br/>
 </div>
 
@@ -174,6 +174,20 @@ Each project folder is a self-contained learning module. Dive into any directory
 
 ---
 
+## 📫 Let's Connect
+
+If you'd like to discuss cloud engineering, collaborate on a project, or offer feedback on this portfolio, feel free to reach out!
+
+<div align="center">
+  <a href="https://www.linkedin.com/in/vinay-kumar-duvva/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="mailto:duvvavinaykumar@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
+  <a href="https://github.com/vinay1515"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
+</div>
+
+<br/>
+
+---
+
 <div align="center">
   
 ### ⚠️ Security Notice
@@ -181,6 +195,6 @@ Each project folder is a self-contained learning module. Dive into any directory
 
 <br/>
 
-**[ MIT License ]** — *Feel free to fork, adapt, and build on this for your own learning journey!*
+**<a href="LICENSE">[ MIT License ]</a>** — *Feel free to fork, adapt, and build on this for your own learning journey!*
 
 </div>
