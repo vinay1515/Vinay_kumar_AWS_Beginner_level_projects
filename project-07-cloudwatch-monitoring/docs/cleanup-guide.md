@@ -306,3 +306,4 @@ After cleanup, nothing billable remains. Verify in **AWS Billing → Cost Explor
 - SNS: $0 (email notifications are free)
 - EC2: $0 (terminated)
 - CloudWatch Logs: $0 (minimal ingestion, within free tier)
+

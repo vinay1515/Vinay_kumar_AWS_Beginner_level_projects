@@ -33,3 +33,4 @@ We can simulate application errors by pushing mock log events directly into our 
 Open the CloudWatch Dashboard `AWS-Bootcamp-Dashboard`.
 - Confirm all 6 widgets are rendering data.
 - Ensure the Alarm Status widget reflects the newly triggered ALARM states from your stress tests.
+

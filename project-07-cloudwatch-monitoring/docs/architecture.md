@@ -1,41 +1,46 @@
 # Architecture Details: CloudWatch Monitoring & Alerts
 
-## 🏗️ High-Level System Architecture
+## 🏗️ System Overview & Data Flow
 
 This project implements a multi-tiered monitoring stack collecting metrics from compute resources, database resources, billing systems, and application logs.
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│                    MONITORING STACK                         │
-│                                                             │
-│  EC2 Instance          RDS MySQL         Billing            │
-│  ├── CPUUtilization    ├── CPUUtilization ├── EstimatedCharge│
-│  ├── NetworkIn/Out     ├── DBConnections  └── Alarm → SNS   │
-│  ├── StatusCheckFailed └── FreeStorage                      │
-│  └── DiskReadOps           │                                │
-│         │                  │                                │
-│         ▼                  ▼                                │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │           CloudWatch Alarms                         │    │
-│  │  EC2-CPU-High    RDS-CPU-High    Billing-Alert      │    │
-│  │  EC2-StatusFail  RDS-Storage-Low                    │    │
-│  └──────────────────────┬──────────────────────────────┘    │
-│                         │ ALARM state                       │
-│                         ▼                                   │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │              SNS Topic: monitoring-alerts            │   │
-│  │              Subscribers: your@email.com             │   │
-│  └──────────────────────┬───────────────────────────────┘   │
-│                         │                                   │
-│                         ▼                                   │
-│              📧 Email Notification                          │
-│                                                             │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │         CloudWatch Dashboard: AWS-Bootcamp           │   │
-│  │  [EC2 CPU] [EC2 Network] [RDS CPU] [RDS Connections] │   │
-│  │  [RDS Storage] [Billing] [Alarm Status]              │   │
-│  └──────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph "AWS Cloud"
+        subgraph "Monitored Resources"
+            EC2["EC2 Instance (monitoring-test)"]
+            RDS[("RDS Database (myapp-database)")]
+            Billing["AWS Billing (us-east-1)"]
+        end
+
+        subgraph "CloudWatch"
+            Metrics[("CloudWatch Metrics")]
+            Alarms{"CloudWatch Alarms"}
+            Dashboard["CloudWatch Dashboard"]
+            LogGroup["Log Group (/aws/ec2/monitoring-test)"]
+            MetricFilter["Metric Filter (Keyword: ERROR)"]
+            CustomMetric[("Custom Metric (ApplicationErrors)")]
+        end
+        
+        SNS["SNS Topic (monitoring-alerts)"]
+    end
+    
+    Email([Email Subscriber])
+    
+    EC2 -->|CPU, Network, Status| Metrics
+    RDS -->|CPU, Storage, Connections| Metrics
+    Billing -->|Estimated Charges| Metrics
+    
+    EC2 -->|Application Logs| LogGroup
+    LogGroup -->|Parse Logs| MetricFilter
+    MetricFilter -->|Increment| CustomMetric
+    CustomMetric --> Metrics
+    
+    Metrics -->|Evaluate Thresholds| Alarms
+    Metrics -.->|Visualize| Dashboard
+    
+    Alarms -->|ALARM State| SNS
+    SNS -->|Fan-out Notification| Email
 ```
 
 ## 🔄 Data Flow Analysis
@@ -52,3 +57,4 @@ This project implements a multi-tiered monitoring stack collecting metrics from 
 2. A **Metric Filter** constantly scans incoming log streams for the specific keyword `ERROR`.
 3. When matched, the filter increments a custom CloudWatch metric (`ApplicationErrors` in the `CustomMetrics` namespace).
 4. A CloudWatch alarm monitors this custom metric and alerts if errors spike.
+

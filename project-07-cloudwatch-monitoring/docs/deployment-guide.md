@@ -2352,3 +2352,4 @@ Write-Host "=== Project 7 Cleanup Complete ===" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Cost impact: $0.00 — all resources were within free tier."
 ```
+

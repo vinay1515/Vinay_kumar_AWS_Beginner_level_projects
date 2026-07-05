@@ -27,3 +27,4 @@ Use this reference to resolve common issues encountered during the deployment of
 ### Issue 6: Log metric filter is not counting errors
 - **Cause:** Metric filter patterns are strictly case-sensitive.
 - **Fix:** Ensure the log events being pushed contain the exact uppercase string `ERROR`. `error` or `Error` will not match the pattern.
+

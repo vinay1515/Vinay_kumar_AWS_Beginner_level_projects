@@ -36,3 +36,4 @@ This project is designed to be entirely within the AWS Free Tier:
 - **CloudWatch Logs:** 5 GB ingestion free.
 - **SNS Notifications:** 1,000 free email deliveries per month.
 **Total Cost:** $0.00.
+

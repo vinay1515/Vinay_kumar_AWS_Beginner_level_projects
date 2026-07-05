@@ -17,3 +17,4 @@ The Simple Notification Service (SNS) topic uses an access policy that strictly 
 When creating **Metric Filters** to parse application logs:
 - Ensure that logs ingested into CloudWatch do NOT contain sensitive Personally Identifiable Information (PII) or plaintext passwords, as metric filters expose patterns that might be visible to operators.
 - Log retention is explicitly set to 7 days to minimize storage footprint and comply with data minimization principles.
+
