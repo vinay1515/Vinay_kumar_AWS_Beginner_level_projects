@@ -705,6 +705,10 @@ Write-Host "Private Instance IP: $PRIVATE_IP"
 
 ## 🔍 PART 8 — VERIFY CONNECTIVITY
 
+### 🖥️ Method 1: AWS Management Console
+*(Connectivity testing is performed via terminal. See Methods 2 and 3).*
+
+### 🐧 Method 2: AWS CLI (Bash)
 **Test 1 — SSH into bastion (public subnet)**
 Open PuTTY (or terminal):
 * Host: `ec2-user@YOUR_BASTION_PUBLIC_IP`
@@ -773,6 +777,9 @@ curl http://169.254.169.254/latest/meta-data/public-ipv4
 # Expected: 404 or empty — no public IP assigned
 ```
 ✅ If `curl https://checkip.amazonaws.com` returns the NAT Gateway's EIP — your entire VPC architecture is working correctly!
+
+### 🪟 Method 3: AWS CLI (PowerShell)
+*(Follow the exact same SSH test procedures listed in Method 2)*
 
 ---
 

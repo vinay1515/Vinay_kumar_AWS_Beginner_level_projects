@@ -114,33 +114,23 @@ export CRITICAL_THRESHOLD="95"
 
 Choose your platform and execute the scripts in order:
 
-<table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-sns-setup.sh</code></td><td>Execute Sns setup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-sns-setup.ps1</code></td><td>Execute Sns setup</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-launch-monitoring-ec2.sh</code></td><td>Execute Launch monitoring ec2</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-launch-monitoring-ec2.ps1</code></td><td>Execute Launch monitoring ec2</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-ec2-alarms.sh</code></td><td>Execute Create ec2 alarms</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-ec2-alarms.ps1</code></td><td>Execute Create ec2 alarms</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-rds-alarms.sh</code></td><td>Execute Create rds alarms</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-rds-alarms.ps1</code></td><td>Execute Create rds alarms</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-create-billing-alarm.sh</code></td><td>Execute Create billing alarm</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-create-billing-alarm.ps1</code></td><td>Execute Create billing alarm</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/06-generate-cpu-load.sh</code></td><td>Execute Generate cpu load</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/06-generate-cpu-load.ps1</code></td><td>Execute Generate cpu load</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/07-create-dashboard.sh</code></td><td>Execute Create dashboard</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/07-create-dashboard.ps1</code></td><td>Execute Create dashboard</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/08-create-log-group.sh</code></td><td>Execute Create log group</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/08-create-log-group.ps1</code></td><td>Execute Create log group</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/09-create-metric-filter.sh</code></td><td>Execute Create metric filter</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/09-create-metric-filter.ps1</code></td><td>Execute Create metric filter</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/10-test-log-events.sh</code></td><td>Execute Test log events</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/10-test-log-events.ps1</code></td><td>Execute Test log events</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/11-verify-alarms.sh</code></td><td>Execute Verify alarms</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/11-verify-alarms.ps1</code></td><td>Execute Verify alarms</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/12-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/12-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
-</table>
+| Step | Bash Script | PowerShell Script | Description |
+|------|-------------|-------------------|-------------|
+| 01 | `scripts/bash/01-sns-setup.sh` | `scripts/powershell/01-sns-setup.ps1` | Creates SNS topic and email subscription |
+| 02 | `scripts/bash/02-launch-monitoring-ec2.sh` | `scripts/powershell/02-launch-monitoring-ec2.ps1` | Launches EC2 instance for testing |
+| 03 | `scripts/bash/03-create-ec2-alarms.sh` | `scripts/powershell/03-create-ec2-alarms.ps1` | Creates CPU, Network, and StatusCheck alarms |
+| 04 | `scripts/bash/04-create-rds-alarms.sh` | `scripts/powershell/04-create-rds-alarms.ps1` | Creates RDS CPU, Storage, and Connections alarms |
+| 05 | `scripts/bash/05-create-billing-alarm.sh` | `scripts/powershell/05-create-billing-alarm.ps1` | Creates $5 billing threshold alarm in us-east-1 |
+| 06 | `scripts/bash/06-generate-cpu-load.sh` | `scripts/powershell/06-generate-cpu-load.ps1` | Stresses EC2 to trigger CPU alarm |
+| 07 | `scripts/bash/07-create-dashboard.sh` | `scripts/powershell/07-create-dashboard.ps1` | Deploys CloudWatch multi-widget dashboard |
+| 08 | `scripts/bash/08-create-log-group.sh` | `scripts/powershell/08-create-log-group.ps1` | Sets up CloudWatch Logs with 7-day retention |
+| 09 | `scripts/bash/09-create-metric-filter.sh` | `scripts/powershell/09-create-metric-filter.ps1` | Creates filter and alarm for application errors |
+| 10 | `scripts/bash/10-test-log-events.sh` | `scripts/powershell/10-test-log-events.ps1` | Ingests mock logs to trigger error alarm |
+| 11 | `scripts/bash/11-verify-alarms.sh` | `scripts/powershell/11-verify-alarms.ps1` | Queries and validates all alarm states |
+| 12 | `scripts/bash/12-cleanup.sh` | `scripts/powershell/12-cleanup.ps1` | Tears down all monitoring infrastructure |
+
+### 📸 Screenshots & Validation
+Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
 ## 📚 Documentation Suite
 
@@ -188,5 +178,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](../LICE
 ---
 
 <div align="center">
-  <b>[⬅️ Previous: Project 06](../project-06-rds-ec2) &nbsp;|&nbsp; [Next: Project 08 ➡️](../project-08-serverless-rest-api)</b>
+  <b><a href="../project-06-rds-ec2">⬅️ Previous: Project 06</a> &nbsp;|&nbsp; <a href="../project-08-serverless-rest-api">Next: Project 08 ➡️</a></b>
 </div>

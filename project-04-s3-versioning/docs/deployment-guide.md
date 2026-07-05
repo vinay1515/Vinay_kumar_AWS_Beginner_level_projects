@@ -630,7 +630,7 @@ aws s3api get-bucket-replication --bucket $SOURCE_BUCKET
 
 ## 🔍 PART 5 — VALIDATE REPLICATION SLA
 
-### 🖥️ Method 1: Interactive/Manual validation
+### 🖥️ Method 1: AWS Management Console
 1. Upload a new test file (`crr-test.txt`) to the SOURCE bucket.
 2. S3 Replication is asynchronous. Wait roughly 15-30 seconds.
 3. Query the destination bucket in `us-west-2` to prove the AWS backbone successfully transferred the data.
@@ -730,7 +730,13 @@ aws s3 ls s3://$DEST_BUCKET --region $DEST_REGION
 
 To prevent recurring AWS charges, proceed to the `docs/cleanup-guide.md` to run the tear-down scripts. Versioned buckets require a specialized deletion loop to destroy underlying versions before the bucket can be removed.
 
-### 🐧 Method 1: AWS CLI (Bash)
+### 🖥️ Method 1: AWS Management Console
+1. Go to the S3 console and delete all object versions from the source bucket.
+2. Delete the source bucket.
+3. Empty and delete the destination bucket.
+4. Go to IAM and delete the replication role.
+
+### 🐧 Method 2: AWS CLI (Bash)
 ```bash
 #!/bin/bash
 SOURCE_BUCKET="s3-versioning-lab-yourname"

@@ -22,10 +22,62 @@ The first step in any AWS environment is locking down the god-mode account.
 > Do not lose this MFA device. Recovering a root account without the MFA device is a lengthy, difficult process involving AWS Support and identity verification.
 
 ### 🐧 Method 2: AWS CLI (Bash)
-*(This task is a root-level security operation and must be performed via the Management Console)*
+```bash
+#!/bin/bash
+
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
+
+echo -e "\e[36mChecking AWS CLI version...\e[0m"
+aws --version
+
+if ($LASTEXITCODE -ne 0) {
+echo -e "\e[31mAWS CLI is not installed or not in the system PATH.\e[0m"
+    exit 1
+}
+
+echo -e "\e[36m\nFetching caller identity to verify IAM configuration...\e[0m"
+identity=$(aws sts get-caller-identity | jq .)
+
+if ($null -ne $identity) {
+echo -e "\e[32mSuccess! You are authenticated.\e[0m"
+echo "Account ID : $($identity.Account)"
+echo "User ARN   : $($identity.Arn)"
+} else {
+echo -e "\e[31mFailed to authenticate. Run 'aws configure' to set up your credentials.\e[0m"
+}
+```
 
 ### 🪟 Method 3: AWS CLI (PowerShell)
-*(This task is a root-level security operation and must be performed via the Management Console)*
+```powershell
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
+
+Write-Host "Checking AWS CLI version..." -ForegroundColor Cyan
+aws --version
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "AWS CLI is not installed or not in the system PATH." -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "`nFetching caller identity to verify IAM configuration..." -ForegroundColor Cyan
+$identity = aws sts get-caller-identity | ConvertFrom-Json
+
+if ($null -ne $identity) {
+    Write-Host "Success! You are authenticated." -ForegroundColor Green
+    Write-Host "Account ID : $($identity.Account)"
+    Write-Host "User ARN   : $($identity.Arn)"
+} else {
+    Write-Host "Failed to authenticate. Run 'aws configure' to set up your credentials." -ForegroundColor Red
+}
+```
 
 ---
 
@@ -54,6 +106,131 @@ We will create a dedicated IAM Group and a dedicated IAM User to handle all futu
 5. **Save the Console Sign-in URL:**
    - Copy the "Console sign-in URL" provided on the final screen. You will use this to log in instead of the root account page.
 
+
+
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
+
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
+
+echo -e "\e[36mChecking AWS CLI version...\e[0m"
+aws --version
+
+if ($LASTEXITCODE -ne 0) {
+echo -e "\e[31mAWS CLI is not installed or not in the system PATH.\e[0m"
+    exit 1
+}
+
+echo -e "\e[36m\nFetching caller identity to verify IAM configuration...\e[0m"
+identity=$(aws sts get-caller-identity | jq .)
+
+if ($null -ne $identity) {
+echo -e "\e[32mSuccess! You are authenticated.\e[0m"
+echo "Account ID : $($identity.Account)"
+echo "User ARN   : $($identity.Arn)"
+} else {
+echo -e "\e[31mFailed to authenticate. Run 'aws configure' to set up your credentials.\e[0m"
+}
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
+```powershell
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
+
+Write-Host "Checking AWS CLI version..." -ForegroundColor Cyan
+aws --version
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "AWS CLI is not installed or not in the system PATH." -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "`nFetching caller identity to verify IAM configuration..." -ForegroundColor Cyan
+$identity = aws sts get-caller-identity | ConvertFrom-Json
+
+if ($null -ne $identity) {
+    Write-Host "Success! You are authenticated." -ForegroundColor Green
+    Write-Host "Account ID : $($identity.Account)"
+    Write-Host "User ARN   : $($identity.Arn)"
+} else {
+    Write-Host "Failed to authenticate. Run 'aws configure' to set up your credentials." -ForegroundColor Red
+}
+```
+
+--- Setup Complete ---"
+echo "IAM User: $USERNAME"
+echo "Console Password: $PASSWORD"
+echo "Access Key ID: $KEY_ID"
+echo "Secret Access Key: $SECRET"
+
+CSV_PATH="./${USERNAME}-credentials.csv"
+echo "User Name,Password,Access key ID,Secret access key,Console login link" > $CSV_PATH
+echo "$USERNAME,$PASSWORD,$KEY_ID,$SECRET,$LOGIN_LINK" >> $CSV_PATH
+
+echo -e "\nCredentials saved to $CSV_PATH"
+echo "IMPORTANT: Keep this file secure or delete it after configuring AWS CLI."
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
+```powershell
+<#
+.SYNOPSIS
+Creates an IAM Admin user, attaches AdministratorAccess, and generates access keys.
+
+.DESCRIPTION
+This script automates Checkpoint C of the IAM Setup project.
+It will output the Access Key ID and Secret Access Key to the console and a CSV file.
+#>
+
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$UserName
+)
+
+Write-Host "Creating IAM User: $UserName..."
+aws iam create-user --user-name $UserName
+
+Write-Host "Attaching AdministratorAccess policy..."
+aws iam attach-user-policy --user-name $UserName --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+
+Write-Host "Enabling console access..."
+# Generate a random password for console access
+$Password = -join ((33..126) | Get-Random -Count 16 | ForEach-Object {[char]$_})
+aws iam create-login-profile --user-name $UserName --password $Password --password-reset-required
+
+Write-Host "Creating access keys for programmatic access..."
+$AccessKey = aws iam create-access-key --user-name $UserName | ConvertFrom-Json
+
+$KeyId = $AccessKey.AccessKey.AccessKeyId
+$Secret = $AccessKey.AccessKey.SecretAccessKey
+
+Write-Host "`n--- Setup Complete ---"
+Write-Host "IAM User: $UserName"
+Write-Host "Console Password: $Password"
+Write-Host "Access Key ID: $KeyId"
+Write-Host "Secret Access Key: $Secret"
+
+# Save to CSV
+$CsvContent = "User Name,Password,Access key ID,Secret access key,Console login link`n"
+$AccountID = (aws sts get-caller-identity --query "Account" --output text)
+$LoginLink = "https://$AccountID.signin.aws.amazon.com/console"
+$CsvContent += "$UserName,$Password,$KeyId,$Secret,$LoginLink"
+$CsvPath = ".\$UserName-credentials.csv"
+$CsvContent | Out-File -FilePath $CsvPath -Encoding utf8
+
+Write-Host "`nCredentials saved to $CsvPath"
+Write-Host "IMPORTANT: Keep this file secure or delete it after configuring AWS CLI."
+```
+
 ---
 
 ## 🔑 PART 3 — GENERATE PROGRAMMATIC ACCESS KEYS
@@ -71,10 +248,62 @@ To interact with AWS via scripts, Terraform, or the CLI, our new IAM user needs 
 > This is the *only* time AWS will ever show you the Secret Access Key. If you lose it, you must generate a new key pair. Never commit this file to GitHub or share it publicly.
 
 ### 🐧 Method 2: AWS CLI (Bash)
-*(This task requires initial UI access to generate the first set of keys and must be performed via the Management Console)*
+```bash
+#!/bin/bash
+
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
+
+echo -e "\e[36mChecking AWS CLI version...\e[0m"
+aws --version
+
+if ($LASTEXITCODE -ne 0) {
+echo -e "\e[31mAWS CLI is not installed or not in the system PATH.\e[0m"
+    exit 1
+}
+
+echo -e "\e[36m\nFetching caller identity to verify IAM configuration...\e[0m"
+identity=$(aws sts get-caller-identity | jq .)
+
+if ($null -ne $identity) {
+echo -e "\e[32mSuccess! You are authenticated.\e[0m"
+echo "Account ID : $($identity.Account)"
+echo "User ARN   : $($identity.Arn)"
+} else {
+echo -e "\e[31mFailed to authenticate. Run 'aws configure' to set up your credentials.\e[0m"
+}
+```
 
 ### 🪟 Method 3: AWS CLI (PowerShell)
-*(This task requires initial UI access to generate the first set of keys and must be performed via the Management Console)*
+```powershell
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
+
+Write-Host "Checking AWS CLI version..." -ForegroundColor Cyan
+aws --version
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "AWS CLI is not installed or not in the system PATH." -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "`nFetching caller identity to verify IAM configuration..." -ForegroundColor Cyan
+$identity = aws sts get-caller-identity | ConvertFrom-Json
+
+if ($null -ne $identity) {
+    Write-Host "Success! You are authenticated." -ForegroundColor Green
+    Write-Host "Account ID : $($identity.Account)"
+    Write-Host "User ARN   : $($identity.Arn)"
+} else {
+    Write-Host "Failed to authenticate. Run 'aws configure' to set up your credentials." -ForegroundColor Red
+}
+```
 
 ---
 
@@ -162,6 +391,7 @@ if ($null -ne $identity) {
     Write-Host "Failed to authenticate. Run 'aws configure' to set up your credentials." -ForegroundColor Red
 }
 ```
+
 ---
 
 ## 💰 PART 5 — DEPLOY FINANCIAL GUARDRAILS (AWS BUDGETS)
@@ -183,43 +413,62 @@ Set up a strict zero-tolerance billing alarm to prevent shock bills if you forge
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
 #!/bin/bash
-# Automates the creation of a billing alarm
 
-set -e
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
 
-if [ -z "$1" ]; then
-  echo "Usage: $0 <email_address> [threshold_in_usd]"
-  exit 1
-fi
+echo -e "\e[36mChecking AWS CLI version...\e[0m"
+aws --version
 
-EMAIL=$1
-THRESHOLD=${2:-5}
-REGION="us-east-1"
-TOPIC_NAME="billing-alert-topic"
-ALARM_NAME="Monthly-Billing-Alert-${THRESHOLD}USD"
+if ($LASTEXITCODE -ne 0) {
+echo -e "\e[31mAWS CLI is not installed or not in the system PATH.\e[0m"
+    exit 1
+}
 
-echo "Creating SNS Topic: $TOPIC_NAME..."
-TOPIC_ARN=$(aws sns create-topic --name $TOPIC_NAME --region $REGION --query "TopicArn" --output text)
+echo -e "\e[36m\nFetching caller identity to verify IAM configuration...\e[0m"
+identity=$(aws sts get-caller-identity | jq .)
 
-echo "Subscribing $EMAIL to $TOPIC_ARN..."
-aws sns subscribe --topic-arn $TOPIC_ARN --protocol email --notification-endpoint $EMAIL --region $REGION
+if ($null -ne $identity) {
+echo -e "\e[32mSuccess! You are authenticated.\e[0m"
+echo "Account ID : $($identity.Account)"
+echo "User ARN   : $($identity.Arn)"
+} else {
+echo -e "\e[31mFailed to authenticate. Run 'aws configure' to set up your credentials.\e[0m"
+}
+```
 
-echo "Creating CloudWatch Billing Alarm for > \$$THRESHOLD..."
-aws cloudwatch put-metric-alarm \
-    --alarm-name "$ALARM_NAME" \
-    --alarm-description "Alarm when AWS spending exceeds \$$THRESHOLD" \
-    --metric-name "EstimatedCharges" \
-    --namespace "AWS/Billing" \
-    --statistic "Maximum" \
-    --period 21600 \
-    --evaluation-periods 1 \
-    --threshold $THRESHOLD \
-    --comparison-operator "GreaterThanThreshold" \
-    --dimensions "Name=Currency,Value=USD" \
-    --alarm-actions $TOPIC_ARN \
-    --region $REGION
+### 🪟 Method 3: AWS CLI (PowerShell)
+```powershell
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
 
-echo -e "\n--- Setup Complete ---"
+Write-Host "Checking AWS CLI version..." -ForegroundColor Cyan
+aws --version
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "AWS CLI is not installed or not in the system PATH." -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "`nFetching caller identity to verify IAM configuration..." -ForegroundColor Cyan
+$identity = aws sts get-caller-identity | ConvertFrom-Json
+
+if ($null -ne $identity) {
+    Write-Host "Success! You are authenticated." -ForegroundColor Green
+    Write-Host "Account ID : $($identity.Account)"
+    Write-Host "User ARN   : $($identity.Arn)"
+} else {
+    Write-Host "Failed to authenticate. Run 'aws configure' to set up your credentials." -ForegroundColor Red
+}
+```
+
+--- Setup Complete ---"
 echo "CloudWatch alarm '$ALARM_NAME' created."
 echo "IMPORTANT: Please check your email ($EMAIL) and click the link to confirm the SNS subscription."
 ```
@@ -284,7 +533,7 @@ To avoid persistent charges or clutter, use these scripts
 4. Go to IAM -> User groups and delete the Administrators group.
  to tear down the resources (if you are not proceeding to the next projects).
 
-### 🐧 Method 1: AWS CLI (Bash)
+### 🐧 Method 2: AWS CLI (Bash)
 ```bash
 #!/bin/bash
 # Load environment variables
@@ -317,7 +566,7 @@ echo -e "aws iam delete-user --user-name <YourUserName>"
 echo -e "\e[32mInitial Cleanup complete.\e[0m"
 ```
 
-### 🪟 Method 2: AWS CLI (PowerShell)
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 <#
 .SYNOPSIS
@@ -362,3 +611,5 @@ Write-Host "aws iam delete-user --user-name <YourUserName>"
 
 Write-Host "Initial Cleanup complete." -ForegroundColor Green
 ```
+
+

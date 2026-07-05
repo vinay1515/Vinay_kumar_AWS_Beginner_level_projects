@@ -258,7 +258,7 @@ Use these scripts to empty and delete the bucket to stop incurring storage costs
 3. Select your bucket again and click **Delete**. Confirm by typing the bucket name.
 
 
-### 🐧 Method 1: AWS CLI (Bash)
+### 🐧 Method 2: AWS CLI (Bash)
 ```bash
 #!/bin/bash
 # Load environment variables

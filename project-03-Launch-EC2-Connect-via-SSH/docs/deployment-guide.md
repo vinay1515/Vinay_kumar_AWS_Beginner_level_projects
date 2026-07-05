@@ -377,7 +377,7 @@ Write-Host "Instance passed all status checks - ready to connect!"
 
 ## 💻 PART 5 — CONNECT VIA SSH (TERMINAL)
 
-### 🖥️ Method 1: Standard SSH
+### 🖥️ Method 1: AWS Management Console
 
 1. Open PowerShell or Terminal.
 2. Navigate to the folder where you saved `my-web-key.pem`.
@@ -398,7 +398,7 @@ Write-Host "Instance passed all status checks - ready to connect!"
 > [!TIP]
 > **Enterprise Alternative:** In modern enterprise environments, opening Port 22 is often strictly prohibited. Instead, engineers use **AWS Systems Manager (SSM) Session Manager** to connect via the browser securely without keys or open ports. You can test this by selecting your instance in the console, clicking **Connect**, choosing the **Session Manager** tab, and clicking Connect.
 
-### 🐧 Method 2: AWS Systems Manager (SSM) via Bash
+### 🐧 Method 2: AWS CLI (Bash)
 ```bash
 #!/bin/bash
 
@@ -444,7 +444,7 @@ echo "Wait a few minutes, then connect via Session Manager (console) or CLI:"
 echo "aws ssm start-session --target $INSTANCE_ID"
 ```
 
-### 🪟 Method 3: AWS Systems Manager (SSM) via PowerShell
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 # Create the IAM role with EC2 trust policy
 aws iam create-role `
