@@ -113,29 +113,25 @@ export LAMBDA_ROLE_ARN="arn:aws:iam::ACCOUNT_ID:role/lambda-dynamodb-role"
 
 Choose your platform and execute the scripts in order:
 
-<table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-dynamodb.sh</code></td><td>Execute Create dynamodb</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-dynamodb.ps1</code></td><td>Execute Create dynamodb</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-lambda-role.sh</code></td><td>Execute Create lambda role</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-lambda-role.ps1</code></td><td>Execute Create lambda role</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-package-lambda.sh</code></td><td>Execute Package lambda</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-package-lambda.ps1</code></td><td>Execute Package lambda</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-deploy-lambda.sh</code></td><td>Execute Deploy lambda</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-deploy-lambda.ps1</code></td><td>Execute Deploy lambda</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-create-api-gateway.sh</code></td><td>Execute Create api gateway</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-create-api-gateway.ps1</code></td><td>Execute Create api gateway</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/06-test-api.sh</code></td><td>Execute Test api</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/06-test-api.ps1</code></td><td>Execute Test api</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/07-monitor-cloudwatch.sh</code></td><td>Execute Monitor cloudwatch</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/07-monitor-cloudwatch.ps1</code></td><td>Execute Monitor cloudwatch</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/08-update-lambda.sh</code></td><td>Execute Update lambda</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/08-update-lambda.ps1</code></td><td>Execute Update lambda</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/09-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/09-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
-</table>
+| Step | Bash Script | PowerShell Script | Description |
+|:---:|:---|:---|:---|
+| 1 | `scripts/bash/01-create-dynamodb.sh` | `scripts/powershell/01-create-dynamodb.ps1` | Create DynamoDB table |
+| 2 | `scripts/bash/02-create-lambda-execution-role.sh` | `scripts/powershell/02-create-lambda-execution-role.ps1` | Create IAM role for Lambda |
+| 3 | `scripts/bash/03-write-and-deploy-lambda.sh` | `scripts/powershell/03-write-and-deploy-lambda.ps1` | Write, package and deploy Lambda function |
+| 4 | `scripts/bash/04-test-lambda-directly.sh` | `scripts/powershell/04-test-lambda-directly.ps1` | Test Lambda execution natively |
+| 5 | `scripts/bash/05-create-api-gateway.sh` | `scripts/powershell/05-create-api-gateway.ps1` | Create and configure API Gateway |
+| 6 | `scripts/bash/06-test-full-api.sh` | `scripts/powershell/06-test-full-api.ps1` | Test the full API through API Gateway |
+| 7 | `scripts/bash/07-verify-in-dynamodb-console.sh` | `scripts/powershell/07-verify-in-dynamodb-console.ps1` | Verify data persistence in DynamoDB |
+| 8 | `scripts/bash/08-monitor-with-cloudwatch-logs.sh` | `scripts/powershell/08-monitor-with-cloudwatch-logs.ps1` | Monitor execution logs in CloudWatch |
+| 9 | `scripts/bash/09-update-lambda-code.sh` | `scripts/powershell/09-update-lambda-code.ps1` | Update and redeploy Lambda function code |
+| 10 | `scripts/bash/10-cleanup.sh` | `scripts/powershell/10-cleanup.ps1` | Clean up all AWS resources |
+
+### 📸 Screenshots & Validation
+
+> *Add screenshots here validating the deployment (e.g., API Gateway console, Postman tests, DynamoDB items).*
 
 ## 📚 Documentation Suite
+
 
 | Document | Description |
 |:---------|:------------|
