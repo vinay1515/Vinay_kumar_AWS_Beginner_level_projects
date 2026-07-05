@@ -8,7 +8,7 @@ This guide details the complete, enterprise-grade process for securing an AWS ac
 
 The first step in any AWS environment is locking down the god-mode account.
 
-### Console Execution
+### 🖥️ Method 1: AWS Management Console
 1. Log into the [AWS Management Console](https://console.aws.amazon.com/) using your root email and password.
 2. Click your account name in the top right corner → **Security credentials**.
 3. Under **Multi-factor authentication (MFA)**, click **Assign MFA device**.
@@ -21,13 +21,19 @@ The first step in any AWS environment is locking down the god-mode account.
 > [!WARNING]
 > Do not lose this MFA device. Recovering a root account without the MFA device is a lengthy, difficult process involving AWS Support and identity verification.
 
+### 🐧 Method 2: AWS CLI (Bash)
+*(This task is a root-level security operation and must be performed via the Management Console)*
+
+### 🪟 Method 3: AWS CLI (PowerShell)
+*(This task is a root-level security operation and must be performed via the Management Console)*
+
 ---
 
 ## 🏗️ PART 2 — ESTABLISH IAM ADMINISTRATOR AND RBAC
 
 We will create a dedicated IAM Group and a dedicated IAM User to handle all future operations.
 
-### Console Execution
+### 🖥️ Method 1: AWS Management Console
 1. In the AWS Console search bar, search for **IAM** and open the dashboard.
 2. **Create the Group (RBAC):**
    - Left menu → **User groups** → **Create group**.
@@ -54,6 +60,7 @@ We will create a dedicated IAM Group and a dedicated IAM User to handle all futu
 
 To interact with AWS via scripts, Terraform, or the CLI, our new IAM user needs cryptographic keys.
 
+### 🖥️ Method 1: AWS Management Console
 1. Navigate to your new `admin` user in the IAM console.
 2. Click the **Security credentials** tab.
 3. Scroll to **Access keys** → **Create access key**.
@@ -63,13 +70,23 @@ To interact with AWS via scripts, Terraform, or the CLI, our new IAM user needs 
 > [!CAUTION]
 > This is the *only* time AWS will ever show you the Secret Access Key. If you lose it, you must generate a new key pair. Never commit this file to GitHub or share it publicly.
 
+### 🐧 Method 2: AWS CLI (Bash)
+*(This task requires initial UI access to generate the first set of keys and must be performed via the Management Console)*
+
+### 🪟 Method 3: AWS CLI (PowerShell)
+*(This task requires initial UI access to generate the first set of keys and must be performed via the Management Console)*
+
 ---
 
 ## 🌍 PART 4 — CONFIGURE THE AWS CLI
 
 We will now bind your IAM Access Keys to your local operating system.
 
-### Local Execution (PowerShell or Bash)
+### 🖥️ Method 1: AWS Management Console
+*(AWS CLI Configuration is a local terminal operation. See Methods 2 and 3)*
+
+### 🖥️ Method 1: Interactive AWS CLI Configuration
+
 1. Open your terminal.
 2. Verify the AWS CLI is installed: `aws --version`
 3. Run the configuration wizard:
@@ -87,13 +104,72 @@ We will now bind your IAM Access Keys to your local operating system.
    ```
    *Expected Output: A JSON payload showing your Account ID and the ARN of your IAM user (`arn:aws:iam::123456789012:user/admin`).*
 
+
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
+
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
+
+echo -e "\e[36mChecking AWS CLI version...\e[0m"
+aws --version
+
+if ($LASTEXITCODE -ne 0) {
+echo -e "\e[31mAWS CLI is not installed or not in the system PATH.\e[0m"
+    exit 1
+}
+
+echo -e "\e[36m\nFetching caller identity to verify IAM configuration...\e[0m"
+identity=$(aws sts get-caller-identity | jq .)
+
+if ($null -ne $identity) {
+echo -e "\e[32mSuccess! You are authenticated.\e[0m"
+echo "Account ID : $($identity.Account)"
+echo "User ARN   : $($identity.Arn)"
+} else {
+echo -e "\e[31mFailed to authenticate. Run 'aws configure' to set up your credentials.\e[0m"
+}
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
+```powershell
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+Verifies the AWS CLI installation and IAM user configuration.
+#>
+
+Write-Host "Checking AWS CLI version..." -ForegroundColor Cyan
+aws --version
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "AWS CLI is not installed or not in the system PATH." -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "`nFetching caller identity to verify IAM configuration..." -ForegroundColor Cyan
+$identity = aws sts get-caller-identity | ConvertFrom-Json
+
+if ($null -ne $identity) {
+    Write-Host "Success! You are authenticated." -ForegroundColor Green
+    Write-Host "Account ID : $($identity.Account)"
+    Write-Host "User ARN   : $($identity.Arn)"
+} else {
+    Write-Host "Failed to authenticate. Run 'aws configure' to set up your credentials." -ForegroundColor Red
+}
+```
 ---
 
 ## 💰 PART 5 — DEPLOY FINANCIAL GUARDRAILS (AWS BUDGETS)
 
 Set up a strict zero-tolerance billing alarm to prevent shock bills if you forget to terminate a resource like an EC2 instance.
 
-### Console Execution
+### 🖥️ Method 1: AWS Management Console
+
 1. Log into the console as your new **IAM User** (do not use Root).
 2. Search for **AWS Budgets** in the top bar.
 3. Click **Create budget**.
@@ -103,3 +179,186 @@ Set up a strict zero-tolerance billing alarm to prevent shock bills if you forge
 
 > [!NOTE]
 > The Zero Spend budget will email you if your account accrues even $0.01 in charges. This is your safety net.
+
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
+# Automates the creation of a billing alarm
+
+set -e
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <email_address> [threshold_in_usd]"
+  exit 1
+fi
+
+EMAIL=$1
+THRESHOLD=${2:-5}
+REGION="us-east-1"
+TOPIC_NAME="billing-alert-topic"
+ALARM_NAME="Monthly-Billing-Alert-${THRESHOLD}USD"
+
+echo "Creating SNS Topic: $TOPIC_NAME..."
+TOPIC_ARN=$(aws sns create-topic --name $TOPIC_NAME --region $REGION --query "TopicArn" --output text)
+
+echo "Subscribing $EMAIL to $TOPIC_ARN..."
+aws sns subscribe --topic-arn $TOPIC_ARN --protocol email --notification-endpoint $EMAIL --region $REGION
+
+echo "Creating CloudWatch Billing Alarm for > \$$THRESHOLD..."
+aws cloudwatch put-metric-alarm \
+    --alarm-name "$ALARM_NAME" \
+    --alarm-description "Alarm when AWS spending exceeds \$$THRESHOLD" \
+    --metric-name "EstimatedCharges" \
+    --namespace "AWS/Billing" \
+    --statistic "Maximum" \
+    --period 21600 \
+    --evaluation-periods 1 \
+    --threshold $THRESHOLD \
+    --comparison-operator "GreaterThanThreshold" \
+    --dimensions "Name=Currency,Value=USD" \
+    --alarm-actions $TOPIC_ARN \
+    --region $REGION
+
+echo -e "\n--- Setup Complete ---"
+echo "CloudWatch alarm '$ALARM_NAME' created."
+echo "IMPORTANT: Please check your email ($EMAIL) and click the link to confirm the SNS subscription."
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
+```powershell
+<#
+.SYNOPSIS
+Creates an SNS topic for billing alerts and a CloudWatch alarm.
+
+.DESCRIPTION
+This script automates Checkpoint B of the IAM Setup project.
+#>
+
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$EmailAddress,
+    
+    [Parameter(Mandatory=$false)]
+    [int]$Threshold = 5
+)
+
+$Region = "us-east-1"
+$TopicName = "billing-alert-topic"
+$AlarmName = "Monthly-Billing-Alert-${Threshold}USD"
+
+Write-Host "Creating SNS Topic: $TopicName..."
+$TopicArn = (aws sns create-topic --name $TopicName --region $Region --query "TopicArn" --output text)
+
+Write-Host "Subscribing $EmailAddress to $TopicArn..."
+aws sns subscribe --topic-arn $TopicArn --protocol email --notification-endpoint $EmailAddress --region $Region
+
+Write-Host "Creating CloudWatch Billing Alarm for > $$Threshold..."
+aws cloudwatch put-metric-alarm `
+    --alarm-name $AlarmName `
+    --alarm-description "Alarm when AWS spending exceeds $$Threshold" `
+    --metric-name "EstimatedCharges" `
+    --namespace "AWS/Billing" `
+    --statistic "Maximum" `
+    --period 21600 `
+    --evaluation-periods 1 `
+    --threshold $Threshold `
+    --comparison-operator "GreaterThanThreshold" `
+    --dimensions "Name=Currency,Value=USD" `
+    --alarm-actions $TopicArn `
+    --region $Region
+
+Write-Host "`n--- Setup Complete ---"
+Write-Host "CloudWatch alarm '$AlarmName' created."
+Write-Host "IMPORTANT: Please check your email ($EmailAddress) and click the link to confirm the SNS subscription."
+```
+
+---
+
+## 🧹 PART 6 — CLEANUP
+To avoid persistent charges or clutter, use these scripts
+
+### 🖥️ Method 1: AWS Management Console
+1. Go to CloudWatch -> Alarms and delete AccountBillingAlarm.
+2. Go to SNS -> Topics and delete the billing-alerts topic.
+3. Go to IAM -> Users, delete access keys, and delete the user.
+4. Go to IAM -> User groups and delete the Administrators group.
+ to tear down the resources (if you are not proceeding to the next projects).
+
+### 🐧 Method 1: AWS CLI (Bash)
+```bash
+#!/bin/bash
+# Load environment variables
+if [ -f "../../.env" ]; then
+    source ../../.env
+elif [ -f "../.env" ]; then
+    source ../.env
+elif [ -f ".env" ]; then
+    source .env
+else
+    echo -e "\e[31mError: .env file not found.\e[0m"
+    exit 1
+fi
+
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+echo -e "\e[36mDeleting CloudWatch Alarm...\e[0m"
+aws cloudwatch delete-alarms --alarm-names "AccountBillingAlarm"
+
+echo -e "\e[36mDeleting SNS Topic...\e[0m"
+aws sns delete-topic --topic-arn "arn:aws:sns:$AWS_REGION:$ACCOUNT_ID:billing-alerts"
+
+echo -e "\e[33mNOTE: For IAM User Cleanup, please manually detach policies, delete access keys, and then delete the user.\e[0m"
+echo -e "\e[33mExample:\e[0m"
+echo -e "aws iam detach-user-policy --user-name <YourUserName> --policy-arn arn:aws:iam::aws:policy/AdministratorAccess"
+echo -e "aws iam delete-login-profile --user-name <YourUserName>"
+echo -e "aws iam delete-access-key --user-name <YourUserName> --access-key-id <YourAccessKeyId>"
+echo -e "aws iam delete-user --user-name <YourUserName>"
+
+echo -e "\e[32mInitial Cleanup complete.\e[0m"
+```
+
+### 🪟 Method 2: AWS CLI (PowerShell)
+```powershell
+<#
+.SYNOPSIS
+Cleans up the deployed IAM and billing alarm resources.
+#>
+
+# Load environment variables
+$envFile = Join-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) "..\..\.env"
+if (-not (Test-Path $envFile)) {
+    $envFile = Join-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) "..\.env"
+}
+if (-not (Test-Path $envFile)) {
+    $envFile = ".env"
+}
+
+if (Test-Path $envFile) {
+    Get-Content $envFile | Where-Object { $_ -match '^export\s+([^=]+)=(.*)$' } | ForEach-Object {
+        $name = $matches[1].Trim()
+        $value = $matches[2].Trim(' "''')
+        Set-Item -Path "env:\$name" -Value $value
+    }
+}
+else {
+    Write-Host "Error: .env file not found." -ForegroundColor Red
+    exit 1
+}
+
+$Region = $env:AWS_REGION
+$AccountId = (aws sts get-caller-identity --query Account --output text).Trim()
+
+Write-Host "Deleting CloudWatch Alarm..." -ForegroundColor Cyan
+aws cloudwatch delete-alarms --alarm-names "AccountBillingAlarm"
+
+Write-Host "Deleting SNS Topic..." -ForegroundColor Cyan
+aws sns delete-topic --topic-arn "arn:aws:sns:${Region}:${AccountId}:billing-alerts"
+Write-Host "NOTE: For IAM User Cleanup, please manually detach policies, delete access keys, and then delete the user." -ForegroundColor Yellow
+Write-Host "Example:" -ForegroundColor Yellow
+Write-Host "aws iam detach-user-policy --user-name <YourUserName> --policy-arn arn:aws:iam::aws:policy/AdministratorAccess"
+Write-Host "aws iam delete-login-profile --user-name <YourUserName>"
+Write-Host "aws iam delete-access-key --user-name <YourUserName> --access-key-id <YourAccessKeyId>"
+Write-Host "aws iam delete-user --user-name <YourUserName>"
+
+Write-Host "Initial Cleanup complete." -ForegroundColor Green
+```

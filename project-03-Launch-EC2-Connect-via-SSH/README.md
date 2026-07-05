@@ -129,19 +129,16 @@ export MY_IP="$(curl -s ifconfig.me)/32"
 
 Choose your platform and execute the scripts in order:
 
-<table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-key-pair.sh</code></td><td>Execute Create key pair</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-key-pair.ps1</code></td><td>Execute Create key pair</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-security-group.sh</code></td><td>Execute Create security group</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-security-group.ps1</code></td><td>Execute Create security group</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-launch-instance.sh</code></td><td>Execute Launch instance</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-launch-instance.ps1</code></td><td>Execute Launch instance</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-connect-ssm.sh</code></td><td>Execute Connect ssm</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-connect-ssm.ps1</code></td><td>Execute Connect ssm</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
-</table>
+| Step | Bash Script | PowerShell Script | Description |
+|------|-------------|-------------------|-------------|
+| 01 | `scripts/bash/01-create-key-pair.sh` | `scripts/powershell/01-create-key-pair.ps1` | Generates the SSH key pair |
+| 02 | `scripts/bash/02-create-security-group.sh` | `scripts/powershell/02-create-security-group.ps1` | Configures the firewall rules (SSH/HTTP) |
+| 03 | `scripts/bash/03-launch-instance.sh` | `scripts/powershell/03-launch-instance.ps1` | Launches the EC2 instance |
+| 04 | `scripts/bash/04-connect-ssm.sh` | `scripts/powershell/04-connect-ssm.ps1` | Connects via Session Manager |
+| 05 | `scripts/bash/05-cleanup.sh` | `scripts/powershell/05-cleanup.ps1` | Destroys the infrastructure |
+
+### 📸 Screenshots & Validation
+Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
 ## 📚 Documentation Suite
 

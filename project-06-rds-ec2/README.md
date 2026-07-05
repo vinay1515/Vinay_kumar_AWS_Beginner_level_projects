@@ -76,6 +76,33 @@ Daily EBS snapshots with 7-day retention; supports point-in-time recovery to any
 - **Multi-AZ Ready** – Architecture supports one-click promotion to multi-AZ synchronous replication
 - **Monitoring Dashboard** – CloudWatch metrics for CPU, connections, read/write IOPS, and replication lag
 
+## ⚖️ RDS vs Self-Managed MySQL on EC2
+
+| Feature | RDS MySQL | MySQL on EC2 |
+|:---|:---|:---|
+| **OS patching** | AWS handles | You handle |
+| **DB engine updates** | AWS handles | You handle |
+| **Automated backups** | Built-in (1–35 days) | You build it |
+| **Multi-AZ failover** | One checkbox | Complex setup |
+| **Monitoring** | CloudWatch built-in | Manual setup |
+| **Storage scaling** | Auto-scaling option | Manual |
+| **Cost** | Higher base | Lower base |
+| **Control** | Less | Full |
+| **Recommended for** | Production | Dev/test or special needs |
+
+## ✅ Free Tier Status
+
+| Resource | Free Tier | Notes |
+|:---|:---|:---|
+| **RDS db.t3.micro** | 750 hrs/month free (12 months) | Must use db.t3.micro |
+| **RDS storage** | 20 GB free (12 months) | gp2 only |
+| **RDS backups** | 20 GB free | Automated backups |
+| **EC2 t2.micro** | 750 hrs/month free | App server |
+| **Secrets Manager** | $0.40/secret/month | ⚠️ Small cost — ~$0.01 for this project |
+
+> [!WARNING]
+> **Always stop or delete RDS when done.** A running RDS instance costs money even when idle if you exhaust Free Tier hours. RDS cannot be "stopped" permanently — only for 7 days at a time. We will delete it after the project.
+
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
@@ -113,27 +140,19 @@ export DB_NAME="myappdb"
 
 Choose your platform and execute the scripts in order:
 
-<table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-vpc-setup.sh</code></td><td>Execute Vpc setup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-vpc-setup.ps1</code></td><td>Execute Vpc setup</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-security-groups.sh</code></td><td>Execute Security groups</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-security-groups.ps1</code></td><td>Execute Security groups</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-rds-subnet-group.sh</code></td><td>Execute Rds subnet group</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-rds-subnet-group.ps1</code></td><td>Execute Rds subnet group</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-secrets-manager.sh</code></td><td>Execute Secrets manager</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-secrets-manager.ps1</code></td><td>Execute Secrets manager</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-create-rds.sh</code></td><td>Execute Create rds</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-create-rds.ps1</code></td><td>Execute Create rds</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/06-launch-ec2.sh</code></td><td>Execute Launch ec2</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/06-launch-ec2.ps1</code></td><td>Execute Launch ec2</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/08-cloudwatch-monitoring.sh</code></td><td>Execute Cloudwatch monitoring</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/08-cloudwatch-monitoring.ps1</code></td><td>Execute Cloudwatch monitoring</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/09-rds-operations.sh</code></td><td>Execute Rds operations</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/09-rds-operations.ps1</code></td><td>Execute Rds operations</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/10-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/10-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
-</table>
+| Step | Bash Script | PowerShell Script | Description |
+|------|-------------|-------------------|-------------|
+| 01 | `scripts/bash/01-vpc-setup.sh` | `scripts/powershell/01-vpc-setup.ps1` | Rebuilds the Custom VPC architecture |
+| 02 | `scripts/bash/02-security-groups.sh` | `scripts/powershell/02-security-groups.ps1` | Configures Security Group chaining |
+| 03 | `scripts/bash/03-rds-subnet-group.sh` | `scripts/powershell/03-rds-subnet-group.ps1` | Creates DB subnet group across 2 AZs |
+| 04 | `scripts/bash/04-secrets-manager.sh` | `scripts/powershell/04-secrets-manager.ps1` | Stores DB credentials securely |
+| 05 | `scripts/bash/05-rds-instance.sh` | `scripts/powershell/05-rds-instance.ps1` | Provisions the RDS MySQL database |
+| 06 | `scripts/bash/06-iam-role.sh` | `scripts/powershell/06-iam-role.ps1` | Creates EC2 IAM role for Secrets Manager |
+| 07 | `scripts/bash/07-ec2-app.sh` | `scripts/powershell/07-ec2-app.ps1` | Launches EC2 instance with user data |
+| 08 | `scripts/bash/08-cleanup.sh` | `scripts/powershell/08-cleanup.ps1` | Tears down the entire architecture |
+
+### 📸 Screenshots & Validation
+Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
 ## 📚 Documentation Suite
 
@@ -181,5 +200,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](../LICE
 ---
 
 <div align="center">
-  <b>[⬅️ Previous: Project 05](../project-05-Custom-VPC) &nbsp;|&nbsp; [Next: Project 07 ➡️](../project-07-cloudwatch-monitoring)</b>
+  <b><a href="../project-05-Custom-VPC">⬅️ Previous: Project 05</a> &nbsp;|&nbsp; <a href="../project-07-cloudwatch-monitoring">Next: Project 07 ➡️</a></b>
 </div>

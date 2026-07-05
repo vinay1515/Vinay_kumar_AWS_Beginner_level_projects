@@ -113,12 +113,14 @@ export BILLING_THRESHOLD="5"
 
 Choose your platform and execute the scripts in order:
 
-<table>
-<tr><th>Order</th><th>Step</th><th>Bash Script (🐧)</th><th>PowerShell Script (🖥️)</th><th>Description</th></tr>
-<tr><td>1</td><td>Setup IAM User</td><td><code>scripts/bash/setup-iam-user.sh</code></td><td><code>scripts/powershell/setup-iam-user.ps1</code></td><td>Creates IAM user, group, and policies</td></tr>
-<tr><td>2</td><td>Setup Billing Alarm</td><td><code>scripts/bash/setup-billing-alarm.sh</code></td><td><code>scripts/powershell/setup-billing-alarm.ps1</code></td><td>Creates SNS topic and CloudWatch billing alarm</td></tr>
-<tr><td>3</td><td>Verify Setup</td><td><code>scripts/bash/verify_setup.sh</code></td><td><code>scripts/powershell/verify_setup.ps1</code></td><td>Validates the creation of all resources</td></tr>
-</table>
+| Step | Bash Script | PowerShell Script | Description |
+|------|-------------|-------------------|-------------|
+| 01 | `scripts/bash/setup-iam-user.sh` | `scripts/powershell/setup-iam-user.ps1` | Creates IAM user, group, and policies |
+| 02 | `scripts/bash/setup-billing-alarm.sh` | `scripts/powershell/setup-billing-alarm.ps1` | Creates SNS topic and CloudWatch billing alarm |
+| 03 | `scripts/bash/verify_setup.sh` | `scripts/powershell/verify_setup.ps1` | Validates the creation of all resources |
+
+### 📸 Screenshots & Validation
+Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
 ### 🧹 Cleanup
 

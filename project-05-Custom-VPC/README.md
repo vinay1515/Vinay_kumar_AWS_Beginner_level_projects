@@ -143,21 +143,17 @@ export PRIVATE_SUBNET_B_CIDR="10.0.4.0/24"
 
 Choose your platform and execute the scripts in order:
 
-<table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-vpc.sh</code></td><td>Execute Create vpc</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-vpc.ps1</code></td><td>Execute Create vpc</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-route-tables.sh</code></td><td>Execute Create route tables</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-route-tables.ps1</code></td><td>Execute Create route tables</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-nat-gateway.sh</code></td><td>Execute Create nat gateway</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-nat-gateway.ps1</code></td><td>Execute Create nat gateway</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-security-groups.sh</code></td><td>Execute Create security groups</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-security-groups.ps1</code></td><td>Execute Create security groups</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-launch-instances.sh</code></td><td>Execute Launch instances</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-launch-instances.ps1</code></td><td>Execute Launch instances</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/06-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/06-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
-</table>
+| Step | Bash Script | PowerShell Script | Description |
+|------|-------------|-------------------|-------------|
+| 01 | `scripts/bash/01-create-vpc.sh` | `scripts/powershell/01-create-vpc.ps1` | Provisions the Custom VPC and 4 subnets |
+| 02 | `scripts/bash/02-create-route-tables.sh` | `scripts/powershell/02-create-route-tables.ps1` | Creates IGW, Route Tables, and subnet associations |
+| 03 | `scripts/bash/03-create-nat-gateway.sh` | `scripts/powershell/03-create-nat-gateway.ps1` | Deploys NAT Gateway with Elastic IP |
+| 04 | `scripts/bash/04-create-security-groups.sh` | `scripts/powershell/04-create-security-groups.ps1` | Configures public bastion and private security groups |
+| 05 | `scripts/bash/05-launch-instances.sh` | `scripts/powershell/05-launch-instances.ps1` | Launches EC2 instances to test routing |
+| 06 | `scripts/bash/06-cleanup.sh` | `scripts/powershell/06-cleanup.ps1` | Tears down the entire VPC architecture |
+
+### 📸 Screenshots & Validation
+Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
 ## 📚 Documentation Suite
 

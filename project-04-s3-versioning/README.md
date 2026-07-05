@@ -123,21 +123,17 @@ export DEST_REGION="us-east-1"
 
 Choose your platform and execute the scripts in order:
 
-<table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-source-bucket.sh</code></td><td>Execute Create source bucket</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-source-bucket.ps1</code></td><td>Execute Create source bucket</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-test-versioning.sh</code></td><td>Execute Test versioning</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-test-versioning.ps1</code></td><td>Execute Test versioning</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-lifecycle-policy.sh</code></td><td>Execute Create lifecycle policy</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-lifecycle-policy.ps1</code></td><td>Execute Create lifecycle policy</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-cross-region-replication.sh</code></td><td>Execute Cross region replication</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-cross-region-replication.ps1</code></td><td>Execute Cross region replication</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-test-replication.sh</code></td><td>Execute Test replication</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-test-replication.ps1</code></td><td>Execute Test replication</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/06-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/06-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
-</table>
+| Step | Bash Script | PowerShell Script | Description |
+|------|-------------|-------------------|-------------|
+| 01 | `scripts/bash/01-create-source-bucket.sh` | `scripts/powershell/01-create-source-bucket.ps1` | Creates the source bucket with versioning |
+| 02 | `scripts/bash/02-test-versioning.sh` | `scripts/powershell/02-test-versioning.ps1` | Demonstrates overwrite, restore, and delete marker operations |
+| 03 | `scripts/bash/03-create-lifecycle-policy.sh` | `scripts/powershell/03-create-lifecycle-policy.ps1` | Applies cost-optimization lifecycle rules |
+| 04 | `scripts/bash/04-cross-region-replication.sh` | `scripts/powershell/04-cross-region-replication.ps1` | Sets up IAM roles, destination bucket, and CRR rules |
+| 05 | `scripts/bash/05-test-replication.sh` | `scripts/powershell/05-test-replication.ps1` | Validates replication across regions |
+| 06 | `scripts/bash/06-cleanup.sh` | `scripts/powershell/06-cleanup.ps1` | Permanently destroys buckets and versions |
+
+### 📸 Screenshots & Validation
+Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
 ## 📚 Documentation Suite
 

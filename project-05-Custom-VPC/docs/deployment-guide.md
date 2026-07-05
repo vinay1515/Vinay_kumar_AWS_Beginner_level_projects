@@ -24,7 +24,7 @@ aws ec2 describe-vpcs `
 
 ## 🏗️ PART 1 — CREATE THE VPC
 
-### Console Steps
+### 🖥️ Method 1: AWS Management Console
 
 **Step 1 — Open VPC Dashboard**
 * Console search bar → VPC → click VPC
@@ -49,8 +49,49 @@ aws ec2 describe-vpcs `
 
 > 💡 **Note:** DNS hostnames lets EC2 instances get human-readable hostnames like `ec2-54-123-45-67.compute-1.amazonaws.com` instead of just an IP. Required for many AWS services.
 
-### CLI Steps
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
 
+VPC_ID=$(aws ec2 create-vpc \
+  --cidr-block 10.0.0.0/16 \
+  --tag-specifications "ResourceType=vpc,Tags=[{Key=Name,Value=my-custom-vpc}]" \
+  --query "Vpc.VpcId" --output text)
+
+aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-hostnames
+aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-support
+
+PUB_SUBNET_A=$(aws ec2 create-subnet \
+  --vpc-id $VPC_ID --cidr-block 10.0.1.0/24 \
+  --availability-zone us-east-1a \
+  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=public-subnet-a}]" \
+  --query "Subnet.SubnetId" --output text)
+
+PUB_SUBNET_B=$(aws ec2 create-subnet \
+  --vpc-id $VPC_ID --cidr-block 10.0.2.0/24 \
+  --availability-zone us-east-1b \
+  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=public-subnet-b}]" \
+  --query "Subnet.SubnetId" --output text)
+
+PRI_SUBNET_A=$(aws ec2 create-subnet \
+  --vpc-id $VPC_ID --cidr-block 10.0.3.0/24 \
+  --availability-zone us-east-1a \
+  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=private-subnet-a}]" \
+  --query "Subnet.SubnetId" --output text)
+
+PRI_SUBNET_B=$(aws ec2 create-subnet \
+  --vpc-id $VPC_ID --cidr-block 10.0.4.0/24 \
+  --availability-zone us-east-1b \
+  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=private-subnet-b}]" \
+  --query "Subnet.SubnetId" --output text)
+
+aws ec2 modify-subnet-attribute --subnet-id $PUB_SUBNET_A --map-public-ip-on-launch
+aws ec2 modify-subnet-attribute --subnet-id $PUB_SUBNET_B --map-public-ip-on-launch
+
+echo -e "\e[32m\e[0m"
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 # Create the VPC
 $VPC_ID = aws ec2 create-vpc `
@@ -83,7 +124,7 @@ aws ec2 describe-vpcs --vpc-ids $VPC_ID `
 
 ## 🏗️ PART 2 — CREATE SUBNETS
 
-### Console Steps
+### 🖥️ Method 1: AWS Management Console
 
 **Step 4 — Create Public Subnet A**
 * Left panel → Subnets → Create subnet
@@ -108,8 +149,10 @@ For EACH public subnet (`public-subnet-a` and `public-subnet-b`):
 
 > 💡 **Note:** This ensures any EC2 instance launched into a public subnet automatically gets a public IP — essential for internet access.
 
-### CLI Steps
+### 🐧 Method 2: AWS CLI (Bash)
+*(Included in 01-create-vpc.sh above)*
 
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 # Create all four subnets
 $PUB_SUBNET_A = aws ec2 create-subnet `
@@ -172,7 +215,7 @@ aws ec2 describe-subnets `
 
 The IGW is what connects your VPC to the public internet. Without it — nothing in your VPC can communicate externally.
 
-### Console Steps
+### 🖥️ Method 1: AWS Management Console
 
 **Step 7 — Create Internet Gateway**
 * Left panel → Internet Gateways → Create internet gateway
@@ -185,8 +228,10 @@ The IGW is what connects your VPC to the public internet. Without it — nothing
 * Select `my-custom-vpc` → **Attach internet gateway**
 * ✅ State changes from Detached to Attached
 
-### CLI Steps
+### 🐧 Method 2: AWS CLI (Bash)
+*(Included in 02-create-route-tables.sh below)*
 
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 # Create Internet Gateway
 $IGW_ID = aws ec2 create-internet-gateway `
@@ -215,7 +260,7 @@ aws ec2 describe-internet-gateways --internet-gateway-ids $IGW_ID `
 
 Route tables tell traffic WHERE to go. Public subnets need a route to the IGW. Private subnets need a route to the NAT Gateway.
 
-### Console Steps
+### 🖥️ Method 1: AWS Management Console
 
 **Step 9 — Create public route table**
 * Left panel → Route Tables → Create route table
@@ -248,8 +293,46 @@ Route tables tell traffic WHERE to go. Public subnets need a route to the IGW. P
 
 > 💡 **Note:** We will add the NAT Gateway route to this table in Part 5.
 
-### CLI Steps
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
 
+VPC_ID=$(aws ec2 describe-vpcs --filters "Name=tag:Name,Values=my-custom-vpc" --query "Vpcs[0].VpcId" --output text)
+PUB_SUBNET_A=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=public-subnet-a" --query "Subnets[0].SubnetId" --output text)
+PUB_SUBNET_B=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=public-subnet-b" --query "Subnets[0].SubnetId" --output text)
+PRI_SUBNET_A=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=private-subnet-a" --query "Subnets[0].SubnetId" --output text)
+PRI_SUBNET_B=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=private-subnet-b" --query "Subnets[0].SubnetId" --output text)
+
+IGW_ID=$(aws ec2 create-internet-gateway \
+  --tag-specifications "ResourceType=internet-gateway,Tags=[{Key=Name,Value=my-vpc-igw}]" \
+  --query "InternetGateway.InternetGatewayId" --output text)
+
+aws ec2 attach-internet-gateway --internet-gateway-id $IGW_ID --vpc-id $VPC_ID
+
+PUB_RT_ID=$(aws ec2 create-route-table \
+  --vpc-id $VPC_ID \
+  --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=public-route-table}]" \
+  --query "RouteTable.RouteTableId" --output text)
+
+aws ec2 create-route \
+  --route-table-id $PUB_RT_ID \
+  --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW_ID
+
+aws ec2 associate-route-table --route-table-id $PUB_RT_ID --subnet-id $PUB_SUBNET_A
+aws ec2 associate-route-table --route-table-id $PUB_RT_ID --subnet-id $PUB_SUBNET_B
+
+PRI_RT_ID=$(aws ec2 create-route-table \
+  --vpc-id $VPC_ID \
+  --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=private-route-table}]" \
+  --query "RouteTable.RouteTableId" --output text)
+
+aws ec2 associate-route-table --route-table-id $PRI_RT_ID --subnet-id $PRI_SUBNET_A
+aws ec2 associate-route-table --route-table-id $PRI_RT_ID --subnet-id $PRI_SUBNET_B
+
+echo -e "\e[32m\e[0m"
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 # Create public route table
 $PUB_RT_ID = aws ec2 create-route-table `
@@ -309,7 +392,7 @@ The NAT Gateway sits in a public subnet and lets private instances reach the int
 
 > ⚠️ **Warning:** This is the only resource in this project that costs money (~$0.045/hr). We test it and delete it within the same session.
 
-### Console Steps
+### 🖥️ Method 1: AWS Management Console
 
 **Step 13 — Create NAT Gateway**
 * Left panel → NAT Gateways → Create NAT Gateway
@@ -328,8 +411,33 @@ The NAT Gateway sits in a public subnet and lets private instances reach the int
   * Target: NAT Gateway → select `my-nat-gateway`
 * Click **Save changes**
 
-### CLI Steps
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
 
+PUB_SUBNET_A=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=public-subnet-a" --query "Subnets[0].SubnetId" --output text)
+PRI_RT_ID=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=private-route-table" --query "RouteTables[0].RouteTableId" --output text)
+
+EIP_ALLOC=$(aws ec2 allocate-address \
+  --domain vpc --query "AllocationId" --output text)
+
+NAT_GW_ID=$(aws ec2 create-nat-gateway \
+  --subnet-id $PUB_SUBNET_A \
+  --allocation-id $EIP_ALLOC \
+  --tag-specifications "ResourceType=natgateway,Tags=[{Key=Name,Value=my-nat-gateway}]" \
+  --query "NatGateway.NatGatewayId" --output text)
+
+echo "Waiting for NAT Gateway to become available..."
+aws ec2 wait nat-gateway-available --nat-gateway-ids $NAT_GW_ID
+
+aws ec2 create-route \
+  --route-table-id $PRI_RT_ID \
+  --destination-cidr-block 0.0.0.0/0 --nat-gateway-id $NAT_GW_ID
+
+echo -e "\e[32m\e[0m"
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 # Allocate an Elastic IP for the NAT Gateway
 $EIP_ALLOC = aws ec2 allocate-address `
@@ -373,7 +481,7 @@ aws ec2 describe-route-tables `
 
 ## 🛡️ PART 6 — CREATE SECURITY GROUPS
 
-### Console Steps
+### 🖥️ Method 1: AWS Management Console
 
 **Step 15 — Bastion host security group (public)**
 * Left panel → Security Groups → Create security group
@@ -393,8 +501,36 @@ aws ec2 describe-route-tables `
 
 > 💡 **Note:** This is the bastion host pattern — you SSH into the public bastion, then SSH from the bastion into private instances. Private instances never accept connections directly from the internet.
 
-### CLI Steps
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
 
+VPC_ID=$(aws ec2 describe-vpcs --filters "Name=tag:Name,Values=my-custom-vpc" --query "Vpcs[0].VpcId" --output text)
+
+MY_IP=(Invoke-WebRequest -Uri "https://checkip.amazonaws.com" \
+  -UseBasicParsing).Content.Trim()
+
+BASTION_SG=$(aws ec2 create-security-group \
+  --group-name bastion-sg \
+  --description "Allow SSH from my IP only" \
+  --vpc-id $VPC_ID --query "GroupId" --output text)
+
+aws ec2 authorize-security-group-ingress \
+  --group-id $BASTION_SG --protocol tcp --port 22 --cidr "$MY_IP/32"
+
+PRIVATE_SG=$(aws ec2 create-security-group \
+  --group-name private-sg \
+  --description "Allow SSH from bastion only" \
+  --vpc-id $VPC_ID --query "GroupId" --output text)
+
+aws ec2 authorize-security-group-ingress \
+  --group-id $PRIVATE_SG --protocol tcp --port 22 \
+  --source-group $BASTION_SG
+
+echo -e "\e[32m\e[0m"
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 # Get your current public IP
 $MY_IP = (Invoke-WebRequest -Uri "https://checkip.amazonaws.com" `
@@ -445,7 +581,7 @@ aws ec2 describe-security-groups `
 
 ## 🖥️ PART 7 — LAUNCH TEST EC2 INSTANCES
 
-### Console Steps
+### 🖥️ Method 1: AWS Management Console
 
 **Step 17 — Launch bastion host in public subnet**
 * EC2 → Launch instances
@@ -471,8 +607,40 @@ aws ec2 describe-security-groups `
 * Security group: `private-sg`
 * Click **Launch instance**
 
-### CLI Steps
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
 
+VPC_ID=$(aws ec2 describe-vpcs --filters "Name=tag:Name,Values=my-custom-vpc" --query "Vpcs[0].VpcId" --output text)
+PUB_SUBNET_A=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=public-subnet-a" --query "Subnets[0].SubnetId" --output text)
+PRI_SUBNET_A=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=private-subnet-a" --query "Subnets[0].SubnetId" --output text)
+BASTION_SG=$(aws ec2 describe-security-groups --filters "Name=group-name,Values=bastion-sg" "Name=vpc-id,Values=$VPC_ID" --query "SecurityGroups[0].GroupId" --output text)
+PRIVATE_SG=$(aws ec2 describe-security-groups --filters "Name=group-name,Values=private-sg" "Name=vpc-id,Values=$VPC_ID" --query "SecurityGroups[0].GroupId" --output text)
+
+AMI_ID=$(aws ec2 describe-images --owners amazon \
+  --filters "Name=name,Values=al2023-ami-*-x86_64" "Name=state,Values=available" \
+  --query "sort_by(Images,&CreationDate)[-1].ImageId" --output text)
+
+BASTION_ID=$(aws ec2 run-instances \
+  --image-id $AMI_ID --instance-type t2.micro \
+  --key-name aws-ec2-keypair --subnet-id $PUB_SUBNET_A \
+  --security-group-ids $BASTION_SG --associate-public-ip-address \
+  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=bastion-host}]" \
+  --query "Instances[0].InstanceId" --output text)
+
+PRIVATE_ID=$(aws ec2 run-instances \
+  --image-id $AMI_ID --instance-type t2.micro \
+  --key-name aws-ec2-keypair --subnet-id $PRI_SUBNET_A \
+  --security-group-ids $PRIVATE_SG --no-associate-public-ip-address \
+  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=private-instance}]" \
+  --query "Instances[0].InstanceId" --output text)
+
+echo "Waiting for instances to be running..."
+aws ec2 wait instance-running --instance-ids $BASTION_ID $PRIVATE_ID
+echo -e "\e[32m\e[0m"
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 # Get latest Amazon Linux 2023 AMI
 $AMI_ID = aws ec2 describe-images `
@@ -612,6 +780,128 @@ curl http://169.254.169.254/latest/meta-data/public-ipv4
 
 Run in this exact order — dependencies matter:
 
+### 🖥️ Method 1: AWS Management Console
+1. Go to **EC2** -> **Instances** and terminate both `bastion-host` and `private-instance`. Wait for termination.
+2. Go to **VPC** -> **NAT Gateways**, select `my-nat-gateway`, and delete it. Wait until deleted.
+3. Go to **VPC** -> **Elastic IPs**, select the EIP, click **Actions** -> **Release**.
+4. Go to **EC2** -> **Security Groups** and delete `private-sg` and `bastion-sg`.
+5. Go to **VPC** -> **Subnets** and delete all 4 subnets.
+6. Go to **VPC** -> **Route Tables** and delete the public and private tables.
+7. Go to **VPC** -> **Internet Gateways**, detach `my-vpc-igw` from the VPC, then delete it.
+8. Go to **VPC** -> **Your VPCs**, select `my-custom-vpc` and delete it.
+
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
+
+# cleanup.ps1 — Full Project 5 VPC Teardown
+# Run this script to delete all resources in the correct order
+# Usage: .\scripts\06-cleanup.ps1
+
+# ============================================================
+# SET YOUR RESOURCE IDs HERE BEFORE RUNNING
+# ============================================================
+BASTION_ID="i-XXXXXXXXXXXXXXXXX"   # Bastion instance ID
+PRIVATE_ID="i-XXXXXXXXXXXXXXXXX"   # Private instance ID
+NAT_GW_ID="nat-XXXXXXXXXXXXXXXXX" # NAT Gateway ID
+EIP_ALLOC="eipalloc-XXXXXXXXXX"   # Elastic IP allocation ID
+PRIVATE_SG="sg-XXXXXXXXXXXXXXXXX"  # private-sg ID
+BASTION_SG="sg-XXXXXXXXXXXXXXXXX"  # bastion-sg ID
+PUB_SUBNET_A="subnet-XXXXXXXXXX"    # Public Subnet A ID
+PUB_SUBNET_B="subnet-XXXXXXXXXX"    # Public Subnet B ID
+PRI_SUBNET_A="subnet-XXXXXXXXXX"    # Private Subnet A ID
+PRI_SUBNET_B="subnet-XXXXXXXXXX"    # Private Subnet B ID
+PUB_RT_ID="rtb-XXXXXXXXXXXXXXXXX" # Public Route Table ID
+PRI_RT_ID="rtb-XXXXXXXXXXXXXXXXX" # Private Route Table ID
+IGW_ID="igw-XXXXXXXXXXXXXXXXX" # Internet Gateway ID
+VPC_ID="vpc-XXXXXXXXXXXXXXXXX" # VPC ID
+
+echo "============================================"
+echo "  Project 5 — VPC Cleanup Starting"
+echo "============================================"
+echo ""
+
+# Step 1 — Terminate EC2 Instances
+echo "[1/8] Terminating EC2 instances..."
+aws ec2 terminate-instances \
+  --instance-ids $BASTION_ID $PRIVATE_ID | Out-Null
+
+echo "      Waiting for instances to terminate..."
+aws ec2 wait instance-terminated \
+  --instance-ids $BASTION_ID $PRIVATE_ID
+echo "      Instances terminated ✅"
+echo ""
+
+# Step 2 — Delete NAT Gateway
+echo "[2/8] Deleting NAT Gateway (stops billing immediately)..."
+aws ec2 delete-nat-gateway --nat-gateway-id $NAT_GW_ID | Out-Null
+echo "      NAT Gateway deletion initiated ✅"
+echo "      Waiting 60 seconds for NAT Gateway to delete..."
+sleep 60
+
+# Verify NAT Gateway is deleted
+NAT_STATE=$(aws ec2 describe-nat-gateways \
+  --nat-gateway-ids $NAT_GW_ID \
+  --query "NatGateways[0].State" --output text)
+echo "      NAT Gateway state: $NAT_STATE"
+while ($NAT_STATE -ne "deleted") {
+echo "      Still deleting — waiting 30 more seconds..."
+  sleep 30
+  NAT_STATE=$(aws ec2 describe-nat-gateways \
+    --nat-gateway-ids $NAT_GW_ID \
+    --query "NatGateways[0].State" --output text)
+}
+echo "      NAT Gateway deleted ✅"
+echo ""
+
+# Step 3 — Release Elastic IP
+echo "[3/8] Releasing Elastic IP..."
+aws ec2 release-address --allocation-id $EIP_ALLOC | Out-Null
+echo "      Elastic IP released ✅"
+echo ""
+
+# Step 4 — Delete Security Groups
+echo "[4/8] Deleting Security Groups..."
+aws ec2 delete-security-group --group-id $PRIVATE_SG | Out-Null
+aws ec2 delete-security-group --group-id $BASTION_SG | Out-Null
+echo "      Security Groups deleted ✅"
+echo ""
+
+# Step 5 — Delete Subnets
+echo "[5/8] Deleting Subnets..."
+aws ec2 delete-subnet --subnet-id $PUB_SUBNET_A | Out-Null
+aws ec2 delete-subnet --subnet-id $PUB_SUBNET_B | Out-Null
+aws ec2 delete-subnet --subnet-id $PRI_SUBNET_A | Out-Null
+aws ec2 delete-subnet --subnet-id $PRI_SUBNET_B | Out-Null
+echo "      Subnets deleted ✅"
+echo ""
+
+# Step 6 — Delete Route Tables
+echo "[6/8] Deleting Route Tables..."
+aws ec2 delete-route-table --route-table-id $PUB_RT_ID | Out-Null
+aws ec2 delete-route-table --route-table-id $PRI_RT_ID | Out-Null
+echo "      Route Tables deleted ✅"
+echo ""
+
+# Step 7 — Delete Internet Gateway
+echo "[7/8] Detaching and Deleting Internet Gateway..."
+aws ec2 detach-internet-gateway --internet-gateway-id $IGW_ID --vpc-id $VPC_ID | Out-Null
+aws ec2 delete-internet-gateway --internet-gateway-id $IGW_ID | Out-Null
+echo "      Internet Gateway deleted ✅"
+echo ""
+
+# Step 8 — Delete VPC
+echo "[8/8] Deleting VPC..."
+aws ec2 delete-vpc --vpc-id $VPC_ID | Out-Null
+echo "      VPC deleted ✅"
+echo ""
+
+echo "============================================"
+echo "  Cleanup Complete! All resources destroyed."
+echo "============================================"
+```
+
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
 # Step 1 — Terminate both EC2 instances
 aws ec2 terminate-instances `

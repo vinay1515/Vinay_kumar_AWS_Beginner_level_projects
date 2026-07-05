@@ -111,15 +111,16 @@ export DOMAIN_NAME="example.com"
 
 Choose your platform and execute the scripts in order:
 
-<table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/deploy.sh</code></td><td>Execute Deploy</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/deploy.ps1</code></td><td>Execute Deploy</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/invalidate_cache.sh</code></td><td>Execute Invalidate_cache</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/invalidate_cache.ps1</code></td><td>Execute Invalidate_cache</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
-</table>
+| Step | Bash Script | PowerShell Script | Description |
+|------|-------------|-------------------|-------------|
+| 01 | `scripts/bash/01-create-bucket.sh` | `scripts/powershell/01-create-bucket.ps1` | Creates the initial S3 bucket |
+| 02 | `scripts/bash/02-enable-hosting.sh` | `scripts/powershell/02-enable-hosting.ps1` | Enables static website hosting |
+| 03 | `scripts/bash/03-apply-policy.sh` | `scripts/powershell/03-apply-policy.ps1` | Applies public read bucket policy |
+| 04 | `scripts/bash/04-deploy-code.sh` | `scripts/powershell/04-deploy-code.ps1` | Uploads HTML/CSS files to S3 |
+| 05 | `scripts/bash/invalidate_cache.sh` | `scripts/powershell/invalidate_cache.ps1` | Forces CloudFront to pull new files |
+
+### 📸 Screenshots & Validation
+Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
 ## 📚 Documentation Suite
 
