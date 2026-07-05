@@ -30,19 +30,20 @@ aws configure get region
 
 ## 🏗️ PART 1 — CREATE DYNAMODB TABLE
 
-Create DynamoDB table.
+Create DynamoDB table
 
 ### 🖥️ Method 1: AWS Management Console
 1. **Create DynamoDB table**
-- Console search → DynamoDB → Create table
-- Table name: users
-- Partition key: userId (String)
-- Read/write capacity: On-demand
-- Click Create table
-- Wait ~30 seconds for status to show Active
+   - Console search → DynamoDB → Create table
+   - Table name: users
+   - Partition key: userId (String)
+   - Read/write capacity: On-demand
+   - Click Create table
+   - Wait ~30 seconds for status to show Active
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 # Create DynamoDB table with on-demand billing
 aws dynamodb create-table \
   --table-name users \
@@ -87,22 +88,23 @@ aws dynamodb describe-table `
 
 ## 🏗️ PART 2 — CREATE LAMBDA EXECUTION ROLE
 
-Create IAM role for Lambda.
+Create IAM role for Lambda
 
 ### 🖥️ Method 1: AWS Management Console
 2. **Create Lambda IAM role**
-- Console → IAM → Roles → Create role
-- Trusted entity: AWS service, Service: Lambda → Next
-- Search and attach: AWSLambdaBasicExecutionRole → Next
-- Role name: lambda-users-api-role → Create role
+   - Console → IAM → Roles → Create role
+   - Trusted entity: AWS service, Service: Lambda → Next
+   - Search and attach: AWSLambdaBasicExecutionRole → Next
+   - Role name: lambda-users-api-role → Create role
 
 3. **Add DynamoDB policy**
-- Click your new role → Add permissions → Create inline policy
-- JSON tab → Allow dynamodb:GetItem/PutItem/UpdateItem/DeleteItem/Scan on table arn
-- Policy name: dynamodb-users-access → Create policy
+   - Click your new role → Add permissions → Create inline policy
+   - JSON tab → Allow dynamodb:GetItem/PutItem/UpdateItem/DeleteItem/Scan on table arn
+   - Policy name: dynamodb-users-access → Create policy
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 # Create Lambda execution role
 aws iam create-role \
   --role-name lambda-users-api-role \
@@ -209,26 +211,27 @@ Start-Sleep -Seconds 10
 
 ## 🏗️ PART 3 — WRITE AND DEPLOY THE LAMBDA FUNCTION
 
-Write, package and deploy Lambda function.
+Write, package and deploy Lambda function
 
 ### 🖥️ Method 1: AWS Management Console
 4. **Create project folder and Lambda code**
-- Save python script in `lambda/lambda_function.py`.
+   - Save python script in `lambda/lambda_function.py`.
 
 5. **Package and deploy Lambda**
 *Using the CLI is highly recommended for packaging and deploying.*
 If you must use the console:
-- Zip your `lambda_function.py` into a file `function.zip`
-- Console → Lambda → Create function → Author from scratch
-- Function name: users-api, Runtime: Python 3.12
-- Change default execution role → Use an existing role → `lambda-users-api-role`
-- Click Create function
-- In the Code source section, click Upload from → .zip file → Upload `function.zip`
-- Configuration tab → Environment variables → Add `TABLE_NAME`=`users`, `REGION`=`us-east-1`
-- Configuration tab → General configuration → Edit → Timeout `30` seconds, Memory `128` MB
+   - Zip your `lambda_function.py` into a file `function.zip`
+   - Console → Lambda → Create function → Author from scratch
+   - Function name: users-api, Runtime: Python 3.12
+   - Change default execution role → Use an existing role → `lambda-users-api-role`
+   - Click Create function
+   - In the Code source section, click Upload from → .zip file → Upload `function.zip`
+   - Configuration tab → Environment variables → Add `TABLE_NAME`=`users`, `REGION`=`us-east-1`
+   - Configuration tab → General configuration → Edit → Timeout `30` seconds, Memory `128` MB
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 # Package Lambda into a ZIP file
 zip -j lambda/function.zip lambda/lambda_function.py
 
@@ -306,13 +309,13 @@ aws lambda get-function `
 
 ## 🏗️ PART 4 — TEST LAMBDA DIRECTLY
 
-Test Lambda execution natively.
+Test Lambda execution natively
 
 ### 🖥️ Method 1: AWS Management Console
 Before wiring up API Gateway, test Lambda directly.
-- Console → Lambda → Functions → `users-api`
-- Test tab → Create new event
-- Event JSON for POST /users:
+   - Console → Lambda → Functions → `users-api`
+   - Test tab → Create new event
+   - Event JSON for POST /users:
 ```json
 {
   "httpMethod": "POST",
@@ -320,11 +323,12 @@ Before wiring up API Gateway, test Lambda directly.
   "body": "{\"name\":\"Vinay Kumar\",\"email\":\"vinay@example.com\",\"role\":\"admin\"}"
 }
 ```
-- Click Test
-- Expand Details and verify statusCode 201.
+   - Click Test
+   - Expand Details and verify statusCode 201.
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 # Test 1 - Create a user
 CREATE_PAYLOAD='{"body":"{\"name\":\"Vinay Kumar\",\"email\":\"vinay@example.com\",\"role\":\"admin\"}","httpMethod":"POST","path":"/users"}'
 
@@ -377,37 +381,38 @@ cat response-list.json
 
 ## 🏗️ PART 5 — CREATE API GATEWAY
 
-Create and configure API Gateway.
+Create and configure API Gateway
 
 ### 🖥️ Method 1: AWS Management Console
 6. **Create REST API**
-- Console search → API Gateway → Create API
-- Choose REST API → Build
-- API name: `users-api`, Endpoint type: Regional → Create API
+   - Console search → API Gateway → Create API
+   - Choose REST API → Build
+   - API name: `users-api`, Endpoint type: Regional → Create API
 
 7. **Create /users resource**
-- Left panel → Resources → Click / (root) → Create resource
-- Resource name: `users`
-- ✅ Enable API Gateway CORS → Create resource
+   - Left panel → Resources → Click / (root) → Create resource
+   - Resource name: `users`
+   - ✅ Enable API Gateway CORS → Create resource
 
-Step 8 & 9 — Create POST and GET methods on /users
-- Click /users resource → Create method
-- Method type: POST (and then GET)
-- Integration type: Lambda function, Lambda proxy integration: ✅ Enable
-- Lambda function: `users-api`
+8. **Create POST and GET methods on /users**
+   - Click /users resource → Create method
+   - Method type: POST (and then GET)
+   - Integration type: Lambda function, Lambda proxy integration: ✅ Enable
+   - Lambda function: `users-api`
 
-Step 10 & 11 — Create /users/{userId} resource and methods
-- Click /users → Create resource → Resource name: `{userId}`, Resource path: `{userId}`
-- ✅ Enable API Gateway CORS → Create resource
-- Create GET, PUT, DELETE methods on /{userId} pointing to `users-api` lambda.
+10. **Create /users/{userId} resource and methods**
+   - Click /users → Create resource → Resource name: `{userId}`, Resource path: `{userId}`
+   - ✅ Enable API Gateway CORS → Create resource
+   - Create GET, PUT, DELETE methods on /{userId} pointing to `users-api` lambda.
 
 12. **Deploy the API**
-- Click Deploy API
-- Stage: [New stage], Stage name: `prod`
-- Copy the Invoke URL
+   - Click Deploy API
+   - Stage: [New stage], Stage name: `prod`
+   - Copy the Invoke URL
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 # Step 1 - Create REST API
 API_ID=$(aws apigateway create-rest-api \
   --name users-api \
@@ -578,7 +583,7 @@ Write-Host "API deployed at: $API_URL"
 
 ## 🏗️ PART 6 — TEST THE FULL API
 
-Test the full API through API Gateway.
+Test the full API through API Gateway
 
 ### 🖥️ Method 1: AWS Management Console
 Now test all 5 endpoints using curl or Postman.
@@ -596,6 +601,7 @@ Body:
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 API_ID=$(aws apigateway get-rest-apis --query "items[?name=='users-api'].id | [0]" --output text)
 API_URL="https://${API_ID}.execute-api.us-east-1.amazonaws.com/prod"
 
@@ -681,15 +687,16 @@ Write-Host "`n=== ALL TESTS PASSED ===" -ForegroundColor Green
 
 ## 🏗️ PART 7 — VERIFY IN DYNAMODB CONSOLE
 
-Verify data persistence in DynamoDB.
+Verify data persistence in DynamoDB
 
 ### 🖥️ Method 1: AWS Management Console
 In the console:
-- DynamoDB → Tables → users → Explore table items
-- See all your created users with all attributes
+   - DynamoDB → Tables → users → Explore table items
+   - See all your created users with all attributes
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 # Check items in DynamoDB via CLI
 aws dynamodb scan \
   --table-name users \
@@ -710,15 +717,16 @@ aws dynamodb scan `
 
 ## 🏗️ PART 8 — MONITOR WITH CLOUDWATCH LOGS
 
-Monitor execution logs in CloudWatch.
+Monitor execution logs in CloudWatch
 
 ### 🖥️ Method 1: AWS Management Console
-- Console → CloudWatch → Log groups
-- Search for `/aws/lambda/users-api`
-- Open the latest log stream to see standard out and execution details.
+   - Console → CloudWatch → Log groups
+   - Search for `/aws/lambda/users-api`
+   - Open the latest log stream to see standard out and execution details.
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 # List Lambda log groups
 aws logs describe-log-groups \
   --log-group-name-prefix "/aws/lambda/users-api" \
@@ -771,16 +779,17 @@ aws logs get-log-events `
 
 ## 🏗️ PART 9 — UPDATE LAMBDA CODE
 
-Update and redeploy Lambda function code.
+Update and redeploy Lambda function code
 
 ### 🖥️ Method 1: AWS Management Console
 When you update your Lambda code:
-- Console → Lambda → Functions → `users-api`
-- Edit code inline
-- Click Deploy
+   - Console → Lambda → Functions → `users-api`
+   - Edit code inline
+   - Click Deploy
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 # Repackage
 zip -j lambda/function.zip lambda/lambda_function.py
 
@@ -816,17 +825,18 @@ Write-Host "Lambda updated successfully"
 
 ## 🏗️ PART 10 — CLEANUP
 
-Clean up all AWS resources.
+Clean up all AWS resources
 
 ### 🖥️ Method 1: AWS Management Console
-- Console → API Gateway → Delete `users-api`
-- Console → Lambda → Delete `users-api`
-- Console → DynamoDB → Delete `users` table
-- Console → IAM → Delete `lambda-users-api-role`
-- Console → CloudWatch → Delete log group `/aws/lambda/users-api`
+   - Console → API Gateway → Delete `users-api`
+   - Console → Lambda → Delete `users-api`
+   - Console → DynamoDB → Delete `users` table
+   - Console → IAM → Delete `lambda-users-api-role`
+   - Console → CloudWatch → Delete log group `/aws/lambda/users-api`
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
+#!/bin/bash
 # Get API ID
 API_ID=$(aws apigateway get-rest-apis --query "items[?name=='users-api'].id | [0]" --output text)
 

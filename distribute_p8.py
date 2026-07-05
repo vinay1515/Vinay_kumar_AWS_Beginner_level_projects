@@ -834,20 +834,20 @@ aws configure get region
 for p in parts:
     base_name = f"{p['id']}-{p['title'].lower().replace(' ', '-').replace('-table', '').replace('-the', '').replace('-function', '')}"
     
-    # Format console steps
+    # Reformat console steps from "Step X — Title" to "X. **Title**"
     console_text = p['console']
-    # Replace "Step X — Y" with "X. **Y**"
     console_text = re.sub(r'Step (\d+) — (.*)', r'\1. **\2**', console_text)
-    
-    # Remove #!/bin/bash for the markdown blocks
-    sh_text = p['sh'].replace("#!/bin/bash\n", "")
+    # Reformat step 8 & 9 and similar joined steps
+    console_text = re.sub(r'Step (\d+) & (\d+) — (.*)', r'\1. **\3**', console_text)
+    # Reformat list items to use proper indentation under numbered steps
+    console_text = re.sub(r'^-\s+', r'   - ', console_text, flags=re.MULTILINE)
     
     content += f"## 🏗️ PART {int(p['id'])} — {p['title']}\n\n"
-    content += f"{p['desc']}.\n\n"
+    content += f"{p['desc']}\n\n"
     content += f"### 🖥️ Method 1: AWS Management Console\n"
     content += f"{console_text}\n\n"
     content += f"### 🐧 Method 2: AWS CLI (Bash)\n"
-    content += f"```bash\n{sh_text}\n```\n\n"
+    content += f"```bash\n{p['sh']}\n```\n\n"
     content += f"### 🪟 Method 3: AWS CLI (PowerShell)\n"
     content += f"```powershell\n{p['ps1']}\n```\n\n"
     content += "---\n\n"
