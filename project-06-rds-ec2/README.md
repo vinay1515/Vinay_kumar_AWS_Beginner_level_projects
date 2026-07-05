@@ -31,61 +31,25 @@
 
 <p><i>▲ High-level architecture diagram showing EC2 in a public subnet connecting to RDS MySQL in private subnets via security group chaining</i></p>
 
-</div>
-
-```
-Internet
-    │
-    ▼
-Internet Gateway
-    │
-    ▼
-┌─────────────────────────────────────────────────┐
-│              VPC — 10.0.0.0/16                  │
-│                                                 │
-│  ┌──────────────────────────────────────────┐   │
-│  │         Public Subnet A (10.0.1.0/24)    │   │
-│  │                                          │   │
-│  │   ┌──────────────────────────────────┐   │   │
-│  │   │  EC2 App Server (t2.micro)       │   │   │
-│  │   │  Amazon Linux 2023               │   │   │
-│  │   │  MySQL client installed          │   │   │
-│  │   │  Public IP: accessible from web  │   │   │
-│  │   └────────────────┬─────────────────┘   │   │
-│  └────────────────────│─────────────────────┘   │
-│                       │ Port 3306 (MySQL)        │
-│  ┌────────────────────│─────────────────────┐   │
-│  │  Private Subnets   │                     │   │
-│  │  ┌─────────────────▼──────────────┐      │   │
-│  │  │  RDS MySQL (db.t3.micro)       │      │   │
-│  │  │  Multi-AZ subnet group         │      │   │
-│  │  │  Automated backups enabled     │      │   │
-│  │  │  No public access              │      │   │
-│  │  └────────────────────────────────┘      │   │
-│  │  private-subnet-a    private-subnet-b    │   │
-│  └──────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────┘
-```
-
 ## 📐 Infrastructure Specifications
 
-| Resource | Configuration |
-|:---------|:-------------|
-| **VPC** | `10.0.0.0/16` CIDR block; DNS hostnames and DNS resolution enabled |
-| **Public Subnet A** | `10.0.1.0/24` in us-east-1a; auto-assign public IP enabled; routes to IGW |
-| **Public Subnet B** | `10.0.2.0/24` in us-east-1b; auto-assign public IP enabled; routes to IGW |
-| **Private Subnet A** | `10.0.3.0/24` in us-east-1a; no public IP; local routes only |
-| **Private Subnet B** | `10.0.4.0/24` in us-east-1b; no public IP; local routes only |
-| **Internet Gateway** | Attached to VPC; public route table has `0.0.0.0/0 → IGW` |
-| **RDS Instance** | `db.t3.micro` (Free Tier); MySQL 8.0; 20 GiB gp2 storage; single-AZ |
-| **DB Subnet Group** | Private subnets across 2 AZs (`us-east-1a` + `us-east-1b`); no public accessibility |
-| **EC2 App Server** | `t2.micro`; Amazon Linux 2023; MySQL client + Apache httpd installed via user data |
-| **Security Group (EC2)** | Inbound: SSH (22) from your IP, HTTP (80) from anywhere; outbound: all traffic |
-| **Security Group (RDS)** | Inbound: MySQL (3306) from `ec2-app-sg` only; no internet access |
-| **Secrets Manager** | RDS admin credentials stored at `rds/myapp/credentials`; JSON format |
-| **IAM Role** | `ec2-app-role` with SSM + Secrets Manager + RDS describe permissions |
-| **Automated Backups** | 1-day retention; daily automated snapshots |
-| **Region** | us-east-1 (multi-AZ: 1a + 1b) |
+| Resource                 | Configuration                                                                       |
+| :-------------------------| :------------------------------------------------------------------------------------|
+| **VPC**                  | `10.0.0.0/16` CIDR block; DNS hostnames and DNS resolution enabled                  |
+| **Public Subnet A**      | `10.0.1.0/24` in us-east-1a; auto-assign public IP enabled; routes to IGW           |
+| **Public Subnet B**      | `10.0.2.0/24` in us-east-1b; auto-assign public IP enabled; routes to IGW           |
+| **Private Subnet A**     | `10.0.3.0/24` in us-east-1a; no public IP; local routes only                        |
+| **Private Subnet B**     | `10.0.4.0/24` in us-east-1b; no public IP; local routes only                        |
+| **Internet Gateway**     | Attached to VPC; public route table has `0.0.0.0/0 → IGW`                           |
+| **RDS Instance**         | `db.t3.micro` (Free Tier); MySQL 8.0; 20 GiB gp2 storage; single-AZ                 |
+| **DB Subnet Group**      | Private subnets across 2 AZs (`us-east-1a` + `us-east-1b`); no public accessibility |
+| **EC2 App Server**       | `t2.micro`; Amazon Linux 2023; MySQL client + Apache httpd installed via user data  |
+| **Security Group (EC2)** | Inbound: SSH (22) from your IP, HTTP (80) from anywhere; outbound: all traffic      |
+| **Security Group (RDS)** | Inbound: MySQL (3306) from `ec2-app-sg` only; no internet access                    |
+| **Secrets Manager**      | RDS admin credentials stored at `rds/myapp/credentials`; JSON format                |
+| **IAM Role**             | `ec2-app-role` with SSM + Secrets Manager + RDS describe permissions                |
+| **Automated Backups**    | 1-day retention; daily automated snapshots                                          |
+| **Region**               | us-east-1 (multi-AZ: 1a + 1b)                                                       |
 
 ## 🧩 Key Components
 
