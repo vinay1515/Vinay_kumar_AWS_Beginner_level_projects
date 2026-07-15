@@ -127,8 +127,7 @@ Choose your platform and execute the scripts in order:
 | 10 | `scripts/bash/10-cleanup.sh` | `scripts/powershell/10-cleanup.ps1` | Clean up all AWS resources |
 
 ### 📸 Screenshots & Validation
-
-> *Add screenshots here validating the deployment (e.g., API Gateway console, Postman tests, DynamoDB items).*
+Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
 ## 📚 Documentation Suite
 
