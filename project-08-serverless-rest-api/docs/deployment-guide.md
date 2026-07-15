@@ -152,13 +152,13 @@ Write-Host "Next step: Run 02-create-lambda-execution-role.ps1" -ForegroundColor
 Create the IAM execution role with least-privilege DynamoDB permissions for Lambda.
 
 ### 🖥️ Method 1: AWS Management Console
-2. **Create Lambda IAM role**
+1. **Create Lambda IAM role**
    - Console → IAM → Roles → Create role
    - Trusted entity: AWS service, Service: Lambda → Next
    - Search and attach: AWSLambdaBasicExecutionRole → Next
    - Role name: lambda-users-api-role → Create role
 
-3. **Add DynamoDB policy**
+2. **Add DynamoDB policy**
    - Click your new role → Add permissions → Create inline policy
    - JSON tab → Allow dynamodb:GetItem/PutItem/UpdateItem/DeleteItem/Scan on table arn
    - Policy name: dynamodb-users-access → Create policy
@@ -326,10 +326,10 @@ Write-Host "Next step: Run 03-write-and-deploy-lambda.ps1" -ForegroundColor Cyan
 Package the Python Lambda function and deploy it to AWS.
 
 ### 🖥️ Method 1: AWS Management Console
-4. **Create project folder and Lambda code**
+1. **Create project folder and Lambda code**
    - Save python script in `lambda/lambda_function.py`.
 
-5. **Package and deploy Lambda**
+2. **Package and deploy Lambda**
 *Using the CLI is highly recommended for packaging and deploying.*
 If you must use the console:
    - Zip your `lambda_function.py` into a file `function.zip`
@@ -471,7 +471,7 @@ Write-Host "Next step: Run 04-test-lambda-directly.ps1" -ForegroundColor Cyan
 Test the Lambda function directly before wiring up API Gateway.
 
 ### 🖥️ Method 1: AWS Management Console
-Before wiring up API Gateway, test Lambda directly.
+1. **Test Lambda directly**
    - Console → Lambda → Functions → `users-api`
    - Test tab → Create new event
    - Event JSON for POST /users:
@@ -594,28 +594,28 @@ Write-Host "Next step: Run 05-create-api-gateway.ps1" -ForegroundColor Cyan
 Create the REST API, resources, methods, and deploy to prod stage.
 
 ### 🖥️ Method 1: AWS Management Console
-6. **Create REST API**
+1. **Create REST API**
    - Console search → API Gateway → Create API
    - Choose REST API → Build
    - API name: `users-api`, Endpoint type: Regional → Create API
 
-7. **Create /users resource**
+2. **Create /users resource**
    - Left panel → Resources → Click / (root) → Create resource
    - Resource name: `users`
    - ✅ Enable API Gateway CORS → Create resource
 
-8. **Create POST and GET methods on /users**
+3. **Create POST and GET methods on /users**
    - Click /users resource → Create method
    - Method type: POST (and then GET)
    - Integration type: Lambda function, Lambda proxy integration: ✅ Enable
    - Lambda function: `users-api`
 
-10. **Create /users/{userId} resource and methods**
+4. **Create /users/{userId} resource and methods**
    - Click /users → Create resource → Resource name: `{userId}`, Resource path: `{userId}`
    - ✅ Enable API Gateway CORS → Create resource
    - Create GET, PUT, DELETE methods on /{userId} pointing to `users-api` lambda.
 
-12. **Deploy the API**
+5. **Deploy the API**
    - Click Deploy API
    - Stage: [New stage], Stage name: `prod`
    - Copy the Invoke URL
@@ -855,10 +855,11 @@ Write-Host "Next step: Run 06-test-full-api.ps1" -ForegroundColor Cyan
 Run all 8 endpoint tests through API Gateway to validate the full stack.
 
 ### 🖥️ Method 1: AWS Management Console
-Now test all 5 endpoints using curl or Postman.
-URL: https://<your-api-id>.execute-api.us-east-1.amazonaws.com/prod/users
-Method: POST
-Body:
+1. **Test the full API**
+   - Now test all 5 endpoints using curl or Postman.
+   - URL: `https://<your-api-id>.execute-api.us-east-1.amazonaws.com/prod/users`
+   - Method: POST
+   - Body:
 ```json
 {
   "name": "Vinay Kumar",
@@ -997,8 +998,8 @@ Write-Host "Next step: Run 07-verify-dynamodb.ps1" -ForegroundColor Cyan
 Verify data persistence by scanning the DynamoDB users table.
 
 ### 🖥️ Method 1: AWS Management Console
-In the console:
-   - DynamoDB → Tables → users → Explore table items
+1. **Verify data in DynamoDB**
+   - Console → DynamoDB → Tables → `users` → Explore table items
    - See all your created users with all attributes
 
 ### 🐧 Method 2: AWS CLI (Bash)
@@ -1060,6 +1061,7 @@ Write-Host "Next step: Run 08-monitor-cloudwatch.ps1" -ForegroundColor Cyan
 View Lambda execution logs and monitor function performance in CloudWatch.
 
 ### 🖥️ Method 1: AWS Management Console
+1. **View CloudWatch Logs**
    - Console → CloudWatch → Log groups
    - Search for `/aws/lambda/users-api`
    - Open the latest log stream to see standard out and execution details.
@@ -1167,7 +1169,7 @@ Write-Host "Next step: Run 09-update-lambda.ps1" -ForegroundColor Cyan
 Repackage and redeploy updated Lambda function code.
 
 ### 🖥️ Method 1: AWS Management Console
-When you update your Lambda code:
+1. **Update Lambda function code**
    - Console → Lambda → Functions → `users-api`
    - Edit code inline
    - Click Deploy
@@ -1258,6 +1260,7 @@ Write-Host "Next step: Run 10-cleanup.ps1 (when ready to tear down)" -Foreground
 Delete all AWS resources created in this project to avoid charges.
 
 ### 🖥️ Method 1: AWS Management Console
+1. **Delete all resources**
    - Console → API Gateway → Delete `users-api`
    - Console → Lambda → Delete `users-api`
    - Console → DynamoDB → Delete `users` table
