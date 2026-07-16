@@ -1,7 +1,7 @@
 <div align="center">
   <h1><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/aws/aws.png" width="36" height="36" style="vertical-align: middle"/> Project 11: Infrastructure as Code with AWS CloudFormation</h1>
 
-  <p><i>Define and provision AWS infrastructure declaratively using CloudFormation templates. This project creates a reusable, version-controlled stack that deploys a complete VPC, EC2 instances, RDS database, and ALB — implementing infrastructure as code best practices including parameterization, mappings, conditions, outputs, and nested stacks.</i></p>
+  <p><i>Define and provision AWS infrastructure declaratively using CloudFormation templates. This project creates a reusable, version-controlled stack that deploys a complete VPC, EC2 instances, and ALB — implementing infrastructure as code best practices including parameterization, dynamic referencing, change sets, and auto-scaling policies.</i></p>
 
   <p>
     <img src="https://img.shields.io/badge/Level-Intermediate/Advanced-blue" alt="Level"/>
@@ -13,7 +13,6 @@
 
   <p>
     <a href="#-infrastructure-specifications">Infrastructure</a> · 
-    <a href="#-key-components">Components</a> · 
     <a href="#-core-features">Features</a> · 
     <a href="#-setup--installation">Setup</a> · 
     <a href="#-documentation-suite">Docs</a>
@@ -29,7 +28,7 @@
 
 <img src="./architecture/architecture.svg" alt="Infrastructure as Code with AWS CloudFormation — System Architecture" width="800"/>
 
-<p><i>▲ High-level architecture diagram showing the interaction between CloudFormation, VPC, EC2, RDS, ALB services</i></p>
+<p><i>▲ High-level architecture diagram showing the interaction between CloudFormation, VPC, EC2, and ALB services</i></p>
 
 </div>
 
@@ -37,123 +36,64 @@
 
 | Resource | Configuration |
 |:---------|:--------------|
-| **CloudFormation Stack** | Root stack with 3 nested stacks: Network, Compute, Database |
-| **Template Format** | YAML with AWSTemplateFormatVersion: 2010-09-09; Description and Metadata sections |
-| **Parameters** | EnvironmentType (dev/staging/prod), InstanceType, DBInstanceClass, KeyName, CIDR ranges |
-| **Mappings** | AMI IDs per region; instance type → EBS size; environment → capacity settings |
-| **Conditions** | CreateProdResources (Multi-AZ RDS, larger instances); CreateDevResources (t2.micro, single-AZ) |
-| **Outputs** | VPC ID, ALB DNS name, RDS endpoint, SSH command — exported for cross-stack references |
-| **Change Sets** | Preview-before-apply workflow for all stack updates |
-| **Drift Detection** | Scheduled drift detection to identify out-of-band resource modifications |
-| **Region** | ap-south-1 (parameterized for multi-region deployment) |
-
-## 🧩 Key Components
-
-### Root Stack Template
-Master template orchestrating nested stacks with cross-stack parameter passing
-
-### Network Stack (Nested)
-VPC, subnets, IGW, NAT, route tables — reusable network foundation
-
-### Compute Stack (Nested)
-Launch template, ASG, ALB, target group — condition-driven sizing per environment
-
-### Database Stack (Nested)
-RDS MySQL, DB subnet group, parameter group — multi-AZ conditional on environment
-
-### Parameters & Mappings
-Externalized configuration enabling single template for dev/staging/prod environments
-
-### Outputs & Exports
-Cross-stack references enabling loose coupling between network, compute, and database
+| **CloudFormation Stack** | Monolithic stack encapsulating the full architecture from Project 10 |
+| **Template Format** | YAML with AWSTemplateFormatVersion: 2010-09-09; Description section |
+| **Parameters** | ProjectName, EnvironmentType, InstanceType, KeyPairName, Min/Max/Desired capacity limits, and CIDR ranges |
+| **Dynamic References** | SSM Parameter Store resolution for fetching the latest Amazon Linux 2023 AMI at runtime |
+| **Intrinsic Functions** | Heavy utilization of `!Ref`, `!Sub`, `!GetAtt`, and `Fn::Base64` for dynamic resource linking |
+| **Outputs** | Exported ALB DNS URL for immediate application access after deployment |
+| **Change Sets** | Preview-before-apply workflow for all stack updates, preventing accidental resource replacement |
+| **Drift Detection** | Tracking physical resources in AWS to identify out-of-band/manual modifications |
+| **Region** | ap-south-1 (Mumbai) |
 
 ## ⚡ Core Features
 
-- **Declarative Infrastructure** – Entire stack defined in version-controlled YAML; reproducible and auditable
-- **Environment Parameterization** – Single template deploys dev (t2.micro, single-AZ) or prod (t3.large, multi-AZ)
-- **Nested Stack Architecture** – Modular templates for network, compute, and database with independent lifecycle
-- **Change Set Workflow** – Preview all resource additions, modifications, and replacements before execution
-- **Drift Detection** – Identify resources modified outside CloudFormation (manual console changes)
-- **Rollback Protection** – Automatic rollback on stack creation/update failure; preserves last-known-good state
-- **Cross-Stack References** – Exported outputs enable loose coupling between independently managed stacks
+- **Declarative Infrastructure** – The entire architecture (VPC, Subnets, IGW, Route Tables, ALB, Target Groups, Launch Templates, ASG, and Scaling Policies) is defined in a single, version-controlled YAML file.
+- **Dynamic Parameterization** – Change the size of the infrastructure or the instance types simply by passing different parameters at deployment, without editing the code.
+- **Idempotent Deployments** – Running the same template repeatedly yields the exact same predictable state.
+- **Change Set Workflow** – Preview all resource additions, modifications, and replacements before execution.
+- **Drift Detection** – Identify resources that have been modified manually outside of the CloudFormation stack.
+- **Atomic Operations & Rollbacks** – Automatic rollback on stack creation or update failure; preserves the last-known-good state ensuring zero downtime on failed updates.
+- **Clean Teardown** – Wipe out every single resource created by the stack with a single delete command, eliminating orphaned resources.
 
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
 
 - AWS CLI v2 configured with IAM credentials (from Project 01)
-- Understanding of VPC, EC2, RDS concepts (Projects 03, 05, 06)
+- Understanding of VPC, EC2, and ALB concepts (Projects 03, 05, 10)
 - YAML syntax familiarity
-- cfn-lint installed for template validation (`pip install cfn-lint`)
+- `cfn-lint` installed for template validation (optional but recommended: `pip install cfn-lint`)
 
-### Installation
+### Deployment & Execution
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/vinay1515/Vinay_kumar_AWS_Beginner_level_projects.git
-cd project-11-infrastructure-as-code
+Unlike previous projects that required 50+ manual console clicks or imperative scripts, this project relies on native CloudFormation CLI commands. 
 
-# 2. Configure environment variables
-cp .env.example .env
-# Edit .env with your specific values (see Environment Variables below)
-```
+There are no wrapper scripts or `.env` files. You will run the raw `aws cloudformation` commands directly to master the declarative workflow.
 
-### Environment Variables
-
-Create a `.env` file in the project root:
-
-```bash
-export AWS_REGION="ap-south-1"
-export STACK_NAME="my-iac-stack"
-export ENVIRONMENT="dev"
-export KEY_NAME="my-ec2-keypair"
-export DB_PASSWORD="ChangeMe123!"
-```
-
-### Run Commands
-
-Choose your platform and execute the scripts in order:
-
-<table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-create-stack.sh</code></td><td>Execute Create stack</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-create-stack.ps1</code></td><td>Execute Create stack</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-create-changeset.sh</code></td><td>Execute Create changeset</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-create-changeset.ps1</code></td><td>Execute Create changeset</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-execute-changeset.sh</code></td><td>Execute Execute changeset</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-execute-changeset.ps1</code></td><td>Execute Execute changeset</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-test-rollback.sh</code></td><td>Execute Test rollback</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-test-rollback.ps1</code></td><td>Execute Test rollback</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-detect-drift.sh</code></td><td>Execute Detect drift</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-detect-drift.ps1</code></td><td>Execute Detect drift</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/06-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/06-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
-</table>
+**For full, step-by-step deployment, update, and teardown instructions, please follow the [Deployment Guide](docs/deployment-guide.md).**
 
 ## 📚 Documentation Suite
 
 | Document | Description |
 |:---------|:------------|
-| 📄 [Project Overview](docs/project-overview.md) | Comprehensive project context, goals, and learning outcomes |
-| 🏗️ [Architecture Details](docs/architecture.md) | Deep-dive into system design, data flow, and component interactions |
-| 🚀 [Deployment Guide](docs/deployment-guide.md) | Step-by-step deployment procedures for dev, staging, and production |
-| 🔐 [Security Protocols](docs/security-protocols.md) | IAM policies, encryption, network security, and compliance controls |
-| 🧪 [Testing Procedures](docs/testing-procedures.md) | Validation scripts, smoke tests, and integration test suites |
-| 🛠️ [Troubleshooting](docs/troubleshooting.md) | Common issues, error codes, debugging steps, and resolution guides |
+| 📄 [Project Overview](docs/project-overview.md) | Comprehensive project context, goals, and the business problem solved by IaC |
+| 🏗️ [Architecture Details](docs/architecture.md) | Deep-dive into system design, CloudFormation provisioning flow, and state management |
+| 🚀 [Deployment Guide](docs/deployment-guide.md) | Step-by-step CLI procedures for validating, creating, and updating stacks via Change Sets |
+| 🔐 [Security Protocols](docs/security-protocols.md) | IAM policies, Security Group chaining, and NoEcho parameters |
+| 🧪 [Testing Procedures](docs/testing-procedures.md) | Testing Drift Detection and Automatic Rollback scenarios |
+| 🛠️ [Troubleshooting](docs/troubleshooting.md) | Common CFN issues (`ROLLBACK_COMPLETE`, `CREATE_FAILED`), debugging steps, and `cfn-lint` usage |
+| 🧹 [Cleanup Guide](docs/cleanup-guide.md) | How to safely and completely destroy the stack |
+| 📋 [Launch Templates](docs/launch-template.md) | Deep dive into `AWS::EC2::LaunchTemplate` and UserData encoding |
+| ⚖️ [Load Balancer](docs/load-balancer-design.md) | Deep dive into `AWS::ElasticLoadBalancingV2` ALBs, Listeners, and Target Groups |
+| 📈 [Scaling Policies](docs/scaling-policies.md) | Deep dive into `TargetTrackingScaling` policies mapped to ASGs |
+| 🔍 [Health Checks](docs/health-checks.md) | Deep dive into ELB health checking integration |
 
 ## 🤝 Contribution & Maintenance
 
 ### Testing
-
-- `aws cloudformation describe-stacks --stack-name $STACK_NAME` – Verify CREATE_COMPLETE status
-- `aws cloudformation detect-stack-drift --stack-name $STACK_NAME` – Run drift detection
-- Deploy with `ENVIRONMENT=dev` → verify t2.micro and single-AZ RDS
-- Deploy with `ENVIRONMENT=prod` → verify t3.large and multi-AZ RDS
+- `aws cloudformation validate-template --template-body file://templates/main-stack.yaml`
 - Make a console change → re-run drift detection → verify drift is reported
-
-### Deployment
-
-For full production deployment procedures, see the [Deployment Guide](docs/deployment-guide.md).
 
 ### Contributing
 
@@ -161,7 +101,6 @@ For full production deployment procedures, see the [Deployment Guide](docs/deplo
 2. **Commit** your changes (`git commit -m "Add amazing feature"`)
 3. **Push** to the branch (`git push origin feature/amazing-feature`)
 4. **Open** a Pull Request with a detailed description
-5. Ensure all scripts exist in **both** `scripts/powershell/` and `scripts/bash/`
 
 ### License
 
