@@ -26,9 +26,9 @@ SUBNETS=$(aws ec2 describe-subnets \
     --query "Subnets[*].SubnetId" \
     --output text)
 
-SUBNET_LIST=$SUBNETS
-SUBNET_A=$SUBNET_LIST[0]
-SUBNET_B=$SUBNET_LIST[1]
+SUBNET_LIST=($SUBNETS)
+SUBNET_A=${SUBNET_LIST[0]}
+SUBNET_B=${SUBNET_LIST[1]}
 
 echo -e "\e[32m  Subnet A: $SUBNET_A\e[0m"
 echo -e "\e[32m  Subnet B: $SUBNET_B\e[0m"
@@ -50,4 +50,4 @@ echo "  SUBNET_B: $SUBNET_B"
 echo ""
 echo -e "\e[33m  ALB requires minimum 2 AZs for high availability.\e[0m"
 echo ""
-echo -e "\e[36mNext step: Run 03-create-security-groups.ps1\e[0m"
+echo -e "\e[36mNext step: Run 03-create-security-groups.sh\e[0m"

@@ -86,6 +86,16 @@ Deployment specification defining file mappings (`index.html` → `/var/www/html
 - Python 3.x installed locally (for sample app validation)
 - An existing EC2 key pair named `aws-ec2-keypair` (from Project 03)
 
+### Pre-flight Checks
+Run these commands in PowerShell to confirm your environment is ready:
+```powershell
+# Confirm CLI working
+aws sts get-caller-identity
+
+# Confirm region
+aws configure get region
+```
+
 ### Installation
 
 ```bash

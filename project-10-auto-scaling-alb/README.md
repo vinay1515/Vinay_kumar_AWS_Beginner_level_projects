@@ -85,6 +85,16 @@ Cron-based scaling actions for predictable traffic patterns (business hours vs. 
 - Understanding of CloudWatch metrics and alarms (from Project 07)
 - An SSH key pair (from Project 03) for debugging individual instances
 
+### Pre-flight Checks
+Run these commands in PowerShell to confirm your environment is ready:
+```powershell
+# Confirm CLI working
+aws sts get-caller-identity
+
+# Confirm region
+aws configure get region
+```
+
 ### Installation
 
 ```bash
@@ -116,31 +126,22 @@ export CPU_TARGET="70"
 
 Choose your platform and execute the scripts in order:
 
-<table>
-<tr><th>Step</th><th>Script</th><th>Description</th></tr>
-<tr><td>🐧</td><td><code>scripts/bash/01-preflight-check.sh</code></td><td>Execute Preflight check</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/01-preflight-check.ps1</code></td><td>Execute Preflight check</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/02-setup-vpc-subnets.sh</code></td><td>Execute Setup vpc subnets</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/02-setup-vpc-subnets.ps1</code></td><td>Execute Setup vpc subnets</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/03-create-security-groups.sh</code></td><td>Execute Create security groups</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/03-create-security-groups.ps1</code></td><td>Execute Create security groups</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/04-create-launch-template.sh</code></td><td>Execute Create launch template</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/04-create-launch-template.ps1</code></td><td>Execute Create launch template</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/05-create-target-group.sh</code></td><td>Execute Create target group</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/05-create-target-group.ps1</code></td><td>Execute Create target group</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/06-create-alb.sh</code></td><td>Execute Create alb</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/06-create-alb.ps1</code></td><td>Execute Create alb</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/07-create-auto-scaling-group.sh</code></td><td>Execute Create auto scaling group</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/07-create-auto-scaling-group.ps1</code></td><td>Execute Create auto scaling group</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/08-verify-and-test.sh</code></td><td>Execute Verify and test</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/08-verify-and-test.ps1</code></td><td>Execute Verify and test</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/09-test-auto-scaling.sh</code></td><td>Execute Test auto scaling</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/09-test-auto-scaling.ps1</code></td><td>Execute Test auto scaling</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/10-simulate-failure.sh</code></td><td>Execute Simulate failure</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/10-simulate-failure.ps1</code></td><td>Execute Simulate failure</td></tr>
-<tr><td>🐧</td><td><code>scripts/bash/11-cleanup.sh</code></td><td>Execute Cleanup</td></tr>
-<tr><td>🖥️</td><td><code>scripts/powershell/11-cleanup.ps1</code></td><td>Execute Cleanup</td></tr>
-</table>
+| Step | Bash Script | PowerShell Script | Description |
+| :---: | :--- | :--- | :--- |
+| 01 | `scripts/bash/01-preflight-check.sh` | `scripts/powershell/01-preflight-check.ps1` | Verify region, identity, and key pair |
+| 02 | `scripts/bash/02-setup-vpc-subnets.sh` | `scripts/powershell/02-setup-vpc-subnets.ps1` | Discover default VPC and select subnets |
+| 03 | `scripts/bash/03-create-security-groups.sh` | `scripts/powershell/03-create-security-groups.ps1` | Create ALB and EC2 security groups |
+| 04 | `scripts/bash/04-create-launch-template.sh` | `scripts/powershell/04-create-launch-template.ps1` | Create Launch Template with Apache User Data |
+| 05 | `scripts/bash/05-create-target-group.sh` | `scripts/powershell/05-create-target-group.ps1` | Create Target Group for instances |
+| 06 | `scripts/bash/06-create-alb.sh` | `scripts/powershell/06-create-alb.ps1` | Create Application Load Balancer and Listener |
+| 07 | `scripts/bash/07-create-auto-scaling-group.sh` | `scripts/powershell/07-create-auto-scaling-group.ps1` | Create ASG with Target Tracking scaling |
+| 08 | `scripts/bash/08-verify-and-test.sh` | `scripts/powershell/08-verify-and-test.ps1` | Verify load balancing across instances |
+| 09 | `scripts/bash/09-test-auto-scaling.sh` | `scripts/powershell/09-test-auto-scaling.ps1` | SSH and run stress tool to spike CPU |
+| 10 | `scripts/bash/10-simulate-failure.sh` | `scripts/powershell/10-simulate-failure.ps1` | Terminate an instance to verify self-healing |
+| 11 | `scripts/bash/11-cleanup.sh` | `scripts/powershell/11-cleanup.ps1` | Teardown all resources automatically |
+
+### 📸 Screenshots & Validation
+Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
 ## 📚 Documentation Suite
 
@@ -149,9 +150,9 @@ Choose your platform and execute the scripts in order:
 | 📄 [Project Overview](docs/project-overview.md) | Comprehensive project context, goals, and learning outcomes |
 | 🏗️ [Architecture Details](docs/architecture.md) | Deep-dive into system design, data flow, and component interactions |
 | 🚀 [Deployment Guide](docs/deployment-guide.md) | Step-by-step deployment procedures for dev, staging, and production |
-| 🔐 [Security Protocols](docs/security-protocols.md) | IAM policies, encryption, network security, and compliance controls |
 | 🧪 [Testing Procedures](docs/testing-procedures.md) | Validation scripts, smoke tests, and integration test suites |
 | 🛠️ [Troubleshooting](docs/troubleshooting.md) | Common issues, error codes, debugging steps, and resolution guides |
+| 🧹 [Cleanup Guide](docs/cleanup-guide.md) | Instructions for tearing down AWS resources to avoid charges |
 
 ## 🤝 Contribution & Maintenance
 
@@ -188,5 +189,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](../LICE
 ---
 
 <div align="center">
-  <b>[⬅️ Previous: Project 09](../project-09-cicd-pipeline) &nbsp;|&nbsp; [Next: Project 11 ➡️](../project-11-infrastructure-as-code)</b>
+  <b><a href="../project-09-cicd-pipeline">⬅️ Previous: Project 09</a> &nbsp;|&nbsp; <a href="../project-11-infrastructure-as-code">Next: Project 11 ➡️</a></b>
 </div>

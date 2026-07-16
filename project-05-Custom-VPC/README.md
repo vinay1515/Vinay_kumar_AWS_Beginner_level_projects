@@ -114,6 +114,16 @@ Stateless subnet-level firewall providing defense-in-depth alongside security gr
 - Understanding of CIDR notation and IP addressing
 - An SSH key pair (from Project 03) for testing connectivity
 
+### Pre-flight Checks
+Run these commands in PowerShell to confirm your environment is ready:
+```powershell
+# Confirm CLI working
+aws sts get-caller-identity
+
+# Confirm region
+aws configure get region
+```
+
 ### Installation
 
 ```bash

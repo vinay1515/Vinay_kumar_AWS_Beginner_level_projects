@@ -13,9 +13,9 @@ echo ""
 INSTANCE_IDS=$(aws autoscaling describe-auto-scaling-groups \
     --auto-scaling-group-names web-server-asg \
     --query "AutoScalingGroups[0].Instances[*].InstanceId" \
-    --output text)
+    --output text 2>/dev/null)
 
-INSTANCE1=$(INSTANCE_IDS | awk '{print $1}')
+INSTANCE1=$(echo "$INSTANCE_IDS" | awk '{print $1}')
 echo -e "\e[32m  Target instance for stress test: $INSTANCE1\e[0m"
 echo ""
 
@@ -45,41 +45,55 @@ echo ""
 iterations=0
 maxIterations=40  # Monitor for ~20 minutes
 
-while ($iterations -lt $maxIterations) {
-    $iterations++
+while [ $iterations -lt $maxIterations ]; do
+    iterations=$((iterations+1))
 
-    asg=$(aws autoscaling describe-auto-scaling-groups \
+    asg_json=$(aws autoscaling describe-auto-scaling-groups \
         --auto-scaling-group-names web-server-asg \
-        --query "AutoScalingGroups[0].{)
-          Desired:DesiredCapacity,
-          Instances:Instances[*].{ID:InstanceId,State:LifecycleState}}" \
-        --output json | jq .
+        --query "AutoScalingGroups[0].{Desired:DesiredCapacity,Instances:Instances[*].{ID:InstanceId,State:LifecycleState}}" \
+        --output json 2>/dev/null)
 
-    $timestamp = date +"%T"
-    instanceCount=$(echo $asg | jq ".Instances | length")
-    desired=$(echo $asg | jq -r ".Desired")
+    timestamp=$(date +"%T")
+    
+    if [ -n "$asg_json" ] && [ "$asg_json" != "null" ]; then
+        instanceCount=$(echo "$asg_json" | jq '.Instances | length' 2>/dev/null)
+        desired=$(echo "$asg_json" | jq -r '.Desired' 2>/dev/null)
+        
+        # Determine color
+        if [ "$instanceCount" -gt 2 ]; then
+            color="\e[32m" # Green
+        else
+            color="\e[0m"  # Default
+        fi
 
-    # Color based on change
-    color=if ($instanceCount -gt 2) { "Green" } else { "White" }
+        echo -e "${color}$timestamp — Instances: $instanceCount (Desired: $desired)\e[0m"
+        
+        # Loop over instances in json
+        echo "$asg_json" | jq -c '.Instances[]' 2>/dev/null | while read -r inst; do
+            id=$(echo "$inst" | jq -r '.ID')
+            state=$(echo "$inst" | jq -r '.State')
+            
+            if [ "$state" == "InService" ]; then
+                stateColor="\e[32m" # Green
+            elif [ "$state" == "Pending" ]; then
+                stateColor="\e[33m" # Yellow
+            else
+                stateColor="\e[31m" # Red
+            fi
+            echo -e "  ${id}: ${stateColor}${state}\e[0m"
+        done
+    else
+        echo -e "$timestamp — Could not fetch ASG status"
+    fi
 
-echo "$timestamp — Instances: $instanceCount (Desired: $desired)"
-    $asg.Instances | ForEach-Object {
-        stateColor=switch ($_.State) {
-            "InService" { "Green" }
-            "Pending" { "Yellow" }
-            default { "Red" }
-        }
-echo "  $($_.ID): $($_.State)"
-    }
-echo ""
-
+    echo ""
     sleep 30
-}
+done
 
 echo ""
 echo -e "\e[36m=== Monitoring Complete ===\e[0m"
 echo ""
 echo -e "\e[33m  Check scaling history:\e[0m"
-echo -e "\e[97m    aws autoscaling describe-scaling-activities --auto-scaling-group-name web-server-asg --query \e[0m"
+echo -e "\e[97m    aws autoscaling describe-scaling-activities --auto-scaling-group-name web-server-asg --query \"Activities[*].{Status:StatusCode,Desc:Description}\" --output table\e[0m"
 echo ""
-echo -e "\e[36mNext step: Run 10-simulate-failure.ps1 OR 11-cleanup.ps1\e[0m"
+echo -e "\e[36mNext step: Run 10-simulate-failure.sh OR 11-cleanup.sh\e[0m"

@@ -85,6 +85,16 @@ Multi-protocol notification topics delivering to email, SMS, Lambda, SQS, and HT
 - Email address and phone number for SNS subscription confirmation
 - Basic understanding of metric namespaces and dimensions
 
+### Pre-flight Checks
+Run these commands in PowerShell to confirm your environment is ready:
+```powershell
+# Confirm CLI working
+aws sts get-caller-identity
+
+# Confirm region
+aws configure get region
+```
+
 ### Installation
 
 ```bash

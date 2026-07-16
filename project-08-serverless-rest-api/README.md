@@ -85,6 +85,16 @@ JSON Schema models on API Gateway validate request body before invoking Lambda
 - `zip` utility for packaging Lambda deployment artifacts
 - Postman or `curl` for API testing
 
+### Pre-flight Checks
+Run these commands in PowerShell to confirm your environment is ready:
+```powershell
+# Confirm CLI working
+aws sts get-caller-identity
+
+# Confirm region
+aws configure get region
+```
+
 ### Installation
 
 ```bash

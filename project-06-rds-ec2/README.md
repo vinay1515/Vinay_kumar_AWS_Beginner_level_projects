@@ -112,6 +112,16 @@ Daily EBS snapshots with 7-day retention; supports point-in-time recovery to any
 - MySQL client (`mysql` CLI) for testing database connectivity
 - Basic SQL knowledge (CREATE TABLE, INSERT, SELECT)
 
+### Pre-flight Checks
+Run these commands in PowerShell to confirm your environment is ready:
+```powershell
+# Confirm CLI working
+aws sts get-caller-identity
+
+# Confirm region
+aws configure get region
+```
+
 ### Installation
 
 ```bash

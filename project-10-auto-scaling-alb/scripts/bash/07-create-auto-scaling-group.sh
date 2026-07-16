@@ -20,9 +20,9 @@ SUBNETS=$(aws ec2 describe-subnets \
   --query "Subnets[*].SubnetId" \
   --output text)
 
-SUBNET_LIST=$SUBNETS
-SUBNET_A=$SUBNET_LIST[0]
-SUBNET_B=$SUBNET_LIST[1]
+SUBNET_LIST=($SUBNETS)
+SUBNET_A=${SUBNET_LIST[0]}
+SUBNET_B=${SUBNET_LIST[1]}
 
 LT_ID=$(aws ec2 describe-launch-templates \
   --launch-template-names web-server-lt \
@@ -108,4 +108,4 @@ echo "  Subnets:         2 AZs for high availability"
 echo ""
 echo -e "\e[33m  Instances are launching — it takes 2-3 minutes to pass health checks.\e[0m"
 echo ""
-echo -e "\e[36mNext step: Run 08-verify-and-test.ps1\e[0m"
+echo -e "\e[36mNext step: Run 08-verify-and-test.sh\e[0m"

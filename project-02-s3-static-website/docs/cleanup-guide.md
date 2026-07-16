@@ -1,47 +1,82 @@
-# Comprehensive Cleanup Guide
+# Cleanup Guide
 
-To avoid unexpected charges and keep your AWS environment tidy, you should remove the resources created in this project once you have finished testing. 
+This guide covers the systematic tear-down of the infrastructure.
 
-Unlike the versioned bucket in Project 04, standard S3 buckets are relatively easy to delete, but they still must be empty first.
+## 🧹 CLEANS UP RESOURCES
 
----
+### 🖥️ Method 1: AWS Management Console
+*(Refer to script comments for UI cleanup steps)*
 
-## 🧹 Step-by-Step Manual Teardown Logic
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
+#!/bin/bash
+# Load environment variables
+if [ -f "../../.env" ]; then
+    source ../../.env
+elif [ -f "../.env" ]; then
+    source ../.env
+elif [ -f ".env" ]; then
+    source .env
+else
+    echo -e "\e[31mError: .env file not found.\e[0m"
+    exit 1
+fi
 
-### Step 1: Empty the Bucket
-An S3 bucket cannot be deleted if it contains any files. You must first empty the bucket.
+echo -e "\e[33mNOTE: For CloudFront distribution ($DISTRIBUTION_ID), please disable and delete it via the AWS Console.\e[0m"
+echo -e "\e[33mCloudFront -> Distributions -> Select yours -> Disable -> wait 5 min -> Delete\e[0m"
 
-**Via CLI (Recommended):**
-Open your terminal and run the recursive delete command. This will iterate through all files and delete them instantly.
-```powershell
-aws s3 rm s3://<YOUR-BUCKET-NAME> --recursive
+if [ -n "$BUCKET_NAME" ]; then
+    echo -e "\e[36mEmptying S3 bucket: $BUCKET_NAME...\e[0m"
+    aws s3 rm s3://"$BUCKET_NAME" --recursive
+
+    echo -e "\e[36mDeleting S3 bucket: $BUCKET_NAME...\e[0m"
+    aws s3api delete-bucket --bucket "$BUCKET_NAME" --region "$AWS_REGION"
+fi
+
+echo -e "\e[32mS3 Cleanup complete.\e[0m"
 ```
 
-**Via Console:**
-1. Navigate to the **S3** dashboard.
-2. Click the radial button next to your bucket name (do not click the name itself).
-3. Click the **Empty** button at the top.
-4. Type `permanently delete` in the confirmation box and click **Empty**.
-
-### Step 2: Delete the Bucket
-Once the bucket is empty, you can destroy the bucket itself.
-
-**Via CLI:**
+### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
-aws s3api delete-bucket --bucket <YOUR-BUCKET-NAME> --region us-east-1
-```
-*(Note: If your bucket is in a region other than `us-east-1`, you must specify the correct `--region` flag).*
+<#
+.SYNOPSIS
+Cleans up the deployed S3 resources.
+#>
 
-**Via Console:**
-1. Navigate to the **S3** dashboard.
-2. Click the radial button next to your bucket name.
-3. Click the **Delete** button at the top.
-4. Type the name of the bucket in the confirmation box and click **Delete bucket**.
+# Load environment variables
+$envFile = Join-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) "..\..\.env"
+if (-not (Test-Path $envFile)) {
+    $envFile = Join-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) "..\.env"
+}
+if (-not (Test-Path $envFile)) {
+    $envFile = ".env"
+}
 
----
+if (Test-Path $envFile) {
+    Get-Content $envFile | Where-Object { $_ -match '^export\s+([^=]+)=(.*)$' } | ForEach-Object {
+        $name = $matches[1].Trim()
+        $value = $matches[2].Trim(' "''')
+        Set-Item -Path "env:\$name" -Value $value
+    }
+} else {
+    Write-Host "Error: .env file not found." -ForegroundColor Red
+    exit 1
+}
 
-## ✅ Final Verification
-Run the following command in your terminal to list all buckets in your account. If the teardown was successful, your portfolio bucket should no longer appear in the output.
-```powershell
-aws s3 ls
+$BucketName = $env:BUCKET_NAME
+$Region = $env:AWS_REGION
+$DistId = $env:DISTRIBUTION_ID
+
+Write-Host "NOTE: For CloudFront distribution ($DistId), please disable and delete it via the AWS Console." -ForegroundColor Yellow
+Write-Host "CloudFront -> Distributions -> Select yours -> Disable -> wait 5 min -> Delete" -ForegroundColor Yellow
+
+if (-not [string]::IsNullOrEmpty($BucketName)) {
+    Write-Host "Emptying S3 bucket: $BucketName..." -ForegroundColor Cyan
+    aws s3 rm s3://$BucketName --recursive
+
+    Write-Host "Deleting S3 bucket: $BucketName..." -ForegroundColor Cyan
+    aws s3api delete-bucket --bucket $BucketName --region $Region
+}
+
+Write-Host "S3 Cleanup complete." -ForegroundColor Green
 ```

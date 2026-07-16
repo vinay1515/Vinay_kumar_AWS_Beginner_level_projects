@@ -1,52 +1,11 @@
-# Deployment Guide
+# Comprehensive Deployment Guide
 
-This document provides the deployment steps for Project 07 in three formats: **AWS Management Console**, **Bash**, and **PowerShell**.
+This guide details the complete process for deploying this project's resources.
 
-## Prerequisites
-- AWS CLI
-- Appropriate IAM permissions
-- Basic understanding of CloudWatch metrics
-
-## PRE-FLIGHT
-*(These commands are local verification steps. Choose your preferred terminal)*
-
-### 🐧 Method 1: AWS CLI (Bash)
-```bash
-aws sts get-caller-identity
-ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
-echo "Account ID: $ACCOUNT_ID"
-aws configure get region
-```
-
-### 🪟 Method 2: AWS CLI (PowerShell)
-```powershell
-aws sts get-caller-identity
-$ACCOUNT_ID = aws sts get-caller-identity --query "Account" --output text
-Write-Host "Account ID: $ACCOUNT_ID"
-aws configure get region
-```
-
----
-
-## 📡 PART 1 — CREATE SNS TOPIC AND SUBSCRIPTION
-
-The SNS topic is the notification hub. All alarms send alerts here and SNS forwards them to your email.
+## 🏗️ PART 1 — CREATES SNS TOPIC AND EMAIL SUBSCRIPTION
 
 ### 🖥️ Method 1: AWS Management Console
-1. **Create SNS topic**
-   - Console search → SNS → left panel → Topics
-   - Click **Create topic**
-   - Type: **Standard**
-   - Name: `monitoring-alerts`
-   - Display name: `AWS Monitoring`
-   - Click **Create topic**
-   - Copy the Topic ARN.
-2. **Create email subscription**
-   - Click your topic → **Create subscription**
-   - Protocol: **Email**
-   - Endpoint: `your-email@gmail.com`
-   - Click **Create subscription**
-   - ✅ **Check your email** → click **Confirm subscription** link
+*(Refer to the repository instructions or script comments for UI steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
@@ -192,19 +151,10 @@ Write-Host "Next step: Run 02-launch-monitoring-ec2.ps1" -ForegroundColor Cyan
 
 ---
 
-## 💻 PART 2 — LAUNCH EC2 FOR MONITORING
-
-We need a running EC2 instance to generate metrics.
+## 🏗️ PART 2 — LAUNCHES EC2 INSTANCE FOR TESTING
 
 ### 🖥️ Method 1: AWS Management Console
-1. Navigate to EC2 Dashboard -> Launch Instance.
-2. Name: `monitoring-test`
-3. Select Amazon Linux 2023 AMI.
-4. Instance type: `t2.micro`.
-5. Key pair: Select your existing key pair.
-6. Network settings: Ensure auto-assign Public IP is enabled.
-7. Security Group: Create one allowing SSH (Port 22) from your IP.
-8. Click **Launch instance**.
+*(Refer to the repository instructions or script comments for UI steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
@@ -406,21 +356,10 @@ Write-Host "Next step: Run 03-create-ec2-alarms.ps1" -ForegroundColor Cyan
 
 ---
 
-## 🚨 PART 3 — CREATE EC2 CLOUDWATCH ALARMS
+## 🏗️ PART 3 — CREATES CPU, NETWORK, AND STATUSCHECK ALARMS
 
 ### 🖥️ Method 1: AWS Management Console
-1. **Alarm 1 — EC2 High CPU**
-   - Console search → CloudWatch → left panel → Alarms → All alarms
-   - Click **Create alarm** → **Select metric**
-   - Click **EC2** → **Per-Instance Metrics**
-   - Search for your instance ID, check `CPUUtilization` → **Select metric**
-   - Statistic: **Average**, Period: **5 minutes**
-   - Condition: **Greater than 70**
-   - Click **Next**
-   - Send notification to: Select `monitoring-alerts`
-   - Alarm name: `EC2-CPU-High`
-   - Click **Create alarm**
-2. Repeat similar steps for `StatusCheckFailed` (Statistic: Maximum, Period: 1 minute, Threshold: >= 1) and `NetworkIn` (Threshold: > 5000000).
+*(Refer to the repository instructions or script comments for UI steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
@@ -618,17 +557,10 @@ Write-Host "Next step: Run 04-create-rds-alarms.ps1" -ForegroundColor Cyan
 
 ---
 
-## 🗄️ PART 4 — CREATE RDS CLOUDWATCH ALARMS
-
-*Note: You need a running RDS instance named `myapp-database` (from Project 6) for these alarms.*
+## 🏗️ PART 4 — CREATES RDS CPU, STORAGE, AND CONNECTIONS ALARMS
 
 ### 🖥️ Method 1: AWS Management Console
-1. In CloudWatch -> Alarms, click **Create alarm** -> **Select metric**.
-2. Select **RDS** -> **Per-Database Metrics**.
-3. Create an alarm for `CPUUtilization` > 80% (Average, 5 min).
-4. Create an alarm for `FreeStorageSpace` < 2000000000 (Average, 5 min).
-5. Create an alarm for `DatabaseConnections` > 50 (Average, 5 min).
-6. Send notifications to `monitoring-alerts`.
+*(Refer to the repository instructions or script comments for UI steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
@@ -832,17 +764,10 @@ Write-Host "Next step: Run 05-create-billing-alarm.ps1" -ForegroundColor Cyan
 
 ---
 
-## 💰 PART 5 — CREATE BILLING ALARM
-
-⚠️ Billing alarms MUST be created in `us-east-1`.
+## 🏗️ PART 5 — CREATES $5 BILLING THRESHOLD ALARM IN US-EAST-1
 
 ### 🖥️ Method 1: AWS Management Console
-1. Switch region to `us-east-1`.
-2. CloudWatch -> Alarms -> **Create alarm**.
-3. Select metric -> **Billing** -> **Total Estimated Charge** -> `USD`.
-4. Statistic: **Maximum**, Period: **1 day (86400)**.
-5. Condition: **Greater than 5**.
-6. Send notifications to `monitoring-alerts`. Name: `Billing-Alert-5USD`.
+*(Refer to the repository instructions or script comments for UI steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
@@ -980,10 +905,10 @@ Write-Host "Next step: Run 06-generate-cpu-load.sh on the EC2 instance (via SSH)
 
 ---
 
-## 🧪 PART 6 — TEST ALARMS BY GENERATING CPU LOAD
+## 🏗️ PART 6 — STRESSES EC2 TO TRIGGER CPU ALARM
 
 ### 🖥️ Method 1: AWS Management Console
-*(Stress testing is a local SSH execution task, see Methods 2 and 3. Then, monitor the alarm state in the CloudWatch UI).*
+*(Refer to the repository instructions or script comments for UI steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
@@ -1095,17 +1020,10 @@ if ($MON_INSTANCE_ID -and $MON_INSTANCE_ID -ne "None") {
 
 ---
 
-## 📊 PART 7 — CREATE CLOUDWATCH DASHBOARD
+## 🏗️ PART 7 — DEPLOYS CLOUDWATCH MULTI-WIDGET DASHBOARD
 
 ### 🖥️ Method 1: AWS Management Console
-1. CloudWatch → left panel → **Dashboards** → **Create dashboard** (Name: `AWS-Bootcamp-Dashboard`).
-2. Add Widget: Line chart for EC2 `CPUUtilization`.
-3. Add Widget: Line chart for EC2 `NetworkIn` & `NetworkOut`.
-4. Add Widget: Line chart for RDS `CPUUtilization`.
-5. Add Widget: Number for RDS `DatabaseConnections`.
-6. Add Widget: Alarm status, select all alarms.
-7. Add Widget: Number for Billing `EstimatedCharges`.
-8. Click **Save dashboard**.
+*(Refer to the repository instructions or script comments for UI steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
@@ -1389,17 +1307,13 @@ Write-Host "Next step: Run 08-create-log-group.ps1" -ForegroundColor Cyan
 
 ---
 
-## 📜 PART 8 — CLOUDWATCH LOGS AND METRIC FILTERS
+## 🏗️ PART 8 — SETS UP CLOUDWATCH LOGS WITH 7-DAY RETENTION
 
 ### 🖥️ Method 1: AWS Management Console
-1. CloudWatch -> **Log groups** -> **Create log group** (`/aws/ec2/monitoring-test`). Set retention to 7 days.
-2. Select the log group -> **Metric filters** -> **Create metric filter**.
-3. Filter pattern: `ERROR`. Metric namespace: `CustomMetrics`. Metric name: `ApplicationErrors`. Value: 1. Default: 0.
-4. Create an alarm on this custom metric (Sum > 5 in 5 minutes).
+*(Refer to the repository instructions or script comments for UI steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
-# Script 08: Create Log Group
 #!/bin/bash
 
 # =============================================================================
@@ -1458,8 +1372,77 @@ echo "  Log Stream:  app-server-1"
 echo "  Retention:   7 days"
 echo ""
 echo -e "\e[36mNext step: Run 09-create-metric-filter.ps1\e[0m"
+```
 
-# Script 09: Create Metric Filter
+### 🪟 Method 3: AWS CLI (PowerShell)
+```powershell
+# =============================================================================
+# Project 7 — Script 08: CloudWatch Log Group
+# Creates log group with 7-day retention policy
+# =============================================================================
+
+Write-Host "=== Project 7 — CloudWatch Log Group ===" -ForegroundColor Cyan
+Write-Host ""
+
+$LOG_GROUP = "/aws/ec2/monitoring-test"
+
+Write-Host "[1/3] Creating log group: $LOG_GROUP..." -ForegroundColor Yellow
+
+aws logs create-log-group `
+  --log-group-name $LOG_GROUP
+
+if ($LASTEXITCODE -eq 0) {
+    Write-Host "Log group created." -ForegroundColor Green
+} else {
+    Write-Host "Log group may already exist — continuing." -ForegroundColor Yellow
+}
+
+# ── SET RETENTION ─────────────────────────────────────────────────────────────
+Write-Host "[2/3] Setting 7-day retention policy..." -ForegroundColor Yellow
+
+aws logs put-retention-policy `
+  --log-group-name $LOG_GROUP `
+  --retention-in-days 7
+
+Write-Host "Retention set to 7 days." -ForegroundColor Green
+
+# ── CREATE LOG STREAM ─────────────────────────────────────────────────────────
+Write-Host "[3/3] Creating log stream: app-server-1..." -ForegroundColor Yellow
+
+aws logs create-log-stream `
+  --log-group-name $LOG_GROUP `
+  --log-stream-name "app-server-1"
+
+Write-Host "Log stream created." -ForegroundColor Green
+
+# ── VERIFY ────────────────────────────────────────────────────────────────────
+Write-Host ""
+Write-Host "Verifying log group..." -ForegroundColor Yellow
+
+aws logs describe-log-groups `
+  --log-group-name-prefix "/aws/ec2" `
+  --query "logGroups[*].{Name:logGroupName,Retention:retentionInDays,StoredBytes:storedBytes}" `
+  --output table
+
+Write-Host ""
+Write-Host "=== Log Group Complete ===" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "  Log Group:   $LOG_GROUP"
+Write-Host "  Log Stream:  app-server-1"
+Write-Host "  Retention:   7 days"
+Write-Host ""
+Write-Host "Next step: Run 09-create-metric-filter.ps1" -ForegroundColor Cyan
+```
+
+---
+
+## 🏗️ PART 9 — CREATES FILTER AND ALARM FOR APPLICATION ERRORS
+
+### 🖥️ Method 1: AWS Management Console
+*(Refer to the repository instructions or script comments for UI steps)*
+
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
 #!/bin/bash
 
 # =============================================================================
@@ -1534,8 +1517,93 @@ echo "    -> Alarm (App-Errors-High, threshold: Sum > 5 per 5min)"
 echo "    -> SNS -> Email"
 echo ""
 echo -e "\e[36mNext step: Run 10-test-log-events.ps1 to push test ERROR log lines\e[0m"
+```
 
-# Script 10: Test Log Events
+### 🪟 Method 3: AWS CLI (PowerShell)
+```powershell
+# =============================================================================
+# Project 7 — Script 09: Metric Filter + Custom Alarm
+# Creates a metric filter that counts ERROR log lines, then alarms on it
+# =============================================================================
+
+Write-Host "=== Project 7 — Metric Filter and Custom Alarm ===" -ForegroundColor Cyan
+Write-Host ""
+
+if (-not $SNS_ARN) {
+    Write-Host "ERROR: SNS_ARN not set. Run 01-sns-setup.ps1 first." -ForegroundColor Red
+    exit 1
+}
+
+$LOG_GROUP = "/aws/ec2/monitoring-test"
+
+# ── CREATE METRIC FILTER ──────────────────────────────────────────────────────
+Write-Host "[1/2] Creating metric filter 'ErrorCount'..." -ForegroundColor Yellow
+Write-Host "  Pattern:          ERROR (case-sensitive)"
+Write-Host "  Metric namespace: CustomMetrics"
+Write-Host "  Metric name:      ApplicationErrors"
+Write-Host "  On match:         increment by 1"
+Write-Host "  Default value:    0 (prevents INSUFFICIENT_DATA gaps)"
+Write-Host ""
+
+aws logs put-metric-filter `
+  --log-group-name $LOG_GROUP `
+  --filter-name "ErrorCount" `
+  --filter-pattern "ERROR" `
+  --metric-transformations `
+    metricName=ApplicationErrors,metricNamespace=CustomMetrics,metricValue=1,defaultValue=0
+
+Write-Host "Metric filter created." -ForegroundColor Green
+
+# ── CREATE ALARM ON CUSTOM METRIC ─────────────────────────────────────────────
+Write-Host ""
+Write-Host "[2/2] Creating App-Errors-High alarm on CustomMetrics/ApplicationErrors..." -ForegroundColor Yellow
+
+aws cloudwatch put-metric-alarm `
+  --alarm-name "App-Errors-High" `
+  --alarm-description "Application error rate exceeded 5 errors in a 5-minute window" `
+  --namespace "CustomMetrics" `
+  --metric-name "ApplicationErrors" `
+  --statistic Sum `
+  --period 300 `
+  --evaluation-periods 1 `
+  --threshold 5 `
+  --comparison-operator GreaterThanThreshold `
+  --alarm-actions $SNS_ARN `
+  --treat-missing-data notBreaching
+
+Write-Host "App-Errors-High alarm created." -ForegroundColor Green
+
+# ── VERIFY FILTER ─────────────────────────────────────────────────────────────
+Write-Host ""
+Write-Host "Verifying metric filter..." -ForegroundColor Yellow
+
+aws logs describe-metric-filters `
+  --log-group-name $LOG_GROUP `
+  --query "metricFilters[*].{Name:filterName,Pattern:filterPattern,Metric:metricTransformations[0].metricName}" `
+  --output table
+
+Write-Host ""
+Write-Host "=== Metric Filter and Alarm Complete ===" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "Pipeline:"
+Write-Host "  Log Group (/aws/ec2/monitoring-test)"
+Write-Host "    -> Metric Filter (ErrorCount, pattern: 'ERROR')"
+Write-Host "    -> Custom Metric (CustomMetrics/ApplicationErrors)"
+Write-Host "    -> Alarm (App-Errors-High, threshold: Sum > 5 per 5min)"
+Write-Host "    -> SNS -> Email"
+Write-Host ""
+Write-Host "Next step: Run 10-test-log-events.ps1 to push test ERROR log lines" -ForegroundColor Cyan
+```
+
+---
+
+## 🏗️ PART 10 — INGESTS MOCK LOGS TO TRIGGER ERROR ALARM
+
+### 🖥️ Method 1: AWS Management Console
+*(Refer to the repository instructions or script comments for UI steps)*
+
+### 🐧 Method 2: AWS CLI (Bash)
+```bash
 #!/bin/bash
 
 # =============================================================================
@@ -1617,139 +1685,6 @@ echo -e "\e[36mNext step: Run 11-verify-alarms.ps1\e[0m"
 
 ### 🪟 Method 3: AWS CLI (PowerShell)
 ```powershell
-# Script 08: Create Log Group
-# =============================================================================
-# Project 7 — Script 08: CloudWatch Log Group
-# Creates log group with 7-day retention policy
-# =============================================================================
-
-Write-Host "=== Project 7 — CloudWatch Log Group ===" -ForegroundColor Cyan
-Write-Host ""
-
-$LOG_GROUP = "/aws/ec2/monitoring-test"
-
-Write-Host "[1/3] Creating log group: $LOG_GROUP..." -ForegroundColor Yellow
-
-aws logs create-log-group `
-  --log-group-name $LOG_GROUP
-
-if ($LASTEXITCODE -eq 0) {
-    Write-Host "Log group created." -ForegroundColor Green
-} else {
-    Write-Host "Log group may already exist — continuing." -ForegroundColor Yellow
-}
-
-# ── SET RETENTION ─────────────────────────────────────────────────────────────
-Write-Host "[2/3] Setting 7-day retention policy..." -ForegroundColor Yellow
-
-aws logs put-retention-policy `
-  --log-group-name $LOG_GROUP `
-  --retention-in-days 7
-
-Write-Host "Retention set to 7 days." -ForegroundColor Green
-
-# ── CREATE LOG STREAM ─────────────────────────────────────────────────────────
-Write-Host "[3/3] Creating log stream: app-server-1..." -ForegroundColor Yellow
-
-aws logs create-log-stream `
-  --log-group-name $LOG_GROUP `
-  --log-stream-name "app-server-1"
-
-Write-Host "Log stream created." -ForegroundColor Green
-
-# ── VERIFY ────────────────────────────────────────────────────────────────────
-Write-Host ""
-Write-Host "Verifying log group..." -ForegroundColor Yellow
-
-aws logs describe-log-groups `
-  --log-group-name-prefix "/aws/ec2" `
-  --query "logGroups[*].{Name:logGroupName,Retention:retentionInDays,StoredBytes:storedBytes}" `
-  --output table
-
-Write-Host ""
-Write-Host "=== Log Group Complete ===" -ForegroundColor Cyan
-Write-Host ""
-Write-Host "  Log Group:   $LOG_GROUP"
-Write-Host "  Log Stream:  app-server-1"
-Write-Host "  Retention:   7 days"
-Write-Host ""
-Write-Host "Next step: Run 09-create-metric-filter.ps1" -ForegroundColor Cyan
-
-# Script 09: Create Metric Filter
-# =============================================================================
-# Project 7 — Script 09: Metric Filter + Custom Alarm
-# Creates a metric filter that counts ERROR log lines, then alarms on it
-# =============================================================================
-
-Write-Host "=== Project 7 — Metric Filter and Custom Alarm ===" -ForegroundColor Cyan
-Write-Host ""
-
-if (-not $SNS_ARN) {
-    Write-Host "ERROR: SNS_ARN not set. Run 01-sns-setup.ps1 first." -ForegroundColor Red
-    exit 1
-}
-
-$LOG_GROUP = "/aws/ec2/monitoring-test"
-
-# ── CREATE METRIC FILTER ──────────────────────────────────────────────────────
-Write-Host "[1/2] Creating metric filter 'ErrorCount'..." -ForegroundColor Yellow
-Write-Host "  Pattern:          ERROR (case-sensitive)"
-Write-Host "  Metric namespace: CustomMetrics"
-Write-Host "  Metric name:      ApplicationErrors"
-Write-Host "  On match:         increment by 1"
-Write-Host "  Default value:    0 (prevents INSUFFICIENT_DATA gaps)"
-Write-Host ""
-
-aws logs put-metric-filter `
-  --log-group-name $LOG_GROUP `
-  --filter-name "ErrorCount" `
-  --filter-pattern "ERROR" `
-  --metric-transformations `
-    metricName=ApplicationErrors,metricNamespace=CustomMetrics,metricValue=1,defaultValue=0
-
-Write-Host "Metric filter created." -ForegroundColor Green
-
-# ── CREATE ALARM ON CUSTOM METRIC ─────────────────────────────────────────────
-Write-Host ""
-Write-Host "[2/2] Creating App-Errors-High alarm on CustomMetrics/ApplicationErrors..." -ForegroundColor Yellow
-
-aws cloudwatch put-metric-alarm `
-  --alarm-name "App-Errors-High" `
-  --alarm-description "Application error rate exceeded 5 errors in a 5-minute window" `
-  --namespace "CustomMetrics" `
-  --metric-name "ApplicationErrors" `
-  --statistic Sum `
-  --period 300 `
-  --evaluation-periods 1 `
-  --threshold 5 `
-  --comparison-operator GreaterThanThreshold `
-  --alarm-actions $SNS_ARN `
-  --treat-missing-data notBreaching
-
-Write-Host "App-Errors-High alarm created." -ForegroundColor Green
-
-# ── VERIFY FILTER ─────────────────────────────────────────────────────────────
-Write-Host ""
-Write-Host "Verifying metric filter..." -ForegroundColor Yellow
-
-aws logs describe-metric-filters `
-  --log-group-name $LOG_GROUP `
-  --query "metricFilters[*].{Name:filterName,Pattern:filterPattern,Metric:metricTransformations[0].metricName}" `
-  --output table
-
-Write-Host ""
-Write-Host "=== Metric Filter and Alarm Complete ===" -ForegroundColor Cyan
-Write-Host ""
-Write-Host "Pipeline:"
-Write-Host "  Log Group (/aws/ec2/monitoring-test)"
-Write-Host "    -> Metric Filter (ErrorCount, pattern: 'ERROR')"
-Write-Host "    -> Custom Metric (CustomMetrics/ApplicationErrors)"
-Write-Host "    -> Alarm (App-Errors-High, threshold: Sum > 5 per 5min)"
-Write-Host "    -> SNS -> Email"
-Write-Host ""
-Write-Host "Next step: Run 10-test-log-events.ps1 to push test ERROR log lines" -ForegroundColor Cyan
-
-# Script 10: Test Log Events
 # =============================================================================
 # Project 7 — Script 10: Push Test Log Events
 # Simulates application logs with INFO and ERROR lines to trigger metric filter
@@ -1829,12 +1764,10 @@ Write-Host "Next step: Run 11-verify-alarms.ps1" -ForegroundColor Cyan
 
 ---
 
-## 🔍 PART 9 — LIST AND VERIFY ALL ALARMS
+## 🏗️ PART 11 — QUERIES AND VALIDATES ALL ALARM STATES
 
 ### 🖥️ Method 1: AWS Management Console
-1. Navigate to CloudWatch -> **Alarms**.
-2. Review the list of all created alarms.
-3. Validate their states (OK, ALARM, INSUFFICIENT_DATA).
+*(Refer to the repository instructions or script comments for UI steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
@@ -2062,294 +1995,5 @@ Write-Host "  App-Errors-High          ALARM (after test log events pushed)"
 
 ---
 
-## 🧹 PART 10 — CLEANUP
-
-### 🖥️ Method 1: AWS Management Console
-1. Go to CloudWatch -> **Alarms** and delete all 8 alarms created.
-2. Go to CloudWatch -> **Dashboards** and delete `AWS-Bootcamp-Dashboard`.
-3. Go to CloudWatch -> **Log groups** and delete `/aws/ec2/monitoring-test`.
-4. Go to SNS -> **Topics** and delete `monitoring-alerts`.
-5. Go to EC2 -> **Instances** and terminate `monitoring-test`.
-
-### 🐧 Method 2: AWS CLI (Bash)
-```bash
-#!/bin/bash
-
-# =============================================================================
-# Project 7 — Script 12: Full Cleanup
-# Deletes all monitoring project resources
-# =============================================================================
-
-echo -e "\e[36m=== Project 7 — Full Cleanup ===\e[0m"
-echo ""
-echo -e "\e[31mDeletes: all alarms, dashboard, log group, SNS, EC2\e[0m"
-echo ""
-
-# Re-fetch IDs in case session variables were lost
-echo -e "\e[33mRe-fetching resource IDs...\e[0m"
-
-if (-not $SNS_ARN) {
-    SNS_ARN=$(aws sns list-topics \
-      --query "Topics[?contains(TopicArn,'monitoring-alerts')].TopicArn | [0]" \
-      --output text)
-}
-
-if (-not $MON_INSTANCE_ID) {
-    MON_INSTANCE_ID=$(aws ec2 describe-instances \
-      --filters "Name=tag:Name,Values=monitoring-test" \
-      --query "Reservations[0].Instances[0].InstanceId" \
-      --output text)
-}
-
-if (-not $MON_SG) {
-    MON_SG=$(aws ec2 describe-security-groups \
-      --filters "Name=group-name,Values=monitoring-test-sg" \
-      --query "SecurityGroups[0].GroupId" \
-      --output text)
-}
-
-echo "SNS:  $SNS_ARN"
-echo "EC2:  $MON_INSTANCE_ID"
-echo "SG:   $MON_SG"
-echo ""
-
-# ── STEP 1: DELETE ALL CLOUDWATCH ALARMS ─────────────────────────────────────
-echo -e "\e[33m[1/5] Deleting CloudWatch alarms...\e[0m"
-
-aws cloudwatch delete-alarms \
-  --alarm-names \
-    "EC2-CPU-High" \
-    "EC2-StatusCheck-Failed" \
-    "EC2-NetworkIn-High" \
-    "RDS-CPU-High" \
-    "RDS-Storage-Low" \
-    "RDS-Connections-High" \
-    "App-Errors-High"
-
-# Billing alarm in us-east-1
-aws cloudwatch delete-alarms \
-  --alarm-names "Billing-Alert-5USD" \
-  --region us-east-1
-
-echo -e "\e[32mAll alarms deleted.\e[0m"
-
-# ── STEP 2: DELETE DASHBOARD ──────────────────────────────────────────────────
-echo -e "\e[33m[2/5] Deleting CloudWatch dashboard...\e[0m"
-
-aws cloudwatch delete-dashboards \
-  --dashboard-names "AWS-Bootcamp-Dashboard" 2>&1 | Out-Null
-
-echo -e "\e[32mDashboard deleted.\e[0m"
-
-# ── STEP 3: DELETE LOG GROUP ──────────────────────────────────────────────────
-echo -e "\e[33m[3/5] Deleting CloudWatch log group...\e[0m"
-
-aws logs delete-log-group \
-  --log-group-name "/aws/ec2/monitoring-test" 2>&1 | Out-Null
-
-echo -e "\e[32mLog group deleted.\e[0m"
-
-# ── STEP 4: DELETE SNS ────────────────────────────────────────────────────────
-echo -e "\e[33m[4/5] Deleting SNS topic and subscriptions...\e[0m"
-
-if ($SNS_ARN -and $SNS_ARN -ne "None") {
-    SUB_ARN=$(aws sns list-subscriptions-by-topic \
-      --topic-arn $SNS_ARN \
-      --query "Subscriptions[0].SubscriptionArn" \
-      --output text)
-
-    if ($SUB_ARN -and $SUB_ARN -ne "PendingConfirmation" -and $SUB_ARN -ne "None") {
-        aws sns unsubscribe --subscription-arn $SUB_ARN 2>&1 | Out-Null
-echo "  Subscription unsubscribed."
-    }
-
-    aws sns delete-topic --topic-arn $SNS_ARN 2>&1 | Out-Null
-echo -e "\e[32mSNS topic deleted.\e[0m"
-} else {
-echo -e "\e[90mSNS topic not found — skipping.\e[0m"
-}
-
-# ── STEP 5: TERMINATE EC2 ─────────────────────────────────────────────────────
-echo -e "\e[33m[5/5] Terminating EC2 instance and deleting security group...\e[0m"
-
-if ($MON_INSTANCE_ID -and $MON_INSTANCE_ID -ne "None") {
-    aws ec2 terminate-instances --instance-ids $MON_INSTANCE_ID | Out-Null
-echo -e "\e[33m  Waiting for EC2 termination (~1-2 minutes)...\e[0m"
-    aws ec2 wait instance-terminated --instance-ids $MON_INSTANCE_ID
-echo "  EC2 terminated."
-}
-
-if ($MON_SG -and $MON_SG -ne "None") {
-    aws ec2 delete-security-group --group-id $MON_SG 2>&1 | Out-Null
-echo "  Security group deleted."
-}
-
-echo -e "\e[32mEC2 and security group deleted.\e[0m"
-
-# ── VERIFICATION ──────────────────────────────────────────────────────────────
-echo ""
-echo -e "\e[36m=== Cleanup Verification ===\e[0m"
-echo ""
-
-REMAINING=$(aws cloudwatch describe-alarms \
-  --query "MetricAlarms[*].AlarmName" --output text)
-if (-not $REMAINING) {
-echo -e "\e[32mAlarms:    CLEARED\e[0m"
-} else {
-echo -e "\e[31mAlarms:    Still present — $REMAINING\e[0m"
-}
-
-DASH=$(aws cloudwatch list-dashboards \
-  --query "DashboardEntries[*].DashboardName" --output text)
-if (-not $DASH) {
-echo -e "\e[32mDashboard: CLEARED\e[0m"
-} else {
-echo -e "\e[31mDashboard: Still present — $DASH\e[0m"
-}
-
-echo ""
-echo -e "\e[36m=== Project 7 Cleanup Complete ===\e[0m"
-echo ""
-echo "Cost impact: $0.00 — all resources were within free tier."
-```
-
-### 🪟 Method 3: AWS CLI (PowerShell)
-```powershell
-# =============================================================================
-# Project 7 — Script 12: Full Cleanup
-# Deletes all monitoring project resources
-# =============================================================================
-
-Write-Host "=== Project 7 — Full Cleanup ===" -ForegroundColor Cyan
-Write-Host ""
-Write-Host "Deletes: all alarms, dashboard, log group, SNS, EC2" -ForegroundColor Red
-Write-Host ""
-
-# Re-fetch IDs in case session variables were lost
-Write-Host "Re-fetching resource IDs..." -ForegroundColor Yellow
-
-if (-not $SNS_ARN) {
-    $SNS_ARN = aws sns list-topics `
-      --query "Topics[?contains(TopicArn,'monitoring-alerts')].TopicArn | [0]" `
-      --output text
-}
-
-if (-not $MON_INSTANCE_ID) {
-    $MON_INSTANCE_ID = aws ec2 describe-instances `
-      --filters "Name=tag:Name,Values=monitoring-test" `
-      --query "Reservations[0].Instances[0].InstanceId" `
-      --output text
-}
-
-if (-not $MON_SG) {
-    $MON_SG = aws ec2 describe-security-groups `
-      --filters "Name=group-name,Values=monitoring-test-sg" `
-      --query "SecurityGroups[0].GroupId" `
-      --output text
-}
-
-Write-Host "SNS:  $SNS_ARN"
-Write-Host "EC2:  $MON_INSTANCE_ID"
-Write-Host "SG:   $MON_SG"
-Write-Host ""
-
-# ── STEP 1: DELETE ALL CLOUDWATCH ALARMS ─────────────────────────────────────
-Write-Host "[1/5] Deleting CloudWatch alarms..." -ForegroundColor Yellow
-
-aws cloudwatch delete-alarms `
-  --alarm-names `
-    "EC2-CPU-High" `
-    "EC2-StatusCheck-Failed" `
-    "EC2-NetworkIn-High" `
-    "RDS-CPU-High" `
-    "RDS-Storage-Low" `
-    "RDS-Connections-High" `
-    "App-Errors-High"
-
-# Billing alarm in us-east-1
-aws cloudwatch delete-alarms `
-  --alarm-names "Billing-Alert-5USD" `
-  --region us-east-1
-
-Write-Host "All alarms deleted." -ForegroundColor Green
-
-# ── STEP 2: DELETE DASHBOARD ──────────────────────────────────────────────────
-Write-Host "[2/5] Deleting CloudWatch dashboard..." -ForegroundColor Yellow
-
-aws cloudwatch delete-dashboards `
-  --dashboard-names "AWS-Bootcamp-Dashboard" 2>&1 | Out-Null
-
-Write-Host "Dashboard deleted." -ForegroundColor Green
-
-# ── STEP 3: DELETE LOG GROUP ──────────────────────────────────────────────────
-Write-Host "[3/5] Deleting CloudWatch log group..." -ForegroundColor Yellow
-
-aws logs delete-log-group `
-  --log-group-name "/aws/ec2/monitoring-test" 2>&1 | Out-Null
-
-Write-Host "Log group deleted." -ForegroundColor Green
-
-# ── STEP 4: DELETE SNS ────────────────────────────────────────────────────────
-Write-Host "[4/5] Deleting SNS topic and subscriptions..." -ForegroundColor Yellow
-
-if ($SNS_ARN -and $SNS_ARN -ne "None") {
-    $SUB_ARN = aws sns list-subscriptions-by-topic `
-      --topic-arn $SNS_ARN `
-      --query "Subscriptions[0].SubscriptionArn" `
-      --output text
-
-    if ($SUB_ARN -and $SUB_ARN -ne "PendingConfirmation" -and $SUB_ARN -ne "None") {
-        aws sns unsubscribe --subscription-arn $SUB_ARN 2>&1 | Out-Null
-        Write-Host "  Subscription unsubscribed."
-    }
-
-    aws sns delete-topic --topic-arn $SNS_ARN 2>&1 | Out-Null
-    Write-Host "SNS topic deleted." -ForegroundColor Green
-} else {
-    Write-Host "SNS topic not found — skipping." -ForegroundColor Gray
-}
-
-# ── STEP 5: TERMINATE EC2 ─────────────────────────────────────────────────────
-Write-Host "[5/5] Terminating EC2 instance and deleting security group..." -ForegroundColor Yellow
-
-if ($MON_INSTANCE_ID -and $MON_INSTANCE_ID -ne "None") {
-    aws ec2 terminate-instances --instance-ids $MON_INSTANCE_ID | Out-Null
-    Write-Host "  Waiting for EC2 termination (~1-2 minutes)..." -ForegroundColor Yellow
-    aws ec2 wait instance-terminated --instance-ids $MON_INSTANCE_ID
-    Write-Host "  EC2 terminated."
-}
-
-if ($MON_SG -and $MON_SG -ne "None") {
-    aws ec2 delete-security-group --group-id $MON_SG 2>&1 | Out-Null
-    Write-Host "  Security group deleted."
-}
-
-Write-Host "EC2 and security group deleted." -ForegroundColor Green
-
-# ── VERIFICATION ──────────────────────────────────────────────────────────────
-Write-Host ""
-Write-Host "=== Cleanup Verification ===" -ForegroundColor Cyan
-Write-Host ""
-
-$REMAINING = aws cloudwatch describe-alarms `
-  --query "MetricAlarms[*].AlarmName" --output text
-if (-not $REMAINING) {
-    Write-Host "Alarms:    CLEARED" -ForegroundColor Green
-} else {
-    Write-Host "Alarms:    Still present — $REMAINING" -ForegroundColor Red
-}
-
-$DASH = aws cloudwatch list-dashboards `
-  --query "DashboardEntries[*].DashboardName" --output text
-if (-not $DASH) {
-    Write-Host "Dashboard: CLEARED" -ForegroundColor Green
-} else {
-    Write-Host "Dashboard: Still present — $DASH" -ForegroundColor Red
-}
-
-Write-Host ""
-Write-Host "=== Project 7 Cleanup Complete ===" -ForegroundColor Cyan
-Write-Host ""
-Write-Host "Cost impact: $0.00 — all resources were within free tier."
-```
-
+## 🧹 TEARDOWN
+To prevent recurring AWS charges, proceed to the `docs/cleanup-guide.md` to run the tear-down scripts.

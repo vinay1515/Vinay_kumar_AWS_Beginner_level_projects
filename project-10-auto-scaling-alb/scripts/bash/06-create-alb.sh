@@ -20,9 +20,9 @@ SUBNETS=$(aws ec2 describe-subnets \
     --query "Subnets[*].SubnetId" \
     --output text)
 
-SUBNET_LIST=$SUBNETS
-SUBNET_A=$SUBNET_LIST[0]
-SUBNET_B=$SUBNET_LIST[1]
+SUBNET_LIST=($SUBNETS)
+SUBNET_A=${SUBNET_LIST[0]}
+SUBNET_B=${SUBNET_LIST[1]}
 
 ALB_SG=$(aws ec2 describe-security-groups \
     --filters "Name=group-name,Values=alb-sg" \
@@ -99,4 +99,4 @@ echo ""
 echo -e "\e[33m  The ALB is active but has no targets yet.\e[0m"
 echo -e "\e[33m  ASG will register instances in the next step.\e[0m"
 echo ""
-echo -e "\e[36mNext step: Run 07-create-auto-scaling-group.ps1\e[0m"
+echo -e "\e[36mNext step: Run 07-create-auto-scaling-group.sh\e[0m"

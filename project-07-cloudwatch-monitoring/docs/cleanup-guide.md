@@ -1,19 +1,11 @@
-# Cleanup Guide — CloudWatch Monitoring Project
+# Cleanup Guide
 
-## Cleanup Order
-CloudWatch alarms, dashboards, and log groups have no dependency chain — they can be deleted in any order. EC2 and its security group must be deleted after each other (SG after instance).
+This guide covers the systematic tear-down of the infrastructure.
 
----
-
-## Step-by-Step
+## 🧹 TEARS DOWN ALL MONITORING INFRASTRUCTURE
 
 ### 🖥️ Method 1: AWS Management Console
-1. Go to CloudWatch -> **Alarms** and delete all 8 alarms created.
-2. Go to CloudWatch -> **Dashboards** and delete `AWS-Bootcamp-Dashboard`.
-3. Go to CloudWatch -> **Log groups** and delete `/aws/ec2/monitoring-test`.
-4. Go to SNS -> **Topics** and delete `monitoring-alerts`.
-5. Go to EC2 -> **Instances** and terminate `monitoring-test`.
-6. Wait for the instance to terminate, then delete the security group `monitoring-test-sg`.
+*(Refer to script comments for UI cleanup steps)*
 
 ### 🐧 Method 2: AWS CLI (Bash)
 ```bash
@@ -296,14 +288,3 @@ Write-Host "=== Project 7 Cleanup Complete ===" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Cost impact: $0.00 — all resources were within free tier."
 ```
-
----
-
-## What This Project Leaves Behind
-
-After cleanup, nothing billable remains. Verify in **AWS Billing → Cost Explorer** 24 hours later:
-- CloudWatch: $0 (all within free tier)
-- SNS: $0 (email notifications are free)
-- EC2: $0 (terminated)
-- CloudWatch Logs: $0 (minimal ingestion, within free tier)
-
