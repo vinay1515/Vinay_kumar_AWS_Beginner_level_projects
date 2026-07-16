@@ -76,6 +76,20 @@ Multi-protocol notification topics delivering to email, SMS, Lambda, SQS, and HT
 - **Anomaly Detection** – ML-powered anomaly detection bands for CPU and request latency metrics
 - **Cost-Zero Monitoring** – Free Tier includes 10 alarms, 3 dashboards, and 5GB log ingestion
 
+## ✅ Free Tier Status
+
+| Resource | Cost |
+|:---------|:-----|
+| **CloudWatch Alarms** (first 10) | Always free |
+| **CloudWatch Dashboards** (first 3) | Always free |
+| **CloudWatch Metrics** (basic, 5-min) | Always free |
+| **CloudWatch Logs** (first 5 GB ingestion) | Always free |
+| **SNS** (first 1,000 emails/month) | Always free |
+| **EC2 t2.micro** (test instance) | Free (12 months) |
+
+> [!TIP]
+> This project is **100% free** within the AWS Free Tier. We stay well within the 10-alarm and 3-dashboard limits.
+
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
@@ -182,7 +196,7 @@ For full production deployment procedures, see the [Deployment Guide](docs/deplo
 
 ### License
 
-This project is licensed under the **MIT License** — see the [LICENSE](../LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
 ### Contact & Credits
 

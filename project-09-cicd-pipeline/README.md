@@ -77,6 +77,20 @@ Deployment specification defining file mappings (`index.html` → `/var/www/html
 - **Artifact Versioning** – S3 stores every build artifact with pipeline execution ID for full traceability
 - **Branch-Based Workflow** – Pipeline triggers on `main` branch pushes via CloudWatch Events (not polling)
 
+## ✅ Free Tier Status
+
+| Resource | Cost |
+|:---------|:-----|
+| **CodeCommit** (5 active users/month) | Always free |
+| **CodeBuild** (100 build-min/month) | Free (12 months) |
+| **CodeDeploy** (EC2/On-Premises) | Always free |
+| **CodePipeline** (1 active pipeline) | Free (12 months) |
+| **S3** (artifact storage, first 5 GB) | Free (12 months) |
+| **EC2 t2.micro** (deploy target) | Free (12 months) |
+
+> [!TIP]
+> This project uses **one pipeline** and stays within the Free Tier limits. CodeDeploy to EC2 is always free. CodeBuild's 100 build-minutes/month is more than sufficient for this project.
+
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
@@ -181,7 +195,7 @@ For full production deployment procedures, see the [Deployment Guide](docs/deplo
 
 ### License
 
-This project is licensed under the **MIT License** — see the [LICENSE](../LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
 ### Contact & Credits
 

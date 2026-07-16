@@ -1,5 +1,5 @@
 <div align="center">
-  <h1><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/aws/aws.png" alt="AWS Logo" style="height: 1.5em; vertical-align: middle; margin-right: 8px;"/> Project 01: AWS Account Setup & IAM Foundations</h1>
+  <h1><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/aws/aws.png" width="36" height="36" style="vertical-align: middle"/> Project 01: AWS Account Setup & IAM Foundations</h1>
 
   <p><i>Establish a hardened AWS account baseline by configuring Identity and Access Management (IAM) with least-privilege policies, multi-factor authentication (MFA), and granular role-based access control. This project lays the security foundation that every subsequent project in this portfolio depends on.</i></p>
 
@@ -11,6 +11,7 @@
     <img src="https://img.shields.io/badge/Build-Passing-success" alt="Build"/>
   </p>
 
+  <!-- Quick Nav -->
   <p>
     <a href="#-infrastructure-specifications">Infrastructure</a> · 
     <a href="#-key-components">Components</a> · 
@@ -27,7 +28,7 @@
 
 ## 🏗️ Architecture Overview
 
-<img src="./architecture\architectural-diagram.svg" alt="AWS Account Setup & IAM Foundations — System Architecture" width="800"/>
+<img src="./architecture/architectural-diagram.svg" alt="AWS Account Setup & IAM Foundations — System Architecture" width="800"/>
 
 <p><i>▲ High-level architecture diagram showing the interaction between IAM, SNS, CloudWatch services</i></p>
 
@@ -77,6 +78,19 @@ Fan-out notification channel for billing alerts and operational events
 - **Cross-Service Roles** – Preconfigured IAM roles for Lambda, EC2, and CI/CD pipeline assumptions
 - **Audit-Ready Logging** – CloudTrail integration for full API call history across the account
 
+## ✅ Free Tier Status
+
+| Resource | Cost |
+|:---------|:-----|
+| **IAM Users, Groups, Roles, Policies** | Always free |
+| **MFA (Virtual)** | Always free |
+| **CloudWatch Alarm** (first 10) | Always free |
+| **SNS** (first 1,000 emails/month) | Always free |
+| **CloudTrail** (management events) | Always free |
+
+> [!TIP]
+> This project is **100% free** — every resource used falls within the AWS Always Free tier. No time-limited Free Tier components are consumed.
+
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
@@ -86,16 +100,28 @@ Fan-out notification channel for billing alerts and operational events
 - A valid email address for SNS billing alert subscription
 - A virtual MFA app (Google Authenticator, Authy, or 1Password)
 
+### Pre-flight Checks
+Run these commands in PowerShell to confirm your environment is ready:
+```powershell
+# Confirm CLI is working
+aws sts get-caller-identity
+
+# Confirm region
+aws configure get region
+```
+
 ### Installation
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/vinay1515/Vinay_kumar_AWS_Beginner_level_projects.git
-cd project-01-iam-setup
+cd Vinay_kumar_AWS_Beginner_level_projects/project-01-iam-setup
 
 # 2. Configure environment variables
 cp .env.example .env
-# Edit .env with your specific values (see Environment Variables below)
+
+# 3. Edit .env with your specific details (Account ID, email, etc.)
+nano .env
 ```
 
 ### Environment Variables
@@ -122,23 +148,7 @@ Choose your platform and execute the scripts in order:
 ### 📸 Screenshots & Validation
 Throughout the documentation and `images/` directory, you will find screenshots captured during the deployment process. These visual artifacts serve as verification that the UI steps were successfully executed and validate the final architecture.
 
-### 🧹 Cleanup
 
-**Note:** Since this project sets up the foundational IAM access for subsequent projects in this portfolio, you typically **do not** want to clean this up immediately. However, if you need to tear down the environment, you can remove the resources using the AWS CLI:
-
-```bash
-# 1. Delete CloudWatch Alarm
-aws cloudwatch delete-alarms --alarm-names "AccountBillingAlarm"
-
-# 2. Delete SNS Topic (Replace <AccountID> with your AWS Account ID)
-aws sns delete-topic --topic-arn "arn:aws:sns:us-east-1:<AccountID>:billing-alerts"
-
-# 3. Clean up IAM User (Requires detaching policies and deleting access keys first)
-aws iam detach-user-policy --user-name <YourUserName> --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
-aws iam delete-login-profile --user-name <YourUserName>
-aws iam delete-access-key --user-name <YourUserName> --access-key-id <YourAccessKeyId>
-aws iam delete-user --user-name <YourUserName>
-```
 
 ## 📚 Documentation Suite
 
@@ -177,7 +187,7 @@ For full production deployment procedures, see the [Deployment Guide](docs/deplo
 
 ### License
 
-This project is licensed under the **MIT License** — see the [LICENSE](../project-01-iam-setup/LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
 ### Contact & Credits
 

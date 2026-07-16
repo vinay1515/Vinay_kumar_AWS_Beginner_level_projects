@@ -76,6 +76,19 @@ JSON Schema models on API Gateway validate request body before invoking Lambda
 - **Stage Deployment** – Separate `dev` and `prod` stages with independent configurations and endpoints
 - **CORS Support** – Pre-flight OPTIONS responses enable browser-based frontend integration
 
+## ✅ Free Tier Status
+
+| Resource | Cost |
+|:---------|:-----|
+| **Lambda** (1M requests/month) | Always free |
+| **Lambda Compute** (400,000 GB-seconds/month) | Always free |
+| **API Gateway** (1M API calls/month) | Free (12 months) |
+| **DynamoDB** (25 GB + 25 WCU + 25 RCU) | Always free |
+| **CloudWatch Logs** (first 5 GB ingestion) | Always free |
+
+> [!TIP]
+> All three core services (Lambda, API Gateway, DynamoDB) are within the **permanent** AWS Free Tier. Cost estimate: **$0.00**.
+
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
@@ -124,16 +137,16 @@ export LAMBDA_ROLE_ARN="arn:aws:iam::ACCOUNT_ID:role/lambda-dynamodb-role"
 Choose your platform and execute the scripts in order:
 
 | Step | Bash Script | PowerShell Script | Description |
-|:---:|:---|:---|:---|
-| 1 | `scripts/bash/01-create-dynamodb.sh` | `scripts/powershell/01-create-dynamodb.ps1` | Create DynamoDB table |
-| 2 | `scripts/bash/02-create-lambda-execution-role.sh` | `scripts/powershell/02-create-lambda-execution-role.ps1` | Create IAM role for Lambda |
-| 3 | `scripts/bash/03-write-and-deploy-lambda.sh` | `scripts/powershell/03-write-and-deploy-lambda.ps1` | Write, package and deploy Lambda function |
-| 4 | `scripts/bash/04-test-lambda-directly.sh` | `scripts/powershell/04-test-lambda-directly.ps1` | Test Lambda execution natively |
-| 5 | `scripts/bash/05-create-api-gateway.sh` | `scripts/powershell/05-create-api-gateway.ps1` | Create and configure API Gateway |
-| 6 | `scripts/bash/06-test-full-api.sh` | `scripts/powershell/06-test-full-api.ps1` | Test the full API through API Gateway |
-| 7 | `scripts/bash/07-verify-in-dynamodb-console.sh` | `scripts/powershell/07-verify-in-dynamodb-console.ps1` | Verify data persistence in DynamoDB |
-| 8 | `scripts/bash/08-monitor-with-cloudwatch-logs.sh` | `scripts/powershell/08-monitor-with-cloudwatch-logs.ps1` | Monitor execution logs in CloudWatch |
-| 9 | `scripts/bash/09-update-lambda-code.sh` | `scripts/powershell/09-update-lambda-code.ps1` | Update and redeploy Lambda function code |
+|:----:|:------------|:------------------|:------------|
+| 01 | `scripts/bash/01-create-dynamodb.sh` | `scripts/powershell/01-create-dynamodb.ps1` | Create DynamoDB table |
+| 02 | `scripts/bash/02-create-lambda-execution-role.sh` | `scripts/powershell/02-create-lambda-execution-role.ps1` | Create IAM role for Lambda |
+| 03 | `scripts/bash/03-write-and-deploy-lambda.sh` | `scripts/powershell/03-write-and-deploy-lambda.ps1` | Write, package and deploy Lambda function |
+| 04 | `scripts/bash/04-test-lambda-directly.sh` | `scripts/powershell/04-test-lambda-directly.ps1` | Test Lambda execution natively |
+| 05 | `scripts/bash/05-create-api-gateway.sh` | `scripts/powershell/05-create-api-gateway.ps1` | Create and configure API Gateway |
+| 06 | `scripts/bash/06-test-full-api.sh` | `scripts/powershell/06-test-full-api.ps1` | Test the full API through API Gateway |
+| 07 | `scripts/bash/07-verify-in-dynamodb-console.sh` | `scripts/powershell/07-verify-in-dynamodb-console.ps1` | Verify data persistence in DynamoDB |
+| 08 | `scripts/bash/08-monitor-with-cloudwatch-logs.sh` | `scripts/powershell/08-monitor-with-cloudwatch-logs.ps1` | Monitor execution logs in CloudWatch |
+| 09 | `scripts/bash/09-update-lambda-code.sh` | `scripts/powershell/09-update-lambda-code.ps1` | Update and redeploy Lambda function code |
 | 10 | `scripts/bash/10-cleanup.sh` | `scripts/powershell/10-cleanup.ps1` | Clean up all AWS resources |
 
 ### 📸 Screenshots & Validation
@@ -154,6 +167,7 @@ Throughout the documentation and `images/` directory, you will find screenshots 
 | 🌐 [API Endpoints](docs/api-endpoints.md) | API route definitions, request/response schemas, and usage examples |
 | 🗃️ [DynamoDB Design](docs/dynamodb-design.md) | Single-table design patterns, key schema, and access patterns |
 | ⚡ [Lambda Design](docs/lambda-design.md) | Lambda function architecture, handler patterns, and configuration |
+
 ## 🤝 Contribution & Maintenance
 
 ### Testing
@@ -178,7 +192,7 @@ For full production deployment procedures, see the [Deployment Guide](docs/deplo
 
 ### License
 
-This project is licensed under the **MIT License** — see the [LICENSE](../LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
 ### Contact & Credits
 

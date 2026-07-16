@@ -76,6 +76,19 @@ Cron-based scaling actions for predictable traffic patterns (business hours vs. 
 - **Connection Draining** – 300s deregistration delay allows in-flight requests to complete before termination
 - **Lifecycle Hooks** – Custom actions (warm-up scripts, log flushing) execute during launch and terminate transitions
 
+## ✅ Free Tier Status
+
+| Resource | Cost |
+|:---------|:-----|
+| **EC2 t2.micro** (ASG instances, 750 hrs/month total) | Free (12 months) |
+| **ALB** | ⚠️ ~$0.0225/hr + LCU charges |
+| **EBS gp3** (up to 30 GB total) | Free (12 months) |
+| **CloudWatch Alarms** (first 10) | Always free |
+| **SNS** (first 1,000 emails/month) | Always free |
+
+> [!WARNING]
+> **ALB is NOT included in the AWS Free Tier.** It costs approximately $0.0225/hour (~$16/month if left running). We create it, test scaling behavior, then tear it down immediately. Total exposure is **under $1.00** if you follow the cleanup steps promptly.
+
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
@@ -150,9 +163,12 @@ Throughout the documentation and `images/` directory, you will find screenshots 
 | 📄 [Project Overview](docs/project-overview.md) | Comprehensive project context, goals, and learning outcomes |
 | 🏗️ [Architecture Details](docs/architecture.md) | Deep-dive into system design, data flow, and component interactions |
 | 🚀 [Deployment Guide](docs/deployment-guide.md) | Step-by-step deployment procedures for dev, staging, and production |
-| 🧪 [Testing Procedures](docs/testing-procedures.md) | Validation scripts, smoke tests, and integration test suites |
+| 📝 [Testing Procedures](docs/testing-procedures.md) | Validation scripts, smoke tests, and integration test suites |
 | 🛠️ [Troubleshooting](docs/troubleshooting.md) | Common issues, error codes, debugging steps, and resolution guides |
 | 🧹 [Cleanup Guide](docs/cleanup-guide.md) | Instructions for tearing down AWS resources to avoid charges |
+| 🔐 [Security Protocols](docs/security-protocols.md) | IAM roles, security groups, encryption, and compliance controls |
+| 📈 [Auto Scaling Deep Dive](docs/auto-scaling-deep-dive.md) | Scaling policies, cooldown periods, and capacity management |
+| ⚖️ [Load Balancer Deep Dive](docs/load-balancer-deep-dive.md) | ALB listeners, target groups, health checks, and routing rules |
 
 ## 🤝 Contribution & Maintenance
 
@@ -178,7 +194,7 @@ For full production deployment procedures, see the [Deployment Guide](docs/deplo
 
 ### License
 
-This project is licensed under the **MIT License** — see the [LICENSE](../LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
 ### Contact & Credits
 

@@ -79,6 +79,20 @@ General-purpose SSD with baseline 3000 IOPS; encrypted at rest with AWS-managed 
 - **Instance Metadata v2 (IMDSv2)** – Enforced token-based metadata service; mitigates SSRF attacks
 - **Stop/Start Cost Optimization** – Scripts to stop instances during off-hours; EBS charges only ($0.08/GB/mo)
 
+## ✅ Free Tier Status
+
+| Resource | Cost |
+|:---------|:-----|
+| **EC2 t2.micro** | 750 hrs/month free (12 months) |
+| **EBS gp3** (up to 30 GB) | Free (12 months) |
+| **Elastic IP** (attached to running instance) | Free |
+| **Elastic IP** (not attached) | ⚠️ $0.005/hr |
+| **SSM Session Manager** | Always free |
+| **Data transfer** (first 100 GB/month out) | Free (12 months) |
+
+> [!TIP]
+> This project is **free within the AWS Free Tier.** Always release Elastic IPs and stop instances when not in use to avoid charges.
+
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
@@ -154,7 +168,6 @@ Throughout the documentation and `images/` directory, you will find screenshots 
 | 📐 [Design Specifications](docs/design-specifications.md) | Detailed design specs and configuration parameters |
 | 📋 [IAM Policy Notes](docs/iam-policy-notes.md) | Detailed notes on IAM policy structure, conditions, and best practices |
 | 🛡️ [Security Group Rules](docs/security-group-rules.md) | Inbound/outbound security group rule definitions and rationale |
-| 🔍 [Troubleshooting Instructions](docs/troubleshooting-instrustions.md) | Additional step-by-step troubleshooting walkthroughs |
 
 ## 🤝 Contribution & Maintenance
 
@@ -180,7 +193,7 @@ For full production deployment procedures, see the [Deployment Guide](docs/deplo
 
 ### License
 
-This project is licensed under the **MIT License** — see the [LICENSE](../project-03-Launch-EC2-Connect-via-SSH/LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
 ### Contact & Credits
 

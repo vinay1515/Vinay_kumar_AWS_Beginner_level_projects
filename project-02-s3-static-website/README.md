@@ -75,6 +75,19 @@ Lightweight edge compute for URL rewrites, security headers, and A/B testing
 - **Security Headers** – CloudFront Function injects `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`
 - **Cost-Optimized Caching** – Separate cache policies for static assets (24h TTL) and HTML (5min TTL)
 
+## ✅ Free Tier Status
+
+| Resource | Cost |
+|:---------|:-----|
+| **S3 Storage** (first 5 GB) | Free (12 months) |
+| **S3 Requests** (GET: 20,000/mo, PUT: 2,000/mo) | Free (12 months) |
+| **CloudFront** (1 TB transfer out/month) | Free (12 months) |
+| **Route 53** (hosted zone) | $0.50/month per zone |
+| **ACM Certificate** | Always free |
+
+> [!TIP]
+> This project is **effectively free** within the AWS Free Tier. CloudFront provides 1 TB of data transfer out per month for the first 12 months — more than sufficient for a personal portfolio site.
+
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
@@ -83,6 +96,19 @@ Lightweight edge compute for URL rewrites, security headers, and A/B testing
 - A registered domain name (optional, for custom domain setup)
 - Static website files (HTML, CSS, JS) ready for deployment
 - Node.js 18+ (optional, for building frontend frameworks)
+
+### Pre-flight Checks
+Run these commands in PowerShell to confirm your environment is ready:
+```powershell
+# Confirm CLI is working
+aws sts get-caller-identity
+
+# Confirm region
+aws configure get region
+
+# Verify S3 access
+aws s3 ls
+```
 
 ### Installation
 
@@ -159,7 +185,7 @@ For full production deployment procedures, see the [Deployment Guide](docs/deplo
 
 ### License
 
-This project is licensed under the **MIT License** — see the [LICENSE](../project-02-s3-static-website/LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
 ### Contact & Credits
 

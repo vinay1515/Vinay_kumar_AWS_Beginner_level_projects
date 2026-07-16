@@ -75,6 +75,19 @@ Replicates delete markers to destination bucket for consistent soft-delete behav
 - **Encryption at Rest** – SSE-S3 (AES-256) default encryption on both source and destination buckets
 - **Storage Analytics** – Storage Class Analysis dashboard to validate lifecycle rule effectiveness
 
+## ✅ Free Tier Status
+
+| Resource | Cost |
+|:---------|:-----|
+| **S3 Storage** (first 5 GB Standard) | Free (12 months) |
+| **S3 PUT/GET Requests** | Free (12 months, within limits) |
+| **S3-IA Storage** | $0.0125/GB/month — minimal for test data |
+| **S3 Glacier** | $0.004/GB/month — lifecycle transition only |
+| **Cross-Region Replication** | ⚠️ Data transfer charges apply (~$0.02/GB) |
+
+> [!TIP]
+> With small test files, this project costs **under $0.05.** Keep files small and run cleanup after testing to avoid ongoing storage charges.
+
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
@@ -173,7 +186,7 @@ For full production deployment procedures, see the [Deployment Guide](docs/deplo
 
 ### License
 
-This project is licensed under the **MIT License** — see the [LICENSE](../project-04-s3-versioning/LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
 ### Contact & Credits
 
