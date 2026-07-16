@@ -102,6 +102,56 @@
     <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="var(--green)"/>
     </marker>
+  
+  
+
+  
+  <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#f8f9fa" />
+    <stop offset="100%" stop-color="#e2e8f0" />
+  </linearGradient>
+  <style>
+    /* Injected Interactive Styles */
+    svg {
+      --transition-speed: 0.3s;
+    }
+    rect[fill="#f8f9fa"], rect[width="800"][height="500"], rect[width="860"][height="640"] {
+      fill: url(#bg-gradient) !important;
+    }
+    rect, circle, polygon {
+      transition: transform var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275), filter var(--transition-speed) ease, fill var(--transition-speed) ease;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    rect:hover, circle:hover, polygon:hover {
+      filter: drop-shadow(0px 8px 24px rgba(26, 115, 232, 0.5)) brightness(1.05);
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+    line, path {
+      transition: stroke-width var(--transition-speed) ease, stroke var(--transition-speed) ease, filter var(--transition-speed) ease;
+    }
+    line:hover, path:hover {
+      stroke-width: 4px;
+      filter: drop-shadow(0px 4px 12px rgba(255, 153, 0, 0.7));
+      cursor: pointer;
+    }
+    text {
+      pointer-events: none;
+      transition: fill 0.3s ease;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+      100% { transform: translateY(0px); }
+    }
+    @keyframes pulse {
+      0% { filter: drop-shadow(0 0 0 rgba(26,115,232,0.4)); }
+      50% { filter: drop-shadow(0 0 12px rgba(26,115,232,0.8)); }
+      100% { filter: drop-shadow(0 0 0 rgba(26,115,232,0.4)); }
+    }
+  </style>
+
   </defs>
 
   <!-- Background -->
