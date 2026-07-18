@@ -54,7 +54,7 @@
 
 <div align="center">
   <br/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=vinay1515&theme=radical" alt="GitHub Streak Stats" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=vinaykumarduvva&theme=radical" alt="GitHub Streak Stats" />
   <br/><br/>
 </div>
 
