@@ -2,7 +2,6 @@ $ErrorActionPreference = "Stop"
 
 $CLUSTER_NAME = "flask-app-cluster"
 $TASK_FAMILY = "flask-app-task"
-$ACCOUNT_ID = aws sts get-caller-identity --query "Account" --output text
 $ECR_REPO_URI = aws ecr describe-repositories --repository-names flask-app --query "repositories[0].repositoryUri" --output text
 $EXEC_ROLE_ARN = aws iam get-role --role-name ecs-task-execution-role --query "Role.Arn" --output text
 $TASK_ROLE_ARN = aws iam get-role --role-name ecs-task-role --query "Role.Arn" --output text
@@ -15,7 +14,7 @@ $SUBNET_B = $SUBNET_LIST[1]
 $ALB_SG = aws ec2 describe-security-groups --group-names ecs-alb-sg --query "SecurityGroups[0].GroupId" --output text
 
 Write-Host "Creating ECS cluster..."
-aws ecs create-cluster --cluster-name $CLUSTER_NAME --capacity-providers FARGATE FARGATE_SPOT --settings name=containerInsights,value=enabled | Out-Null
+aws ecs create-cluster --cluster-name $CLUSTER_NAME --capacity-providers FARGATE FARGATE_SPOT --settings name=containerInsights, value=enabled | Out-Null
 
 Write-Host "Creating CloudWatch Log Group..."
 aws logs create-log-group --log-group-name "/ecs/flask-app-task" 2>$null
@@ -65,7 +64,7 @@ Write-Host "Creating Target Group and ALB..."
 $TG_ARN = aws elbv2 create-target-group --name flask-app-tg --protocol HTTP --port 5000 --vpc-id $VPC_ID --target-type ip --health-check-protocol HTTP --health-check-path "/health" --health-check-interval-seconds 30 --healthy-threshold-count 2 --unhealthy-threshold-count 3 --query "TargetGroups[0].TargetGroupArn" --output text
 $ALB_ARN = aws elbv2 create-load-balancer --name flask-app-alb --subnets $SUBNET_A $SUBNET_B --security-groups $ALB_SG --scheme internet-facing --type application --query "LoadBalancers[0].LoadBalancerArn" --output text
 $ALB_DNS = aws elbv2 describe-load-balancers --load-balancer-arns $ALB_ARN --query "LoadBalancers[0].DNSName" --output text
-$LISTENER_ARN = aws elbv2 create-listener --load-balancer-arn $ALB_ARN --protocol HTTP --port 80 --default-actions "Type=forward,TargetGroupArn=$TG_ARN" --query "Listeners[0].ListenerArn" --output text
+$null = aws elbv2 create-listener --load-balancer-arn $ALB_ARN --protocol HTTP --port 80 --default-actions "Type=forward,TargetGroupArn=$TG_ARN" --query "Listeners[0].ListenerArn" --output text
 
 Write-Host "Waiting for ALB to become active..."
 aws elbv2 wait load-balancer-available --load-balancer-arns $ALB_ARN
