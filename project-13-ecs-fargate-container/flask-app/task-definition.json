@@ -1,0 +1,50 @@
+{
+  "family": "flask-app-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "taskRoleArn": "arn:aws:iam::154426737407:role/ecs-task-role",
+  "executionRoleArn": "arn:aws:iam::154426737407:role/ecs-task-execution-role",
+  "containerDefinitions": [
+    {
+      "name": "flask-app",
+      "image": "154426737407.dkr.ecr.ap-south-1.amazonaws.com/flask-app:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "AWS_REGION",
+          "value": "ap-south-1"
+        },
+        {
+          "name": "ENVIRONMENT",
+          "value": "production"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/flask-app-task",
+          "awslogs-region": "ap-south-1",
+          "awslogs-stream-prefix": "flask-app"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:5000/health')\" || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 10,
+        "retries": 3,
+        "startPeriod": 20
+      }
+    }
+  ]
+}
