@@ -118,7 +118,7 @@ Explore the live static websites I've deployed on AWS S3 & CloudFront!
 | **11** | [**Infrastructure as Code**](project-11-infrastructure-as-code) | 🟡 Intermediate | CloudFormation | ✅ Done |
 | **12** | [**Event-Driven Pipeline**](project-12-event-driven-pipeline) | 🟡 Intermediate | S3, SQS, Lambda | ✅ Done |
 | **13** | [**Containerized App on ECS Fargate**](project-13-ecs-fargate-container) | 🔴 Advanced | ECS, ECR, Fargate, ALB | ✅ Done |
-| **14** | Capstone: 3-Tier HA Architecture | 🔴 Advanced | VPC, ALB, ASG, RDS Multi-AZ | ⏳ Upcoming |
+| **14** | [**Capstone: 3-Tier HA Architecture**](project-14-capstone-3-tier) | 🔴 Advanced | VPC, ALB, ASG, RDS Multi-AZ | ✅ Done |
 
 <br/>
 

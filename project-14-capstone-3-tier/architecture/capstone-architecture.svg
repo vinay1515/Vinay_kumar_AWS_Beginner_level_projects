@@ -1,0 +1,429 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 870" width="100%" height="100%">
+  <defs>
+    <style type="text/css">
+      <![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+      
+      text { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+      
+      /* Smooth interactions */
+      .component {
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        cursor: pointer;
+      }
+      .component:hover {
+        transform: translateY(-8px) scale(1.03);
+        filter: url(#hoverShadow);
+      }
+      
+      /* Container Styles */
+      .vpc-bg { stroke: url(#vpc-grad); stroke-width: 2.5; rx: 32; }
+      .az-bg { stroke: #CBD5E1; stroke-width: 2; stroke-dasharray: 8 6; rx: 24; }
+      
+      /* Subnet Styles */
+      .public-subnet { fill: url(#sub-web); stroke: #D8B4FE; stroke-width: 1.5; rx: 16; }
+      .private-app-subnet { fill: url(#sub-app); stroke: #FDBA74; stroke-width: 1.5; rx: 16; }
+      .private-db-subnet { fill: url(#sub-db); stroke: #93C5FD; stroke-width: 1.5; rx: 16; }
+      
+      /* Data Packets Flow Animation */
+      .flow-base { stroke: #E2E8F0; stroke-width: 4; fill: none; stroke-linecap: round; }
+      
+      .packet-orange { stroke: #F97316; stroke-width: 4; stroke-dasharray: 6 30; stroke-linecap: round; fill: none; animation: packetFlow 1.5s linear infinite; filter: url(#glow-orange); }
+      .packet-blue { stroke: #3B82F6; stroke-width: 4; stroke-dasharray: 6 30; stroke-linecap: round; fill: none; animation: packetFlow 1.5s linear infinite; filter: url(#glow-blue); }
+      .packet-purple { stroke: #8B5CF6; stroke-width: 4; stroke-dasharray: 6 24; stroke-linecap: round; fill: none; animation: packetFlow 1s linear infinite; filter: url(#glow-purple); }
+      
+      @keyframes packetFlow { from { stroke-dashoffset: 36; } to { stroke-dashoffset: 0; } }
+      
+      /* Floating Animations */
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+      }
+      @keyframes floatReverse {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(6px); }
+      }
+      .floating { animation: float 6s ease-in-out infinite; }
+      .floating-delay { animation: floatReverse 7s ease-in-out infinite; }
+      
+      /* Typography */
+      .label-title { font-size: 15px; font-weight: 700; fill: #0F172A; letter-spacing: -0.01em; }
+      .label-sub { font-size: 12px; font-weight: 500; fill: #64748B; }
+      .region-title { font-size: 18px; font-weight: 700; fill: #0F172A; letter-spacing: -0.02em; }
+      
+      .header-text { fill: #0F172A; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; }
+      .header-sub { fill: #475569; font-size: 16px; font-weight: 500; }
+      ]]>
+    </style>
+
+    <!-- Gradients -->
+    <radialGradient id="bg-radial" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="60%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </radialGradient>
+    
+    <linearGradient id="vpc-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+    
+    <!-- Subnet Soft Gradients -->
+    <linearGradient id="sub-web" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FAF5FF" />
+      <stop offset="100%" stop-color="#F3E8FF" />
+    </linearGradient>
+    <linearGradient id="sub-app" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB" />
+      <stop offset="100%" stop-color="#FEF3C7" />
+    </linearGradient>
+    <linearGradient id="sub-db" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0F9FF" />
+      <stop offset="100%" stop-color="#E0F2FE" />
+    </linearGradient>
+
+    <!-- Component Gradient -->
+    <linearGradient id="comp-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F8FAFC" />
+    </linearGradient>
+    
+    <!-- Badge Gradients -->
+    <linearGradient id="badge-orange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF7ED"/>
+      <stop offset="100%" stop-color="#FFEDD5"/>
+    </linearGradient>
+    <linearGradient id="badge-blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EFF6FF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+
+    <!-- Icon Gradients (Super vibrant) -->
+    <linearGradient id="icon-orange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+    <linearGradient id="icon-blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="icon-purple" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+    <linearGradient id="icon-dark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+
+    <!-- Shadows, Glows, and Blurs -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.06" />
+    </filter>
+    <filter id="hoverShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#8B5CF6" flood-opacity="0.15" />
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.08" />
+    </filter>
+    
+    <filter id="glow-orange" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-blue" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-purple" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    
+    <filter id="ambient-blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="60" />
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#EA580C" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#2563EB" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#6D28D9" />
+    </marker>
+    <marker id="arrow-purple-start" viewBox="0 0 10 10" refX="3" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#6D28D9" />
+    </marker>
+    
+    <marker id="base-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#CBD5E1" />
+    </marker>
+
+    <!-- Blueprint Grid -->
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#94A3B8" stroke-width="1.5" stroke-opacity="0.15"/>
+      <circle cx="0" cy="0" r="1.5" fill="#64748B" fill-opacity="0.3"/>
+    </pattern>
+
+    <!-- High-Fidelity Icons -->
+    <g id="icon-igw">
+      <rect x="0" y="0" width="48" height="48" rx="12" fill="url(#icon-purple)"/>
+      <path d="M15 24 h18 M24 15 v18 M15 15 l18 18 M15 33 l18 -18" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </g>
+    
+    <g id="icon-alb">
+      <rect x="0" y="0" width="48" height="48" rx="12" fill="url(#icon-purple)"/>
+      <path d="M15 19 v-3 h18 v3" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="15" cy="30" r="4.5" fill="#fff"/>
+      <circle cx="24" cy="30" r="4.5" fill="#fff"/>
+      <circle cx="33" cy="30" r="4.5" fill="#fff"/>
+    </g>
+
+    <g id="icon-ec2">
+      <rect x="0" y="0" width="48" height="48" rx="12" fill="url(#icon-orange)"/>
+      <rect x="14" y="14" width="20" height="20" rx="3" fill="none" stroke="#fff" stroke-width="2.5"/>
+      <path d="M 14 18 H 10 M 14 30 H 10 M 34 18 H 38 M 34 30 H 38 M 18 14 V 10 M 30 14 V 10 M 18 34 V 38 M 30 34 V 38" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+
+    <g id="icon-rds">
+      <rect x="0" y="0" width="48" height="48" rx="12" fill="url(#icon-blue)"/>
+      <ellipse cx="24" cy="16" rx="11" ry="4.5" fill="none" stroke="#fff" stroke-width="2.5"/>
+      <path d="M13 16 v16 c0 2.5 5 4.5 11 4.5 s11 -2 11 -4.5 v-16" fill="none" stroke="#fff" stroke-width="2.5"/>
+      <path d="M13 24 c0 2.5 5 4.5 11 4.5 s11 -2 11 -4.5" fill="none" stroke="#fff" stroke-width="2.5"/>
+    </g>
+
+    <g id="icon-vpc">
+      <rect x="0" y="0" width="32" height="32" rx="8" fill="url(#icon-purple)"/>
+      <path d="M 8 18 c 0 -3 2.5 -4 4.5 -4 c 1 -3 6 -3 7 0 c 2.5 0 4.5 1 4.5 4 c 0 3 -2.5 4 -4.5 4 H 12 c -2.5 0 -4 -1 -4 -4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+
+    <g id="icon-cloud">
+      <rect x="0" y="0" width="48" height="48" rx="12" fill="url(#icon-dark)"/>
+      <path d="M 14 26 c 0 -3.5 2.5 -5 5 -5 c 1 -3.5 7 -3.5 9 0 c 3 0 5 1.5 5 5 c 0 3.5 -2.5 5 -5 5 H 19 c -3 0 -5 -1.5 -5 -5" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+    
+    <g id="icon-lock">
+      <path d="M 6 8 v -2 a 4 4 0 0 1 8 0 v 2 h 2 v 8 h -12 v -8 z" fill="#64748B"/>
+      <circle cx="10" cy="12" r="1.5" fill="#fff"/>
+    </g>
+  </defs>
+
+  <!-- ================= CANVAS & AMBIENT GLOWS ================= -->
+  <rect width="100%" height="100%" fill="url(#bg-radial)"/>
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+  
+  <circle cx="15%" cy="30%" r="200" fill="#E0E7FF" filter="url(#ambient-blur)" fill-opacity="0.6"/>
+  <circle cx="85%" cy="70%" r="250" fill="#FEF4E6" filter="url(#ambient-blur)" fill-opacity="0.6"/>
+  <circle cx="50%" cy="85%" r="150" fill="#E0F2FE" filter="url(#ambient-blur)" fill-opacity="0.5"/>
+  
+  <!-- ================= HEADER ================= -->
+  <g transform="translate(40, 45)">
+    <rect width="10" height="34" rx="5" fill="url(#icon-purple)"/>
+    <text x="24" y="26" class="header-text">AWS Reference Architecture</text>
+    <text x="24" y="50" class="header-sub">Capstone Project 14: Highly Available, Fault-Tolerant 3-Tier Web Application</text>
+  </g>
+
+  <!-- ================= DATA FLOW BEAMS ================= -->
+  <!-- Base Lines -->
+  <path d="M 500 130 L 500 170" class="flow-base" marker-end="url(#base-arrow)"/>
+  <path d="M 500 250 L 500 290" class="flow-base"/>
+  <path d="M 500 290 L 280 290 L 280 348" class="flow-base" marker-end="url(#base-arrow)"/>
+  <path d="M 500 290 L 720 290 L 720 348" class="flow-base" marker-end="url(#base-arrow)"/>
+  
+  <path d="M 280 425 L 280 505" class="flow-base" marker-end="url(#base-arrow)"/>
+  <path d="M 720 425 L 720 505" class="flow-base" marker-end="url(#base-arrow)"/>
+  <path d="M 285 425 Q 500 470 710 505" class="flow-base" marker-end="url(#base-arrow)"/>
+  <path d="M 715 425 Q 500 470 290 505" class="flow-base" marker-end="url(#base-arrow)"/>
+  
+  <path d="M 280 660 L 280 708" class="flow-base" marker-end="url(#base-arrow)"/>
+  <path d="M 720 660 L 720 708" class="flow-base" marker-end="url(#base-arrow)"/>
+  <path d="M 285 660 Q 500 685 710 708" class="flow-base" marker-end="url(#base-arrow)"/>
+  
+  <path d="M 395 750 L 605 750" class="flow-base" marker-start="url(#base-arrow)" marker-end="url(#base-arrow)"/>
+
+  <!-- Animated Glowing Packets -->
+  <path d="M 500 130 L 500 170" class="packet-orange" />
+  <path d="M 500 250 L 500 290" class="packet-orange"/>
+  <path d="M 500 290 L 280 290 L 280 348" class="packet-orange" />
+  <path d="M 500 290 L 720 290 L 720 348" class="packet-orange" />
+  
+  <path d="M 280 425 L 280 505" class="packet-orange" />
+  <path d="M 720 425 L 720 505" class="packet-orange" />
+  <path d="M 285 425 Q 500 470 710 505" class="packet-orange" />
+  <path d="M 715 425 Q 500 470 290 505" class="packet-orange" />
+  
+  <path d="M 280 660 L 280 708" class="packet-blue" />
+  <path d="M 720 660 L 720 708" class="packet-blue" />
+  <path d="M 285 660 Q 500 685 710 708" class="packet-blue" />
+  
+  <path d="M 395 750 L 605 750" class="packet-purple" />
+  
+  <!-- DB Sync Label Box (placed here so it's above beams) -->
+  <g filter="url(#shadow)">
+    <rect x="420" y="740" width="160" height="20" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.5" rx="10"/>
+    <text x="500" y="754" text-anchor="middle" class="label-sub" fill="#6D28D9" font-weight="700">Synchronous Replication</text>
+  </g>
+
+  <!-- ================= AWS INFRASTRUCTURE ================= -->
+  <g transform="translate(40, 150)">
+    
+    <!-- Ultra-Premium VPC Container -->
+    <rect x="0" y="50" width="920" height="660" class="vpc-bg" fill="#FFFFFF" fill-opacity="0.8"/>
+    
+    <!-- VPC Title Badge -->
+    <g transform="translate(30, 34)" filter="url(#shadow)">
+      <rect x="0" y="0" width="240" height="40" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" rx="10"/>
+      <use xlink:href="#icon-vpc" x="4" y="4"/>
+      <text x="44" y="25" class="label-title">Capstone VPC</text>
+      <rect x="144" y="10" width="85" height="20" rx="4" fill="#F1F5F9"/>
+      <text x="186" y="24" class="label-sub" text-anchor="middle" font-family="monospace">10.0.0.0/16</text>
+    </g>
+    
+    <text x="10" y="15" class="region-title">AWS Region: ap-south-1 (Mumbai)</text>
+    
+    <!-- IGW Component -->
+    <g class="component" transform="translate(420, 20)" filter="url(#shadow)">
+      <rect x="0" y="0" width="80" height="80" fill="#fff" rx="24" stroke="#E2E8F0" stroke-width="1.5"/>
+      <use xlink:href="#icon-igw" x="16" y="16"/>
+      <title>Internet Gateway (capstone-igw)</title>
+    </g>
+    <text x="460" y="120" text-anchor="middle" class="label-title">Internet Gateway</text>
+
+    <!-- ================= AVAILABILITY ZONE 1 ================= -->
+    <g transform="translate(40, 140)">
+      <rect width="400" height="550" class="az-bg" fill="#F8FAFC" fill-opacity="0.7"/>
+      
+      <g transform="translate(20, -16)" filter="url(#shadow)">
+        <rect width="280" height="32" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1.5"/>
+        <text x="16" y="21" class="label-title" fill="#0F172A">Availability Zone (ap-south-1a)</text>
+      </g>
+
+      <!-- Public Subnet -->
+      <rect x="20" y="40" width="360" height="110" class="public-subnet"/>
+      <use xlink:href="#icon-lock" x="25" y="45"/>
+      <text x="45" y="58" class="label-title">Public Subnet A</text>
+      <text x="155" y="58" class="label-sub">(Web Tier â€¢ 10.0.1.0/24)</text>
+      
+      <g class="component floating" transform="translate(95, 68)" filter="url(#shadow)">
+        <rect width="210" height="68" rx="16" fill="url(#comp-bg)" stroke="#E2E8F0" stroke-width="1.5"/>
+        <path d="M 2 16 a 14 14 0 0 1 14 -14 h 178 a 14 14 0 0 1 14 14 v 24 a 240 24 0 0 1 -206 0 z" fill="#FFFFFF" fill-opacity="0.6"/>
+        <use xlink:href="#icon-alb" x="10" y="10"/>
+        <text x="68" y="30" class="label-title">ALB Node</text>
+        <text x="68" y="48" class="label-sub">Application Load Balancer</text>
+        <title>Routes HTTP/HTTPS traffic</title>
+      </g>
+
+      <!-- Private Subnet App -->
+      <rect x="20" y="180" width="360" height="210" class="private-app-subnet"/>
+      <use xlink:href="#icon-lock" x="25" y="185"/>
+      <text x="45" y="198" class="label-title">Private Subnet A</text>
+      <text x="155" y="198" class="label-sub">(App Tier â€¢ 10.0.3.0/24)</text>
+
+      <rect x="85" y="210" width="230" height="170" fill="none" stroke="#F97316" stroke-width="2" stroke-dasharray="6" rx="16"/>
+      <rect x="135" y="200" width="130" height="20" rx="10" fill="url(#badge-orange)" stroke="#FDBA74" stroke-width="1"/>
+      <text x="200" y="214" class="label-sub" fill="#EA580C" text-anchor="middle" font-weight="700">Auto Scaling Group</text>
+      
+      <g class="component floating" transform="translate(95, 230)" filter="url(#shadow)">
+        <rect width="210" height="60" rx="14" fill="url(#comp-bg)" stroke="#E2E8F0" stroke-width="1.5"/>
+        <path d="M 2 14 a 12 12 0 0 1 12 -12 h 182 a 12 12 0 0 1 12 12 v 16 a 240 24 0 0 1 -206 0 z" fill="#FFFFFF" fill-opacity="0.6"/>
+        <use xlink:href="#icon-ec2" x="8" y="6"/>
+        <text x="64" y="26" class="label-title">App Server (Active)</text>
+        <text x="64" y="44" class="label-sub">Amazon Linux 2023</text>
+      </g>
+      
+      <g class="component floating-delay" transform="translate(95, 305)" filter="url(#shadow)">
+        <rect width="210" height="60" rx="14" fill="url(#comp-bg)" stroke="#E2E8F0" stroke-width="1.5"/>
+        <path d="M 2 14 a 12 12 0 0 1 12 -12 h 182 a 12 12 0 0 1 12 12 v 16 a 240 24 0 0 1 -206 0 z" fill="#FFFFFF" fill-opacity="0.6"/>
+        <use xlink:href="#icon-ec2" x="8" y="6"/>
+        <text x="64" y="26" class="label-title">App Server (Active)</text>
+        <text x="64" y="44" class="label-sub">Amazon Linux 2023</text>
+      </g>
+
+      <!-- Private Subnet DB -->
+      <rect x="20" y="420" width="360" height="110" class="private-db-subnet"/>
+      <use xlink:href="#icon-lock" x="25" y="425"/>
+      <text x="45" y="438" class="label-title">Private Subnet A</text>
+      <text x="155" y="438" class="label-sub">(DB Tier â€¢ 10.0.5.0/24)</text>
+      
+      <g class="component" transform="translate(95, 448)" filter="url(#shadow)">
+        <rect width="210" height="68" rx="16" fill="url(#comp-bg)" stroke="#3B82F6" stroke-width="2.5"/>
+        <path d="M 2 16 a 14 14 0 0 1 14 -14 h 178 a 14 14 0 0 1 14 14 v 24 a 240 24 0 0 1 -206 0 z" fill="#FFFFFF" fill-opacity="0.6"/>
+        <use xlink:href="#icon-rds" x="10" y="10"/>
+        <text x="68" y="30" class="label-title">RDS MySQL (Primary)</text>
+        <text x="68" y="48" class="label-sub">Active DB Instance</text>
+      </g>
+    </g>
+
+    <!-- ================= AVAILABILITY ZONE 2 ================= -->
+    <g transform="translate(480, 140)">
+      <rect width="400" height="550" class="az-bg" fill="#F8FAFC" fill-opacity="0.7"/>
+      
+      <g transform="translate(20, -16)" filter="url(#shadow)">
+        <rect width="280" height="32" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1.5"/>
+        <text x="16" y="21" class="label-title" fill="#0F172A">Availability Zone (ap-south-1b)</text>
+      </g>
+
+      <rect x="20" y="40" width="360" height="110" class="public-subnet"/>
+      <use xlink:href="#icon-lock" x="25" y="45"/>
+      <text x="45" y="58" class="label-title">Public Subnet B</text>
+      <text x="155" y="58" class="label-sub">(Web Tier â€¢ 10.0.2.0/24)</text>
+      
+      <g class="component floating-delay" transform="translate(95, 68)" filter="url(#shadow)">
+        <rect width="210" height="68" rx="16" fill="url(#comp-bg)" stroke="#E2E8F0" stroke-width="1.5"/>
+        <path d="M 2 16 a 14 14 0 0 1 14 -14 h 178 a 14 14 0 0 1 14 14 v 24 a 240 24 0 0 1 -206 0 z" fill="#FFFFFF" fill-opacity="0.6"/>
+        <use xlink:href="#icon-alb" x="10" y="10"/>
+        <text x="68" y="30" class="label-title">ALB Node</text>
+        <text x="68" y="48" class="label-sub">Application Load Balancer</text>
+      </g>
+
+      <rect x="20" y="180" width="360" height="210" class="private-app-subnet"/>
+      <use xlink:href="#icon-lock" x="25" y="185"/>
+      <text x="45" y="198" class="label-title">Private Subnet B</text>
+      <text x="155" y="198" class="label-sub">(App Tier â€¢ 10.0.4.0/24)</text>
+
+      <rect x="85" y="210" width="230" height="170" fill="none" stroke="#F97316" stroke-width="2" stroke-dasharray="6" rx="16"/>
+      <rect x="135" y="200" width="130" height="20" rx="10" fill="url(#badge-orange)" stroke="#FDBA74" stroke-width="1"/>
+      <text x="200" y="214" class="label-sub" fill="#EA580C" text-anchor="middle" font-weight="700">Auto Scaling Group</text>
+      
+      <g class="component floating" transform="translate(95, 230)" filter="url(#shadow)">
+        <rect width="210" height="60" rx="14" fill="url(#comp-bg)" stroke="#E2E8F0" stroke-width="1.5"/>
+        <path d="M 2 14 a 12 12 0 0 1 12 -12 h 182 a 12 12 0 0 1 12 12 v 16 a 240 24 0 0 1 -206 0 z" fill="#FFFFFF" fill-opacity="0.6"/>
+        <use xlink:href="#icon-ec2" x="8" y="6"/>
+        <text x="64" y="26" class="label-title">App Server (Active)</text>
+        <text x="64" y="44" class="label-sub">Amazon Linux 2023</text>
+      </g>
+      
+      <!-- Scaled instance -->
+      <g class="component floating-delay" transform="translate(95, 305)" filter="url(#shadow)">
+        <rect width="210" height="60" rx="14" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4" fill-opacity="0.8"/>
+        <use xlink:href="#icon-ec2" x="8" y="6" opacity="0.5"/>
+        <text x="64" y="26" class="label-title" fill="#64748B">App Server (Scaling)</text>
+        <text x="64" y="44" class="label-sub">Provisioned on demand</text>
+      </g>
+
+      <rect x="20" y="420" width="360" height="110" class="private-db-subnet"/>
+      <use xlink:href="#icon-lock" x="25" y="425"/>
+      <text x="45" y="438" class="label-title">Private Subnet B</text>
+      <text x="155" y="438" class="label-sub">(DB Tier â€¢ 10.0.6.0/24)</text>
+      
+      <g class="component" transform="translate(95, 448)" filter="url(#shadow)">
+        <rect width="210" height="68" rx="16" fill="url(#comp-bg)" stroke="#94A3B8" stroke-width="2.5"/>
+        <path d="M 2 16 a 14 14 0 0 1 14 -14 h 178 a 14 14 0 0 1 14 14 v 24 a 240 24 0 0 1 -206 0 z" fill="#FFFFFF" fill-opacity="0.6"/>
+        <use xlink:href="#icon-rds" x="10" y="10" opacity="0.7"/>
+        <text x="68" y="30" class="label-title">RDS MySQL (Standby)</text>
+        <text x="68" y="48" class="label-sub">Passive Failover Node</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- External Users -->
+  <g class="component floating" transform="translate(415, 42)" filter="url(#shadow)">
+    <rect width="170" height="68" rx="16" fill="url(#comp-bg)" stroke="#E2E8F0" stroke-width="1.5"/>
+    <path d="M 2 16 a 14 14 0 0 1 14 -14 h 138 a 14 14 0 0 1 14 14 v 24 a 240 24 0 0 1 -166 0 z" fill="#FFFFFF" fill-opacity="0.6"/>
+    <use xlink:href="#icon-cloud" x="10" y="10"/>
+    <text x="68" y="30" class="label-title">End Users</text>
+    <text x="68" y="48" class="label-sub">Public Internet Traffic</text>
+  </g>
+
+</svg>
