@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'AWS_Handy_Book/**'
-      - 'AWS_CloudShell_Commands/**'
+      - 'resources/AWS_Handy_Book/**'
+      - 'resources/AWS_CloudShell_Commands/**'
       - '.github/workflows/deploy-to-s3.yml'
 
 jobs:
@@ -29,11 +29,11 @@ jobs:
 
       - name: Deploy AWS Handy Book to S3
         run: |
-          aws s3 sync AWS_Handy_Book/website/ s3://${{ secrets.HANDY_BOOK_S3_BUCKET }} --delete --exclude ".git/*"
+          aws s3 sync resources/AWS_Handy_Book/website/ s3://${{ secrets.HANDY_BOOK_S3_BUCKET }} --delete --exclude ".git/*"
 
       - name: Deploy CloudShell Commands to S3
         run: |
-          aws s3 sync AWS_CloudShell_Commands/ s3://${{ secrets.CLOUDSHELL_S3_BUCKET }} --delete --exclude ".git/*"
+          aws s3 sync resources/AWS_CloudShell_Commands/ s3://${{ secrets.CLOUDSHELL_S3_BUCKET }} --delete --exclude ".git/*"
 
       # Optional: Invalidate CloudFront Distribution if you use one
       # - name: Invalidate CloudFront
