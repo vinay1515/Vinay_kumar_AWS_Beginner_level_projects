@@ -12,6 +12,12 @@
   </p>
 
   <p>
+    <b>🌐 Live Demos:</b><br/>
+    <a href="https://d2qfvpm2acd8sv.cloudfront.net/">CloudFront CDN URL</a> | 
+    <a href="https://aws-sample-webiste-2026.s3.ap-south-1.amazonaws.com/index.html#projects">S3 Direct URL</a>
+  </p>
+
+  <p>
     <a href="#-infrastructure-specifications">Infrastructure</a> · 
     <a href="#-key-components">Components</a> · 
     <a href="#-core-features">Features</a> · 
